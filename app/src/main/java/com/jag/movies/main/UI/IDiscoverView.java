@@ -1,4 +1,4 @@
-package com.jag.movies.UI;
+package com.jag.movies.main.UI;
 
 
 
