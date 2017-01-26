@@ -1,6 +1,11 @@
 package com.jag.movies.Model;
 
 
-public class DiscoverModel implements IDiscoverModel{
+import javax.inject.Inject;
 
+public class DiscoverModel {
+
+    @Inject
+    public DiscoverModel() {
+    }
 }
