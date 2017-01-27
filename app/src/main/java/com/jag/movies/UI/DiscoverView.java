@@ -1,7 +1,6 @@
 package com.jag.movies.UI;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 
 import com.jag.movies.App;
-import com.jag.movies.DiscoverMovieAdapter;
+import com.jag.movies.Adapters.DiscoverMovieAdapter;
 import com.jag.movies.Presenter.DiscoverPresenter;
 import com.jag.movies.R;
 import com.jag.movies.dependencyinjector.activity.ActivityModule;
@@ -35,10 +34,8 @@ public class DiscoverView extends AppCompatActivity implements IDiscoverView {
     @Inject
     DiscoverPresenter presenter;
 
-    @Inject
-    DiscoverMovieAdapter discoverMovieAdapter;
-
     LinearLayoutManager linearLayoutManager;
+    DiscoverMovieAdapter discoverMovieAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,15 +44,15 @@ public class DiscoverView extends AppCompatActivity implements IDiscoverView {
 
         ButterKnife.bind(this);
 
-        setupRecyclerView();
-        presenter.onStart();
-
         // Add dependency graph to Dagger TODO: Before or After setup?
         ((App) getApplication())
                 .getComponent()
                 .plus(new ActivityModule(this),
                         new DiscoverModule(this))
                 .inject(this);
+
+        setupRecyclerView();
+        presenter.onStart();
     }
 
     private void setupRecyclerView() {
@@ -63,6 +60,8 @@ public class DiscoverView extends AppCompatActivity implements IDiscoverView {
 
         linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
+
+        discoverMovieAdapter = new DiscoverMovieAdapter(context, presenter);
         recyclerView.setAdapter(discoverMovieAdapter);
     }
 

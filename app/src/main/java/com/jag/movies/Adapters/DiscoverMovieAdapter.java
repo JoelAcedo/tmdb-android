@@ -1,14 +1,20 @@
-package com.jag.movies;
+package com.jag.movies.Adapters;
 
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.jag.movies.Presenter.DiscoverPresenter;
+import com.jag.movies.R;
 import com.jag.movies.UI.MovieViewModel;
+import com.jag.movies.dependencyinjector.scope.PerActivity;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,12 +27,14 @@ import butterknife.ButterKnife;
 
 public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdapter.MovieHolder> {
 
+    private final Context context;
     private List<MovieViewModel> movieDataset;
     private final DiscoverPresenter presenter;
 
-    @Inject
-    public DiscoverMovieAdapter(DiscoverPresenter discoverPresenter) {
+    // TODO: intentar injectar con Dagger pasando el context del activity
+    public DiscoverMovieAdapter(Context context, DiscoverPresenter discoverPresenter) {
         this.movieDataset = new ArrayList<>();
+        this.context = context;
         presenter = discoverPresenter;
     }
 
@@ -85,7 +93,9 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
         }
 
         void renderMovieCover(String coverUrl) {
-            // TODO Add Picasso or Glide to download images
+            Glide.with(context)
+                    .load(coverUrl)
+                    .into(movieCover);
         }
 
         void renderMovieName(String title) {

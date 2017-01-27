@@ -44,14 +44,6 @@
         android:ellipsize="end"
         android:maxLines="4"
         tools:text="From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted"/>
-
-    <!--<TextView-->
-        <!--android:id="@+id/movie_description_discover"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_below="@id/movie_category_discover"-->
-        <!--android:layout_toEndOf="@+id/movie_cover_discover"-->
-        <!--android:layout_marginTop="20dp"/>-->
     
     <View
         android:id="@+id/divMiddle"
@@ -78,7 +70,7 @@
         android:layout_height="20dp"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@id/iconStar"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="10dp"
         android:textSize="15sp"
@@ -103,7 +95,7 @@
         android:layout_height="20sp"
         android:layout_alignParentBottom="true"
         android:layout_toEndOf="@id/iconDate"
-        android:layout_marginBottom="14dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginStart="4dp"
         android:layout_marginEnd="5dp"
         android:textSize="15sp"

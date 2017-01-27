@@ -13,6 +13,16 @@ public class MovieViewModel {
     private List<String> genresList;
     private String coverUrl;
 
+    public MovieViewModel(int movieId, String title, String overview, float voteAverage, String releaseDate, List<String> genresList, String coverUrl) {
+        this.movieId = movieId;
+        this.title = title;
+        this.overview = overview;
+        this.voteAverage = voteAverage;
+        this.releaseDate = releaseDate;
+        this.genresList = genresList;
+        this.coverUrl = coverUrl;
+    }
+
     public String getTitle() {
         return title;
     }
