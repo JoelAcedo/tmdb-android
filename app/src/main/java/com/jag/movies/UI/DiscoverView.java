@@ -48,9 +48,9 @@ public class DiscoverView extends AppCompatActivity implements IDiscoverView {
         ButterKnife.bind(this);
 
         setupRecyclerView();
-        //presenter.onStart()
+        presenter.onStart();
 
-        // Add dependency graph to Dagger
+        // Add dependency graph to Dagger TODO: Before or After setup?
         ((App) getApplication())
                 .getComponent()
                 .plus(new ActivityModule(this),
@@ -63,7 +63,6 @@ public class DiscoverView extends AppCompatActivity implements IDiscoverView {
 
         linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
-
         recyclerView.setAdapter(discoverMovieAdapter);
     }
 

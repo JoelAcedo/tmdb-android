@@ -4,23 +4,14 @@ import android.graphics.Bitmap;
 
 import java.util.List;
 
-/**
- * Created by inlab on 27/01/2017.
- */
-
 public class MovieViewModel {
-    int movieId;
-    String title;
-    String overview;
-    float voteAverage;
-    String releaseDate;
-    List<String> genresList;
-    Bitmap cover;
-
-
-    public Bitmap getCover() {
-        return cover;
-    }
+    private int movieId;
+    private String title;
+    private String overview;
+    private float voteAverage;
+    private String releaseDate;
+    private List<String> genresList;
+    private String coverUrl;
 
     public String getTitle() {
         return title;
@@ -32,5 +23,21 @@ public class MovieViewModel {
 
     public int getMovieId() {
         return movieId;
+    }
+
+    public String getCoverUrl() {
+        return coverUrl;
+    }
+
+    public String getOverview() {
+        return overview;
+    }
+
+    public float getVoteAverage() {
+        return voteAverage;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
     }
 }
