@@ -1,8 +1,7 @@
 package com.jag.movies.Presenter;
 
-import com.jag.movies.FakeDataSource.MovieFakeDataSource;
+import com.jag.movies.Model.DataSource.MovieFakeDataSource;
 import com.jag.movies.Model.DiscoverModel;
-import com.jag.movies.UI.DiscoverView;
 import com.jag.movies.UI.IDiscoverView;
 import com.jag.movies.UI.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
@@ -30,7 +29,7 @@ public class DiscoverPresenter {
     public void onStart() {
         // TODO Get movie data
         // .....
-        ArrayList<MovieViewModel> movies = new MovieFakeDataSource().getFakeData();
+        ArrayList<MovieViewModel> movies = new MovieFakeDataSource().getData();
         discoverView.showMovies(movies);
     }
 }

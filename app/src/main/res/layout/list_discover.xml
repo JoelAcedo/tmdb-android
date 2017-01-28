@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/movie_cover_discover"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:textSize="14sp"
+        android:textSize="16sp"
         android:textStyle="bold"
         android:textColor="@color/colorPrimary"
         android:ellipsize="end"
@@ -130,7 +130,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:scaleType="fitXY"
-        android:layout_marginEnd="20dp"
+        android:layout_marginEnd="10dp"
         tools:background="@color/colorAccent"/>
 
 </RelativeLayout>

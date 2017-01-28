@@ -1,4 +1,4 @@
-package com.jag.movies.FakeDataSource;
+package com.jag.movies.Model.DataSource;
 
 import com.jag.movies.UI.MovieViewModel;
 
@@ -9,9 +9,9 @@ import java.util.List;
  * Created by Joel Acedo on 27/01/2017.
  */
 
-public class MovieFakeDataSource {
+public class MovieFakeDataSource implements IMovieDataSource {
 
-    public ArrayList<MovieViewModel> getFakeData() {
+    public ArrayList<MovieViewModel> getData() {
         ArrayList<MovieViewModel> movies = new ArrayList<>();
 
         List<String> genres = new ArrayList<String>();

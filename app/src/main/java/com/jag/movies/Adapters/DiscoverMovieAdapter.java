@@ -14,7 +14,6 @@ import com.jag.movies.Presenter.DiscoverPresenter;
 import com.jag.movies.R;
 import com.jag.movies.UI.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
