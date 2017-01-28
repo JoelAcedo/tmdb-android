@@ -1,7 +1,10 @@
 package com.jag.movies.UI;
 
 
+import java.util.ArrayList;
 
 public interface IDiscoverView {
-    //Change I
+
+    void showMovies(ArrayList<MovieViewModel> movieData);
+    void startDetailActivity(int movieId);
 }

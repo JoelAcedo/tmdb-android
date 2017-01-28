@@ -22,7 +22,6 @@ public class ActivityModule {
         this.activity = activity;
     }
 
-
     @Provides
     @PerActivity
     @ForActivity
