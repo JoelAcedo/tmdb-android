@@ -5,14 +5,21 @@ import android.util.Log;
 
 import com.jag.movies.UI.MovieViewModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import okhttp3.HttpUrl;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.Request;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DiscoverModel {
 
@@ -26,32 +33,6 @@ public class DiscoverModel {
     public DiscoverModel() {
         this.MOVIES = new ArrayList<>();
         this.currentPage = 1;
-        /*OkHttpClient.Builder httpClient =
-                new OkHttpClient.Builder();
-        httpClient.addInterceptor(new Interceptor() {
-            @Override
-            public okhttp3.Response intercept(Chain chain) throws IOException {
-                Request original = chain.request();
-                HttpUrl originalHttpUrl = original.url();
-
-                HttpUrl url = originalHttpUrl.newBuilder()
-                        .addQueryParameter("apikey", "97ec58875e6d00de8a5f19b9d272d3b1")
-                        .build();
-
-                // Request customization: add request headers
-                Request.Builder requestBuilder = original.newBuilder()
-                        .url(url);
-
-                Request request = requestBuilder.build();
-                return chain.proceed(request);
-            }
-        });
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl("https://api.themoviedb.org/3/")
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-
-        this.movieService = retrofit.create(MovieService.class);*/
     }
 
     public ArrayList<MovieViewModel> getData() {
@@ -63,6 +44,7 @@ public class DiscoverModel {
         call.enqueue(new Callback<MovieList>() {
             @Override
             public void onResponse(Call<MovieList> call, Response<MovieList> response) {
+                Log.e("onResponse", "Executing onResponse code");
                 int statusCode = response.code();
                 List<MovieDTO> movies_response = response.body().getResults();
                 for (MovieDTO movie : movies_response) {
@@ -79,7 +61,7 @@ public class DiscoverModel {
             }
         });
         if (MOVIES == null || MOVIES.isEmpty()) {
-            Log.e("FAIL: --->", "no funciona");
+            Log.e("NOT WORKING:", "movies list is empty");
         }
         return MOVIES;
     }
