@@ -12,6 +12,7 @@ public class MovieViewModel {
     private String releaseDate;
     private List<String> genresList;
     private String coverUrl;
+    private boolean isFavorited;
 
     public MovieViewModel(int movieId, String title, String overview, float voteAverage, String releaseDate, List<String> genresList, String coverUrl) {
         this.movieId = movieId;
@@ -21,6 +22,7 @@ public class MovieViewModel {
         this.releaseDate = releaseDate;
         this.genresList = genresList;
         this.coverUrl = coverUrl;
+        this.isFavorited = false;
     }
 
     public String getTitle() {
@@ -49,5 +51,13 @@ public class MovieViewModel {
 
     public String getReleaseDate() {
         return releaseDate;
+    }
+
+    public boolean isFavorited() {
+        return isFavorited;
+    }
+
+    public void setFavorite(boolean isFavorite) {
+        this.isFavorited = isFavorite;
     }
 }

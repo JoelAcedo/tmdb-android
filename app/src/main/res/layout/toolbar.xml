@@ -9,6 +9,9 @@
     android:layout_height="?actionBarSize"
     app:layout_scrollFlags="scroll|exitUntilCollapsed"
     android:fitsSystemWindows="true"
-    tools:showIn="@layout/activity_discover">
+    tools:showIn="@layout/activity_discover"
+    android:background="@color/colorPrimary"
+    app:titleTextColor="@color/colorWhite"
+    app:subtitleTextColor="@color/colorWhite">
 
 </android.support.v7.widget.Toolbar>

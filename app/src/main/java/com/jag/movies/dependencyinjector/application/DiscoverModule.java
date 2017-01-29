@@ -1,6 +1,5 @@
 package com.jag.movies.dependencyinjector.application;
 
-import com.jag.movies.UI.DiscoverView;
 import com.jag.movies.UI.IDiscoverView;
 
 import dagger.Module;
