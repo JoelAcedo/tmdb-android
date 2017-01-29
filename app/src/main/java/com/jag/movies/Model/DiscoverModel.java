@@ -40,7 +40,7 @@ public class DiscoverModel {
         MovieService apiClient =
                ApiClient.getClient().create(MovieService.class);
 
-        Call<MovieList> call = apiClient.getTopRatedMovies(API_KEY);
+        Call<MovieList> call = apiClient.fetchMovies(API_KEY);
         call.enqueue(new Callback<MovieList>() {
             @Override
             public void onResponse(Call<MovieList> call, Response<MovieList> response) {
