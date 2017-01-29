@@ -26,8 +26,9 @@
 
             <ImageView
                 android:id="@+id/imageToolbar_detail"
+                android:transitionName="movieCover"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
                 app:layout_collapseMode="parallax" />

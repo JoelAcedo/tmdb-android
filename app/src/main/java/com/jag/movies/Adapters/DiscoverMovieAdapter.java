@@ -86,7 +86,7 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    presenter.movieClicked(movieId);
+                    presenter.movieClicked(movieId, movieCover);
                 }
             });
         }

@@ -1,6 +1,8 @@
 package com.jag.movies.Presenter;
 
 import android.content.Intent;
+import android.media.Image;
+import android.widget.ImageView;
 
 import com.jag.movies.Model.DataSource.MovieFakeDataSource;
 import com.jag.movies.Model.DiscoverModel;
@@ -25,8 +27,8 @@ public class DiscoverPresenter {
         this.discoverModel = discoverModel;
     }
 
-    public void movieClicked(int movieId) {
-        discoverView.startDetailActivity(movieId);
+    public void movieClicked(int movieId, ImageView movieCover) {
+        discoverView.startDetailActivity(movieId, movieCover);
     }
 
     public void onStart() {

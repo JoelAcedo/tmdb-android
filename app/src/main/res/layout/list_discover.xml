@@ -129,6 +129,7 @@
 
     <ImageView
         android:id="@+id/movie_cover_discover"
+        android:transitionName="movieCover"
         android:layout_width="133dp"
         android:layout_height="200dp"
         android:layout_alignParentStart="true"

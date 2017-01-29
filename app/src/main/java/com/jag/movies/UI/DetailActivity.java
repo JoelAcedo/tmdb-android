@@ -150,5 +150,7 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         else
             movieReleaseDate.setText("-");
     }
+
+
 }
 
