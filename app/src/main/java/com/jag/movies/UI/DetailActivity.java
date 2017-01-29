@@ -1,5 +1,7 @@
 package com.jag.movies.UI;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -10,6 +12,8 @@ import android.widget.ImageView;
 
 import com.jag.movies.R;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -17,7 +21,7 @@ import butterknife.ButterKnife;
  * Created by joela on 28/01/2017.
  */
 
-public class DetailView extends AppCompatActivity implements IDiscoverView {
+public class DetailActivity extends AppCompatActivity implements IDetailView {
 
     @BindView(R.id.collapsingToolbar_detail)
     CollapsingToolbarLayout collapsingToolbarLayout;
@@ -31,7 +35,16 @@ public class DetailView extends AppCompatActivity implements IDiscoverView {
     @BindView(R.id.scroll_detail)
     NestedScrollView nestedScrollView;
 
+    @Inject
+    Context context;
 
+    public static Intent getLauncherIntent() {
+
+        Intent intent = new Intent(context, DetailCompanyActivity.class);
+        intent.putExtra(DetailCompanyActivity.ID_COMPANY_INTENT, comapnyID);
+
+        return intent;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

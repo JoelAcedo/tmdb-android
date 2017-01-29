@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/movie_name_discover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/movie_cover_discover"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="Suicide Squad" />
+
+    <TextView
+        android:id="@+id/movie_category_discover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/movie_name_discover"
+        android:layout_toEndOf="@+id/movie_cover_discover"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="12sp"
+        android:ellipsize="end"
+        android:maxLines="1"
+        tools:text="Action, Crime, Fantasy"/>
+
+    <TextView
+        android:id="@+id/movie_overview_discover"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/divMiddle"
+        android:layout_toEndOf="@+id/movie_cover_discover"
+        android:layout_marginBottom="15dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="14sp"
+        android:ellipsize="end"
+        android:maxLines="4"
+        tools:text="From DC Comics comes the Suicide Squad, an antihero team of incarcerated supervillains who act as deniable assets for the United States government, undertaking high-risk black ops missions in exchange for commuted"/>
+    
+    <View
+        android:id="@+id/divMiddle"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider"
+        android:layout_alignParentEnd="true"
+        android:layout_above="@+id/bMoreInfo" />
+
+    <ImageView
+        android:id="@+id/iconStar"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:scaleType="fitXY"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/movie_cover_discover"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/ic_star_black_24dp"
+        android:backgroundTint="@color/colorTintImage"/>
+
+    <TextView
+        android:id="@+id/movie_score_discover"
+        android:layout_width="wrap_content"
+        android:layout_height="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/iconStar"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="10dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        tools:text="5.9"/>
+
+    <ImageView
+        android:id="@+id/iconDate"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:scaleType="fitXY"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/movie_score_discover"
+        android:layout_marginBottom="13dp"
+        android:background="@drawable/ic_calendar_black_24dp"
+        android:backgroundTint="@color/colorTintImage"/>
+
+    <TextView
+        android:id="@+id/movie_date_discover"
+        android:layout_width="wrap_content"
+        android:layout_height="20sp"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/iconDate"
+        android:layout_marginBottom="15dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginEnd="5dp"
+        android:textSize="15sp"
+        android:textStyle="bold"
+        android:textColor="@color/colorPrimary"
+        tools:text="2016"/>
+
+    <Button
+        android:id="@+id/bMoreInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginBottom="5dp"
+        android:text="@string/more_info"
+        android:textColor="@color/colorPrimary"
+        style="?borderlessButtonStyle" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/colorDivider"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true" />
+
+    <ImageView
+        android:id="@+id/movie_cover_discover"
+        android:layout_width="133dp"
+        android:layout_height="200dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:layout_marginEnd="10dp"
+        tools:background="@color/colorAccent"/>
+
+</RelativeLayout>
