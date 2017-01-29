@@ -6,14 +6,15 @@
     android:id="@+id/activity_discover"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.jag.movies.UI.DiscoverView">
+    tools:context="com.jag.movies.UI.DiscoverActivity">
 
     <include layout="@layout/toolbar" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycler_view_discover"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:paddingTop="?attr/actionBarSize" >
 
     </android.support.v7.widget.RecyclerView>
 

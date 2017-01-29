@@ -1,8 +1,10 @@
 package com.jag.movies.dependencyinjector.application;
 
 import com.jag.movies.App;
-import com.jag.movies.dependencyinjector.activity.ActivityComponent;
-import com.jag.movies.dependencyinjector.activity.ActivityModule;
+import com.jag.movies.dependencyinjector.activity.DetailActivityComponent;
+import com.jag.movies.dependencyinjector.activity.DetailActivityModule;
+import com.jag.movies.dependencyinjector.activity.DiscoverActivityComponent;
+import com.jag.movies.dependencyinjector.activity.DiscoverActivityModule;
 
 import javax.inject.Singleton;
 
@@ -14,5 +16,7 @@ public interface ApplicationComponent {
 
     void inject(App application);
 
-    ActivityComponent plus(ActivityModule activityModule, DiscoverModule discoverModule);
+    DiscoverActivityComponent plusDiscover(DiscoverActivityModule discoverActivityModule, DiscoverModule discoverModule);
+
+    DetailActivityComponent plusDetail(DetailActivityModule detailActivityModule, DetailModule detailModule);
 }

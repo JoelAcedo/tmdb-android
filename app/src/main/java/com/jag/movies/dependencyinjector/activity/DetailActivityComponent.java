@@ -1,7 +1,14 @@
 package com.jag.movies.dependencyinjector.activity;
 
-/**
- * Created by joela on 28/01/2017.
- */
+import com.jag.movies.UI.DetailActivity;
+import com.jag.movies.dependencyinjector.application.DetailModule;
+import com.jag.movies.dependencyinjector.scope.PerActivity;
+
+import dagger.Subcomponent;
+
+@PerActivity
+@Subcomponent(modules = {DetailActivityModule.class, DetailModule.class })
 public interface DetailActivityComponent {
+
+    void inject(DetailActivity activity);
 }

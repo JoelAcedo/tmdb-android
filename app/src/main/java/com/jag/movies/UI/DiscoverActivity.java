@@ -1,8 +1,10 @@
 package com.jag.movies.UI;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -11,7 +13,7 @@ import com.jag.movies.App;
 import com.jag.movies.Adapters.DiscoverMovieAdapter;
 import com.jag.movies.Presenter.DiscoverPresenter;
 import com.jag.movies.R;
-import com.jag.movies.dependencyinjector.activity.ActivityModule;
+import com.jag.movies.dependencyinjector.activity.DiscoverActivityModule;
 import com.jag.movies.dependencyinjector.application.DiscoverModule;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 
@@ -44,14 +46,19 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
 
         ButterKnife.bind(this);
 
-        // Add dependency graph to Dagger TODO: Before or After setup?
         ((App) getApplication())
                 .getComponent()
-                .plus(new ActivityModule(this),
+                .plusDiscover(new DiscoverActivityModule(this),
                         new DiscoverModule(this))
                 .inject(this);
 
+        setSupportActionBar(toolbar);
         setupRecyclerView();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         presenter.onStart();
     }
 
@@ -72,6 +79,7 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
 
     @Override
     public void startDetailActivity(int movieId) {
-        //TODO Intent to another activity
+        Intent intent = DetailActivity.getLauncherIntent(context, movieId);
+        context.startActivity(intent);
     }
 }

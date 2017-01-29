@@ -1,7 +1,10 @@
 package com.jag.movies.Presenter;
 
+import android.content.Intent;
+
 import com.jag.movies.Model.DataSource.MovieFakeDataSource;
 import com.jag.movies.Model.DiscoverModel;
+import com.jag.movies.UI.DetailActivity;
 import com.jag.movies.UI.IDiscoverView;
 import com.jag.movies.UI.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
@@ -23,7 +26,7 @@ public class DiscoverPresenter {
     }
 
     public void movieClicked(int movieId) {
-
+        discoverView.startDetailActivity(movieId);
     }
 
     public void onStart() {
