@@ -1,8 +1,5 @@
 package com.jag.movies.Presenter;
 
-import android.content.Intent;
-
-import com.jag.movies.Model.DataSource.MovieFakeDataSource;
 import com.jag.movies.Model.DiscoverModel;
 import com.jag.movies.UI.DetailActivity;
 import com.jag.movies.UI.IDiscoverView;
@@ -32,7 +29,7 @@ public class DiscoverPresenter {
     public void onStart() {
         // TODO Get movie data
         // .....
-        ArrayList<MovieViewModel> movies = new MovieFakeDataSource().getData();
+        ArrayList<MovieViewModel> movies = discoverModel.getData();
         discoverView.showMovies(movies);
     }
 }
