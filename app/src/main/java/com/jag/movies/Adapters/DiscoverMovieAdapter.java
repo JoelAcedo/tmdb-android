@@ -82,11 +82,11 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
             ButterKnife.bind(this, itemView);
         }
 
-        void bind(final int position) {
+        void bind(final int movieId) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    presenter.movieClicked(movieDataset.get(position).getMovieId());
+                    presenter.movieClicked(movieId);
                 }
             });
         }
