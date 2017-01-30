@@ -10,6 +10,7 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -74,6 +75,7 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
                         new DetailModule(this))
                 .inject(this);
 
+        setUpAnimation();
         setupToolbar();
         setupFloatingButton();
     }
@@ -81,6 +83,7 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     @Override
     protected void onStart() {
         super.onStart();
+        //TODO get intent in activity or at presenter
         detailPresenter.onStart(getIntent());
     }
 
@@ -88,6 +91,21 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         collapsingToolbarLayout.setTitle(" ");
+    }
+
+    private void setUpAnimation() {
+//        supportPostponeEnterTransition();
+//        movieCover.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+//            @Override
+//            public boolean onPreDraw() {
+//                if (movieCover.getDrawable() != null) {
+//                    movieCover.getViewTreeObserver().removeOnPreDrawListener(this);
+//                    supportStartPostponedEnterTransition();
+//                    return true;
+//                }
+//                return false;
+//            }
+//        });
     }
 
     private void setupFloatingButton() {
