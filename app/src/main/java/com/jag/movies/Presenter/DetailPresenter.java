@@ -60,7 +60,7 @@ public class DetailPresenter {
             public void movieMapper(MovieDTO movieDTO) {
                 movie = new MovieViewModel(movieDTO.getId(), movieDTO.getTitle(),
                         movieDTO.getOverview(), movieDTO.getVoteAverage(), movieDTO.getReleaseDate(),
-                        new ArrayList<String>(), "http://image.tmdb.org/t/p/w600" + movieDTO.getPosterPath());
+                        movieDTO.getMovieGenres(), "http://image.tmdb.org/t/p/w600" + movieDTO.getPosterPath());
                 movieDataReady();
             }
         });

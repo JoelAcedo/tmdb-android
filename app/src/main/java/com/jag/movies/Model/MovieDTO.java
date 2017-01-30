@@ -13,25 +13,31 @@ public class MovieDTO {
 
     @SerializedName("poster_path")
     private String posterPath;
+
     @SerializedName("overview")
     private String overview;
+
     @SerializedName("release_date")
     private String releaseDate;
-//    @SerializedName("genres")
-//    private List<MovieGenre> genres;
+
+    @SerializedName("genres")
+    private List<Genre> genresList;
+
     @SerializedName("id")
     private Integer id;
+
     @SerializedName("title")
     private String title;
+
     @SerializedName("vote_average")
     private float voteAverage;
 
-    public MovieDTO(String posterPath, String overview, String releaseDate, /*List<MovieGenre> genres,*/ Integer id,
-                     String title, float voteAverage) {
+    public MovieDTO(String posterPath, String overview, String releaseDate, List<Genre> genresList, Integer id,
+                    String title, float voteAverage) {
         this.posterPath = posterPath;
         this.overview = overview;
         this.releaseDate = releaseDate;
-//        this.genres = genres;
+        this.genresList = genresList;
         this.id = id;
         this.title = title;
         this.voteAverage = voteAverage;
@@ -49,9 +55,9 @@ public class MovieDTO {
         return releaseDate;
     }
 
-//    public List<MovieGenre> getGenres() {
-//        return genres;
-//    }
+    public List<Genre> getGenresList() {
+        return genresList;
+    }
 
     public Integer getId() {
         return id;
@@ -73,22 +79,22 @@ public class MovieDTO {
         return voteAverage;
     }
 
-//    public List<String> getMovieGenres() {
-//        List<String> genres = new ArrayList<>();
-//
-//        List<Integer> ids = new ArrayList<>();
-//        for (MovieGenre genre : getGenres()) {
-//            ids.add(genre.getId());
-//        }
-//
-//        for (int i = 0; i < ids.size(); i++) {
-//            MovieGenre genre = MovieGenre.getById(ids.get(i));
-//            if (genre != null) {
-//                genres.add(genre.getTitle());
-//            }
-//        }
-//        return genres;
-//    }
+    public List<String> getMovieGenres() {
+        List<String> genres = new ArrayList<>();
+
+        List<Integer> ids = new ArrayList<>();
+        for (Genre genre : getGenresList()) {
+            ids.add(genre.getId());
+        }
+
+        for (int i = 0; i < ids.size(); i++) {
+            MovieGenre genre = MovieGenre.getById(ids.get(i));
+            if (genre != null) {
+                genres.add(genre.getTitle());
+            }
+        }
+        return genres;
+    }
 
 
 }

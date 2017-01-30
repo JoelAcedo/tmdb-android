@@ -38,6 +38,9 @@ public enum MovieGenre {
         this.title = title;
     }
 
+    MovieGenre() {
+    }
+
     public static MovieGenre getById(int id) {
         for (MovieGenre movieGenre : values()) {
             if (movieGenre.id == id) {

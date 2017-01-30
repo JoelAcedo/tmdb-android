@@ -31,7 +31,8 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
     private final DiscoverPresenter presenter;
 
     // TODO: intentar injectar con Dagger pasando el context del activity
-    public DiscoverMovieAdapter(Context context, DiscoverPresenter discoverPresenter) {
+    @Inject
+    public DiscoverMovieAdapter(@PerActivity Context context, DiscoverPresenter discoverPresenter) {
         this.movieDataset = new ArrayList<>();
         this.context = context;
         presenter = discoverPresenter;

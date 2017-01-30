@@ -75,14 +75,14 @@ public class MoviesDTO {
 
     public List<String> getMovieGenres() {
         List<String> genres = new ArrayList<>();
-
-        List<Integer> ids = getGenreIds();
-        for (int i = 0; i < ids.size(); i++) {
-            MovieGenre genre = MovieGenre.getById(ids.get(i));
-            if (genre != null) {
-                genres.add(genre.getTitle());
-            }
-        }
+//
+//        List<Integer> ids = getGenreIds();
+//        for (int i = 0; i < ids.size(); i++) {
+//            MovieGenre genre = MovieGenre.getById(ids.get(i));
+//            if (genre != null) {
+//                genres.add(genre.getTitle());
+//            }
+//        }
         return genres;
     }
 
