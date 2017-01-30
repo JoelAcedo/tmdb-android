@@ -71,12 +71,13 @@
 
                 <TextView
                     android:id="@+id/movie_name_detail"
-                    android:layout_width="300dp"
+                    android:layout_width="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="15dp"
+                    android:layout_marginEnd="80dp"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentStart="true"
                     android:textSize="28sp"
@@ -85,13 +86,15 @@
                 <TextView
                     android:id="@+id/movie_genres_detail"
                     android:layout_height="wrap_content"
-                    android:layout_width="250dp"
+                    android:layout_width="wrap_content"
                     android:ellipsize="end"
                     android:maxLines="1"
                     android:layout_marginStart="16dp"
                     android:layout_marginBottom="15dp"
+                    android:layout_marginEnd="10dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentStart="true"
+                    android:layout_toStartOf="@+id/iconStar"
                     android:textSize="14sp"
                     android:textColor="@color/colorWhite" />
 
