@@ -62,6 +62,7 @@
             android:orientation="vertical">
 
             <RelativeLayout
+                android:id="@+id/movie_info_detail"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="90dp"

@@ -37,6 +37,7 @@ public class DetailPresenter {
 
     private void movieDataReady() {
         detailView.renderCover(movie.getCoverUrl());
+        //detailView.renderToolbarColor();
         detailView.renderTitle(movie.getTitle());
         detailView.renderOverview(movie.getOverview());
         detailView.renderGenres(movie.getGenresList());

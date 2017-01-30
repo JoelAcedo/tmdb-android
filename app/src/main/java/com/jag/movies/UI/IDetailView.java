@@ -22,4 +22,6 @@ public interface IDetailView {
     void renderScore(float voteAverage);
 
     void renderReleaseDate(String releaseDate);
+
+    void renderToolbarColor();
 }
