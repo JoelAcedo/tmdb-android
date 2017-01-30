@@ -2,12 +2,16 @@ package com.jag.movies.Presenter;
 
 import android.content.Intent;
 
-import com.jag.movies.Model.DataSource.MovieFakeDataSource;
 import com.jag.movies.Model.DetailModel;
+import com.jag.movies.Model.MovieCallback;
+import com.jag.movies.Model.MovieDTO;
+import com.jag.movies.Model.MoviesDTO;
 import com.jag.movies.UI.DetailActivity;
 import com.jag.movies.UI.IDetailView;
 import com.jag.movies.UI.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -28,7 +32,7 @@ public class DetailPresenter {
     public void onStart(Intent intent) {
         getExtrasFromIntent(intent);
         getMovieDataByID();
-        movieDataReady();
+
     }
 
     private void movieDataReady() {
@@ -51,7 +55,15 @@ public class DetailPresenter {
     }
 
     private void getMovieDataByID() {
-        movie = new MovieFakeDataSource().getMovieDataById(movieId);
+        detailModel.getMoviebyIndex(movieId, new MovieCallback() {
+            @Override
+            public void movieMapper(MovieDTO movieDTO) {
+                movie = new MovieViewModel(movieDTO.getId(), movieDTO.getTitle(),
+                        movieDTO.getOverview(), movieDTO.getVoteAverage(), movieDTO.getReleaseDate(),
+                        new ArrayList<String>(), "http://image.tmdb.org/t/p/w600" + movieDTO.getPosterPath());
+                movieDataReady();
+            }
+        });
     }
 
     private void getExtrasFromIntent(Intent intent) {
@@ -62,4 +74,6 @@ public class DetailPresenter {
             movieId = 0;
         }
     }
+
+
 }

@@ -1,6 +1,8 @@
 package com.jag.movies.Presenter;
 
+import com.jag.movies.Model.DataSource.MovieFakeDataSource;
 import com.jag.movies.Model.DiscoverModel;
+import com.jag.movies.Model.MovieListCallback;
 import com.jag.movies.UI.DetailActivity;
 import com.jag.movies.UI.IDiscoverView;
 import com.jag.movies.UI.MovieViewModel;
@@ -29,7 +31,13 @@ public class DiscoverPresenter {
     public void onStart() {
         // TODO Get movie data
         // .....
-        ArrayList<MovieViewModel> movies = discoverModel.getData();
-        discoverView.showMovies(movies);
+        //ArrayList<MovieViewModel> movies = discoverModel.getData();//new MovieFakeDataSource().getData();
+        //discoverView.showMovies(movies);
+        discoverModel.getData(new MovieListCallback() {
+            @Override
+            public void dataReady(ArrayList<MovieViewModel> movies) {
+                discoverView.showMovies(movies);
+            }
+        });
     }
 }
