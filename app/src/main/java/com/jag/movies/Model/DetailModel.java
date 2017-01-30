@@ -2,6 +2,11 @@ package com.jag.movies.Model;
 
 import android.util.Log;
 
+import com.jag.movies.Callbacks.MovieCallback;
+import com.jag.movies.Retrofit.ApiClient;
+import com.jag.movies.Retrofit.MovieDTO;
+import com.jag.movies.Retrofit.MovieService;
+
 import javax.inject.Inject;
 
 import retrofit2.Call;

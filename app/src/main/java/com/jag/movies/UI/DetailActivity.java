@@ -2,8 +2,6 @@ package com.jag.movies.UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.ColorStateList;
-import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
@@ -14,14 +12,12 @@ import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.jag.movies.App;
 import com.jag.movies.Presenter.DetailPresenter;
@@ -29,6 +25,7 @@ import com.jag.movies.R;
 import com.jag.movies.dependencyinjector.activity.DetailActivityModule;
 import com.jag.movies.dependencyinjector.application.DetailModule;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
+import com.jag.movies.Utils.ImageLoader;
 
 import java.util.List;
 import java.util.Locale;
@@ -61,6 +58,9 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     @Inject
     DetailPresenter detailPresenter;
 
+    @Inject
+    ImageLoader imageLoader;
+
     public final static String ID_MOVIE = "movieId";
 
     public static Intent getLauncherIntent(Context context, int movieId) {
@@ -84,7 +84,7 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
                         new DetailModule(this))
                 .inject(this);
 
-        setupPalette();
+        setupAnimation();
         setupToolbar();
         setupFloatingButton();
     }
@@ -102,15 +102,15 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         collapsingToolbarLayout.setTitle(" ");
     }
 
-    private void setupPalette() {
-        //supportPostponeEnterTransition();
+    private void setupAnimation() {
+        supportPostponeEnterTransition();
         movieCover.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
                 if (movieCover.getDrawable() != null) {
                     movieCover.getViewTreeObserver().removeOnPreDrawListener(this);
                     renderToolbarColor();
-                    //supportStartPostponedEnterTransition();
+                    supportStartPostponedEnterTransition();
                     return true;
                 }
                 return false;
@@ -139,30 +139,21 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
 
     @Override
     public void renderCover(String coverUrl) {
-        Glide.with(context)
-                .load(coverUrl)
-                .into(movieCover);
-        //renderToolbarColor();
+        imageLoader.bindImage(coverUrl, movieCover);
     }
 
     @Override
     public void renderToolbarColor() {
-//        Palette palette = Palette.from(((BitmapDrawable) movieCover.getDrawable()).getBitmap())
-//                .generate();
-        Palette palette = Palette.from(((GlideBitmapDrawable) movieCover.getDrawable()).getBitmap()).generate();
-        //Palette palette = Palette.from(movieCover.getDrawable()).generate();
-
+        Palette palette = Palette.from(imageLoader.getBitmap(movieCover)).generate();
 
         int defaultColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
         int vibrantColor = palette.getVibrantColor(defaultColor);
-        int dominantColor = palette.getDominantColor(defaultColor);
 
-        int color = vibrantColor;
-        collapsingToolbarLayout.setStatusBarScrimColor(color);
-        collapsingToolbarLayout.setContentScrimColor(color);
+        collapsingToolbarLayout.setStatusBarScrimColor(vibrantColor);
+        collapsingToolbarLayout.setContentScrimColor(vibrantColor);
 
         getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
-        movieInfo.setBackgroundColor(color);
+        movieInfo.setBackgroundColor(vibrantColor);
     }
 
     @Override

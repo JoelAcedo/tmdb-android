@@ -3,15 +3,12 @@ package com.jag.movies.Presenter;
 import android.content.Intent;
 
 import com.jag.movies.Model.DetailModel;
-import com.jag.movies.Model.MovieCallback;
-import com.jag.movies.Model.MovieDTO;
-import com.jag.movies.Model.MoviesDTO;
+import com.jag.movies.Callbacks.MovieCallback;
+import com.jag.movies.Retrofit.MovieDTO;
 import com.jag.movies.UI.DetailActivity;
 import com.jag.movies.UI.IDetailView;
 import com.jag.movies.UI.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
-
-import java.util.ArrayList;
 
 import javax.inject.Inject;
 

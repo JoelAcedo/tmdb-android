@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -19,6 +18,7 @@ import com.jag.movies.R;
 import com.jag.movies.dependencyinjector.activity.DiscoverActivityModule;
 import com.jag.movies.dependencyinjector.application.DiscoverModule;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
+import com.jag.movies.Utils.GlideLoader;
 
 import java.util.ArrayList;
 
@@ -39,8 +39,10 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
     @Inject
     DiscoverPresenter presenter;
 
-    LinearLayoutManager linearLayoutManager;
+    @Inject
     DiscoverMovieAdapter discoverMovieAdapter;
+
+    LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
         linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        discoverMovieAdapter = new DiscoverMovieAdapter(context, presenter);
+        //discoverMovieAdapter = new DiscoverMovieAdapter(context, presenter, new GlideLoader(context));
         recyclerView.setAdapter(discoverMovieAdapter);
     }
 

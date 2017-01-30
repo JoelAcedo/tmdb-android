@@ -1,4 +1,4 @@
-package com.jag.movies.Model;
+package com.jag.movies.Retrofit;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;

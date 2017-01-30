@@ -1,4 +1,4 @@
-package com.jag.movies.Model;
+package com.jag.movies.Retrofit;
 
 import com.google.gson.annotations.SerializedName;
 

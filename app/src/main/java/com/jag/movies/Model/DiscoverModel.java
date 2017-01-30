@@ -3,6 +3,11 @@ package com.jag.movies.Model;
 
 import android.util.Log;
 
+import com.jag.movies.Callbacks.MovieListCallback;
+import com.jag.movies.Retrofit.ApiClient;
+import com.jag.movies.Retrofit.MovieList;
+import com.jag.movies.Retrofit.MovieService;
+import com.jag.movies.Retrofit.MoviesDTO;
 import com.jag.movies.UI.MovieViewModel;
 
 import java.util.ArrayList;
