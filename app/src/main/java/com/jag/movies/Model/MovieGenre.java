@@ -1,5 +1,7 @@
 package com.jag.movies.Model;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * Created by Albert Ruiz on 27/01/2017.
  */
@@ -25,7 +27,9 @@ public enum MovieGenre {
     WAR(10752, "War"),
     WESTERN(37, "Western");
 
+    @SerializedName("id")
     int id;
+    @SerializedName("name")
     String title;
 
 
