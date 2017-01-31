@@ -41,7 +41,7 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
     @Override
     public MovieHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_discover, parent, false);
+                .inflate(R.layout.list_discover_item, parent, false);
 
         return new MovieHolder(view);
     }

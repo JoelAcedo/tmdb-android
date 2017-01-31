@@ -24,10 +24,11 @@ import retrofit2.Response;
 public class DetailModel {
     private final static String API_KEY = "aaec0debce0a3fd90e4771eb5a266437";
     private final static String TAG = "DetailModel";
-    private ArrayList<ActorViewModel> cast;
+    private List<ActorViewModel> cast;
 
     @Inject
     public DetailModel() {
+        cast = new ArrayList<>();
     }
 
     public void getMovieByIndex(int movieId, final MovieCallback callback) {

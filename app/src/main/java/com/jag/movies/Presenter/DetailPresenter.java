@@ -14,6 +14,7 @@ import com.jag.movies.UI.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -87,8 +88,8 @@ public class DetailPresenter {
     private void getCastByMovieID() {
         detailModel.getCastByMovieId(movieId, new ActorListCallback() {
             @Override
-            public void dataReady(ArrayList<ActorViewModel> cast) {
-                //TODO: detailView.showCast(cast); /*to show the actors list in the recyclerView*/
+            public void dataReady(List<ActorViewModel> cast) {
+                detailView.showCast(cast);
             }
         });
     }

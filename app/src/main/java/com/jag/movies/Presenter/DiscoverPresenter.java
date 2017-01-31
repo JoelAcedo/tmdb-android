@@ -29,10 +29,6 @@ public class DiscoverPresenter {
     }
 
     public void onStart() {
-        // TODO Get movie data
-        // .....
-        //ArrayList<MovieViewModel> movies = discoverModel.getData();//new MovieFakeDataSource().getData();
-        //discoverView.showMovies(movies);
         discoverModel.getData(new MovieListCallback() {
             @Override
             public void dataReady(ArrayList<MovieViewModel> movies) {

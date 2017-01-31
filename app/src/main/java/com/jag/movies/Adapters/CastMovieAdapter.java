@@ -1,0 +1,89 @@
+package com.jag.movies.Adapters;
+
+import android.content.Context;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import com.jag.movies.Presenter.DetailPresenter;
+import com.jag.movies.R;
+import com.jag.movies.UI.ActorViewModel;
+import com.jag.movies.Utils.ImageLoader;
+import com.jag.movies.dependencyinjector.qualifier.ForActivity;
+import com.makeramen.roundedimageview.RoundedImageView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.inject.Inject;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+
+public class CastMovieAdapter extends RecyclerView.Adapter<CastMovieAdapter.ActorHolder> {
+
+    private final DetailPresenter detailPresenter;
+    private final ImageLoader imageLoader;
+    private List<ActorViewModel> castData;
+
+    @Inject
+    public CastMovieAdapter(DetailPresenter detailPresenter, ImageLoader imageLoader) {
+        this.detailPresenter = detailPresenter;
+        this.imageLoader = imageLoader;
+        castData = new ArrayList<>();
+    }
+
+    @Override
+    public ActorHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.list_cast_item, parent, false);
+
+        return new ActorHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(ActorHolder holder, int position) {
+        holder.renderActorImage(castData.get(position).getProfileUrl());
+        holder.renderActorName(castData.get(position).getName());
+        holder.renderCharacterName(castData.get(position).getCharacter());
+    }
+
+    @Override
+    public int getItemCount() {
+        return castData.size();
+    }
+
+    public void setCastData(List<ActorViewModel> castData) {
+        this.castData = castData;
+        notifyDataSetChanged();
+    }
+
+
+    class ActorHolder extends RecyclerView.ViewHolder {
+
+        @BindView(R.id.actor_image) RoundedImageView actorImage;
+        @BindView(R.id.actor_name) TextView actorName;
+        @BindView(R.id.character_name) TextView characterName;
+
+        ActorHolder(View itemView) {
+            super(itemView);
+            ButterKnife.bind(this, itemView);
+        }
+
+        void renderActorImage(String profileUrl) {
+            imageLoader.bindImage(profileUrl, actorImage);
+        }
+
+        void renderActorName(String actorName) {
+            this.actorName.setText(actorName);
+        }
+
+        void renderCharacterName(String characterName) {
+            this.characterName.setText(characterName);
+        }
+    }
+}

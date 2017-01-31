@@ -10,6 +10,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewTreeObserver;
@@ -17,6 +19,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.jag.movies.Adapters.CastMovieAdapter;
 import com.jag.movies.App;
 import com.jag.movies.Presenter.DetailPresenter;
 import com.jag.movies.R;
@@ -49,6 +52,8 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     @BindView(R.id.movie_date_detail) TextView movieReleaseDate;
     @BindView(R.id.movie_overview_detail) TextView movieOverview;
 
+    @BindView(R.id.recycler_view_movie_cast_detail) RecyclerView castList;
+
     @Inject
     @ForActivity
     Context context;
@@ -56,10 +61,16 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     @Inject
     DetailPresenter detailPresenter;
 
+    // TODO: Probablemente falte injectarlo en algun lado
+    @Inject
+    CastMovieAdapter castMovieAdapter;
+
     @Inject
     ImageLoader imageLoader;
 
     Palette palette;
+
+    LinearLayoutManager linearLayoutManager;
 
     public final static String ID_MOVIE = "movieId";
 
@@ -87,13 +98,17 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         setupAnimation();
         setupToolbar();
         setupFloatingButton();
+        setupCastRecyclerView();
+
+        detailPresenter.onStart(getIntent());
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        //TODO get intent in activity or at presenter
-        detailPresenter.onStart(getIntent());
+    private void setupCastRecyclerView() {
+        castList.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(context,
+                LinearLayoutManager.HORIZONTAL, false);
+        castList.setLayoutManager(linearLayoutManager);
+        castList.setAdapter(castMovieAdapter);
     }
 
     private void setupToolbar() {
@@ -196,6 +211,11 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
 
         getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
         movieInfo.setBackgroundColor(vibrantColor);
+    }
+
+    @Override
+    public void showCast(List<ActorViewModel> castData) {
+        castMovieAdapter.setCastData(castData);
     }
 }
 

@@ -5,6 +5,7 @@ import com.jag.movies.UI.ActorViewModel;
 import com.jag.movies.UI.MovieViewModel;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by inlab on 31/01/2017.
@@ -12,5 +13,5 @@ import java.util.ArrayList;
 
 public interface ActorListCallback {
 
-    void dataReady(ArrayList<ActorViewModel> cast);
+    void dataReady(List<ActorViewModel> cast);
 }
