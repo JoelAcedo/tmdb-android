@@ -34,7 +34,7 @@ public class DetailPresenter {
 
     private void movieDataReady() {
         detailView.renderCover(movie.getCoverUrl());
-        //detailView.renderToolbarColor();
+        //detailView.computePalette();
         detailView.renderTitle(movie.getTitle());
         detailView.renderOverview(movie.getOverview());
         detailView.renderGenres(movie.getGenresList());
@@ -74,4 +74,7 @@ public class DetailPresenter {
     }
 
 
+    public void updateVibrantColor(int vibrantColor) {
+        detailView.renderToolbarColors(vibrantColor);
+    }
 }

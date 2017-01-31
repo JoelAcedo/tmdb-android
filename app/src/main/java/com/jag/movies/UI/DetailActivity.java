@@ -2,7 +2,6 @@ package com.jag.movies.UI;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -18,7 +17,6 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.jag.movies.App;
 import com.jag.movies.Presenter.DetailPresenter;
 import com.jag.movies.R;
@@ -60,6 +58,8 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
 
     @Inject
     ImageLoader imageLoader;
+
+    Palette palette;
 
     public final static String ID_MOVIE = "movieId";
 
@@ -109,7 +109,7 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
             public boolean onPreDraw() {
                 if (movieCover.getDrawable() != null) {
                     movieCover.getViewTreeObserver().removeOnPreDrawListener(this);
-                    renderToolbarColor();
+                    computePalette(movieCover);
                     supportStartPostponedEnterTransition();
                     return true;
                 }
@@ -143,17 +143,15 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     }
 
     @Override
-    public void renderToolbarColor() {
-        Palette palette = Palette.from(imageLoader.getBitmap(movieCover)).generate();
-
-        int defaultColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
-        int vibrantColor = palette.getVibrantColor(defaultColor);
-
-        collapsingToolbarLayout.setStatusBarScrimColor(vibrantColor);
-        collapsingToolbarLayout.setContentScrimColor(vibrantColor);
-
-        getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
-        movieInfo.setBackgroundColor(vibrantColor);
+    public void computePalette(ImageView imageView) {
+        Palette.from(imageLoader.getBitmap(movieCover)).generate(new Palette.PaletteAsyncListener() {
+            @Override
+            public void onGenerated(Palette palette) {
+                DetailActivity.this.palette = palette;
+                int defaultColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
+                detailPresenter.updateVibrantColor(palette.getVibrantColor(defaultColor));
+            }
+        });
     }
 
     @Override
@@ -189,6 +187,15 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
             movieReleaseDate.setText(date[0]);
         else
             movieReleaseDate.setText("-");
+    }
+
+    @Override
+    public void renderToolbarColors(int vibrantColor) {
+        collapsingToolbarLayout.setStatusBarScrimColor(vibrantColor);
+        collapsingToolbarLayout.setContentScrimColor(vibrantColor);
+
+        getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
+        movieInfo.setBackgroundColor(vibrantColor);
     }
 }
 

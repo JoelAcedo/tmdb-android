@@ -2,6 +2,7 @@ package com.jag.movies.UI;
 
 
 import android.content.Intent;
+import android.widget.ImageView;
 
 import java.util.List;
 
@@ -23,5 +24,7 @@ public interface IDetailView {
 
     void renderReleaseDate(String releaseDate);
 
-    void renderToolbarColor();
+    void computePalette(ImageView imageView);
+
+    void renderToolbarColors(int vibrantColor);
 }
