@@ -3,6 +3,7 @@ package com.jag.movies.Utils;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import com.jag.movies.dependencyinjector.qualifier.ForApp;
@@ -30,6 +31,17 @@ public class PicassoLoader implements ImageLoader {
                 .noFade()
                 .centerInside()
                 .fit()
+                .into(imageView);
+    }
+
+    @Override
+    public void bindImage(String imagePath, ImageView imageView, int placeholder) {
+        Picasso.with(context)
+                .load(imagePath)
+                .noFade()
+                .centerInside()
+                .fit()
+                .placeholder(placeholder)
                 .into(imageView);
     }
 

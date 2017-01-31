@@ -27,7 +27,7 @@ public interface IDetailView {
 
     void computePalette(ImageView imageView);
 
-    void renderToolbarColors(int vibrantColor);
+    void renderColors(int vibrantColor);
 
     void showCast(List<ActorViewModel> castData);
 }

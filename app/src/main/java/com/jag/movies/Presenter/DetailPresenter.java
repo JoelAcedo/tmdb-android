@@ -5,7 +5,6 @@ import android.content.Intent;
 import com.jag.movies.Callbacks.ActorListCallback;
 import com.jag.movies.Model.DetailModel;
 import com.jag.movies.Callbacks.MovieCallback;
-import com.jag.movies.Retrofit.ActorDTO;
 import com.jag.movies.Retrofit.MovieDTO;
 import com.jag.movies.UI.ActorViewModel;
 import com.jag.movies.UI.DetailActivity;
@@ -82,7 +81,7 @@ public class DetailPresenter {
 
 
     public void updateVibrantColor(int vibrantColor) {
-        detailView.renderToolbarColors(vibrantColor);
+        detailView.renderColors(vibrantColor);
     }
 
     private void getCastByMovieID() {

@@ -7,7 +7,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.widget.NestedScrollView;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
@@ -23,6 +22,7 @@ import com.jag.movies.Adapters.CastMovieAdapter;
 import com.jag.movies.App;
 import com.jag.movies.Presenter.DetailPresenter;
 import com.jag.movies.R;
+import com.jag.movies.Utils.NestedScrollViewForHorizontalList;
 import com.jag.movies.dependencyinjector.activity.DetailActivityModule;
 import com.jag.movies.dependencyinjector.application.DetailModule;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
@@ -44,13 +44,14 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     @BindView(R.id.toolbar_detail) Toolbar toolbar;
     @BindView(R.id.movie_info_detail) RelativeLayout movieInfo;
     @BindView(R.id.imageToolbar_detail) ImageView movieCover;
-    @BindView(R.id.scroll_detail) NestedScrollView nestedScrollView;
+    @BindView(R.id.scroll_detail) NestedScrollViewForHorizontalList nestedScrollView;
     @BindView(R.id.fab_detail) FloatingActionButton floatingButton;
     @BindView(R.id.movie_name_detail) TextView movieName;
     @BindView(R.id.movie_genres_detail) TextView movieGenres;
     @BindView(R.id.movie_score_detail) TextView movieScore;
     @BindView(R.id.movie_date_detail) TextView movieReleaseDate;
     @BindView(R.id.movie_overview_detail) TextView movieOverview;
+    @BindView(R.id.movie_cast_title) TextView castTitle;
 
     @BindView(R.id.recycler_view_movie_cast_detail) RecyclerView castList;
 
@@ -108,6 +109,7 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         linearLayoutManager = new LinearLayoutManager(context,
                 LinearLayoutManager.HORIZONTAL, false);
         castList.setLayoutManager(linearLayoutManager);
+        castList.setNestedScrollingEnabled(false);
         castList.setAdapter(castMovieAdapter);
     }
 
@@ -205,12 +207,14 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     }
 
     @Override
-    public void renderToolbarColors(int vibrantColor) {
+    public void renderColors(int vibrantColor) {
         collapsingToolbarLayout.setStatusBarScrimColor(vibrantColor);
         collapsingToolbarLayout.setContentScrimColor(vibrantColor);
 
         getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
         movieInfo.setBackgroundColor(vibrantColor);
+        castTitle.setTextColor(vibrantColor);
+        castMovieAdapter.setVibrantColor(vibrantColor);
     }
 
     @Override

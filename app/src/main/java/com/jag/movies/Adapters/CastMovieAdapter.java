@@ -1,6 +1,7 @@
 package com.jag.movies.Adapters;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,13 +29,17 @@ public class CastMovieAdapter extends RecyclerView.Adapter<CastMovieAdapter.Acto
 
     private final DetailPresenter detailPresenter;
     private final ImageLoader imageLoader;
+    private final Context context;
     private List<ActorViewModel> castData;
+    private int vibrantColor;
 
     @Inject
-    public CastMovieAdapter(DetailPresenter detailPresenter, ImageLoader imageLoader) {
+    public CastMovieAdapter(@ForActivity Context context, DetailPresenter detailPresenter, ImageLoader imageLoader) {
         this.detailPresenter = detailPresenter;
         this.imageLoader = imageLoader;
         castData = new ArrayList<>();
+        this.context = context;
+        vibrantColor = context.getResources().getColor(R.color.colorPrimary);
     }
 
     @Override
@@ -62,6 +67,11 @@ public class CastMovieAdapter extends RecyclerView.Adapter<CastMovieAdapter.Acto
         notifyDataSetChanged();
     }
 
+    public void setVibrantColor(int vibrantColor) {
+        this.vibrantColor = vibrantColor;
+        // TODO Actualizar las vistas que ya estan pintadas, para que se pinten con el color vibrant
+    }
+
 
     class ActorHolder extends RecyclerView.ViewHolder {
 
@@ -75,11 +85,13 @@ public class CastMovieAdapter extends RecyclerView.Adapter<CastMovieAdapter.Acto
         }
 
         void renderActorImage(String profileUrl) {
-            imageLoader.bindImage(profileUrl, actorImage);
+            imageLoader.bindImage(profileUrl, actorImage, R.drawable.ic_account_grey600_48dp);
+            actorImage.setBorderColor(vibrantColor);
         }
 
         void renderActorName(String actorName) {
             this.actorName.setText(actorName);
+            this.actorName.setTextColor(vibrantColor);
         }
 
         void renderCharacterName(String characterName) {

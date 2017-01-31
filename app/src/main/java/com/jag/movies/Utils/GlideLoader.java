@@ -2,6 +2,7 @@ package com.jag.movies.Utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -29,6 +30,16 @@ public class GlideLoader implements ImageLoader {
                 .load(imagePath)
                 .dontAnimate()
                 .fitCenter()
+                .into(imageView);
+    }
+
+    @Override
+    public void bindImage(String imagePath, ImageView imageView, int placeholder) {
+        Glide.with(context)
+                .load(imagePath)
+                .dontAnimate()
+                .fitCenter()
+                .placeholder(placeholder)
                 .into(imageView);
     }
 
