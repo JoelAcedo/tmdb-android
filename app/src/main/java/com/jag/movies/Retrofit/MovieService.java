@@ -22,4 +22,7 @@ public interface MovieService {
     @GET("movie/{movieId}")
     Call<MovieDTO> getMovieById(@Path("movieId") String movieId, @Query("api_key") String apiKey);
 
+    @GET("movie/{movieId}/credits")
+    Call<ActorList> getCastByMovieId(@Path("movieId") String movieId, @Query("api_key") String apiKey);
+
 }

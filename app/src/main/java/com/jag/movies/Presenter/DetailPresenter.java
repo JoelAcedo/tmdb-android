@@ -29,7 +29,7 @@ public class DetailPresenter {
     public void onStart(Intent intent) {
         getExtrasFromIntent(intent);
         getMovieDataByID();
-
+        getCastByMovieID();
     }
 
     private void movieDataReady() {
@@ -53,7 +53,7 @@ public class DetailPresenter {
     }
 
     private void getMovieDataByID() {
-        detailModel.getMoviebyIndex(movieId, new MovieCallback() {
+        detailModel.getMovieByIndex(movieId, new MovieCallback() {
             @Override
             public void movieMapper(MovieDTO movieDTO) {
                 movie = new MovieViewModel(movieDTO.getId(), movieDTO.getTitle(),
@@ -76,5 +76,17 @@ public class DetailPresenter {
 
     public void updateVibrantColor(int vibrantColor) {
         detailView.renderToolbarColors(vibrantColor);
+    }
+
+    private void getCastByMovieID() {
+        /*detailModel.getMovieByIndex(movieId, new MovieCallback() {
+            @Override
+            public void movieMapper(MovieDTO movieDTO) {
+                movie = new MovieViewModel(movieDTO.getId(), movieDTO.getTitle(),
+                        movieDTO.getOverview(), movieDTO.getVoteAverage(), movieDTO.getReleaseDate(),
+                        movieDTO.getMovieGenres(), "http://image.tmdb.org/t/p/w600" + movieDTO.getPosterPath());
+                movieDataReady();
+            }
+        });*/
     }
 }
