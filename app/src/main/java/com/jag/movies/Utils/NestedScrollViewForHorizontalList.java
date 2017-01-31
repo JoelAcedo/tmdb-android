@@ -12,36 +12,23 @@ import android.view.ViewConfiguration;
 
 public class NestedScrollViewForHorizontalList extends NestedScrollView {
 
-    private int slop;
-    private float mInitialMotionX;
-    private float mInitialMotionY;
     private float xDistance, yDistance, lastX, lastY;
 
     public NestedScrollViewForHorizontalList(Context context) {
         super(context);
-        init(context);
     }
 
     public NestedScrollViewForHorizontalList(Context context, AttributeSet attrs) {
         super(context, attrs);
-        init(context);
     }
 
     public NestedScrollViewForHorizontalList(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context);
-    }
-
-    private void init(Context context) {
-        ViewConfiguration config = ViewConfiguration.get(context);
-        slop = config.getScaledEdgeSlop();
     }
 
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        final float x = ev.getX();
-        final float y = ev.getY();
 
         switch (ev.getAction()) {
             case MotionEvent.ACTION_DOWN:
