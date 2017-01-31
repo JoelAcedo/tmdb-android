@@ -9,6 +9,7 @@ import com.jag.movies.Retrofit.ActorList;
 import com.jag.movies.Retrofit.ApiClient;
 import com.jag.movies.Retrofit.MovieDTO;
 import com.jag.movies.Retrofit.MovieService;
+import com.jag.movies.UI.ActorViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +24,7 @@ import retrofit2.Response;
 public class DetailModel {
     private final static String API_KEY = "aaec0debce0a3fd90e4771eb5a266437";
     private final static String TAG = "DetailModel";
+    private ArrayList<ActorViewModel> cast;
 
     @Inject
     public DetailModel() {
@@ -64,8 +66,13 @@ public class DetailModel {
             public void onResponse(Call<ActorList> call, Response<ActorList> response) {
 
                 if (response.isSuccessful()) {
-                    List<ActorDTO> actors = response.body().getCast();
-                    callback.dataReady(((ArrayList<ActorDTO>) actors));
+
+                    List<ActorDTO> actors_response = response.body().getCast();
+                    for (ActorDTO actor : actors_response) {
+                        cast.add(new ActorViewModel(actor.getName(), actor.getCharacter(),
+                                "http://image.tmdb.org/t/p/w600" + actor.getProfile_path()));
+                    }
+                    callback.dataReady(cast);
                 } else {
                     Log.e(TAG, "onResponse: " + response.code());
                 }

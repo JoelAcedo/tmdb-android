@@ -1,6 +1,7 @@
 package com.jag.movies.Callbacks;
 
 import com.jag.movies.Retrofit.ActorDTO;
+import com.jag.movies.UI.ActorViewModel;
 import com.jag.movies.UI.MovieViewModel;
 
 import java.util.ArrayList;
@@ -11,5 +12,5 @@ import java.util.ArrayList;
 
 public interface ActorListCallback {
 
-    void dataReady(ArrayList<ActorDTO> cast);
+    void dataReady(ArrayList<ActorViewModel> cast);
 }

@@ -2,13 +2,18 @@ package com.jag.movies.Presenter;
 
 import android.content.Intent;
 
+import com.jag.movies.Callbacks.ActorListCallback;
 import com.jag.movies.Model.DetailModel;
 import com.jag.movies.Callbacks.MovieCallback;
+import com.jag.movies.Retrofit.ActorDTO;
 import com.jag.movies.Retrofit.MovieDTO;
+import com.jag.movies.UI.ActorViewModel;
 import com.jag.movies.UI.DetailActivity;
 import com.jag.movies.UI.IDetailView;
 import com.jag.movies.UI.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -18,6 +23,7 @@ public class DetailPresenter {
     private final IDetailView detailView;
     private final DetailModel detailModel;
     private MovieViewModel movie;
+    private ArrayList<ActorViewModel> cast;
     private int movieId;
 
     @Inject
@@ -79,14 +85,11 @@ public class DetailPresenter {
     }
 
     private void getCastByMovieID() {
-        /*detailModel.getMovieByIndex(movieId, new MovieCallback() {
+        detailModel.getCastByMovieId(movieId, new ActorListCallback() {
             @Override
-            public void movieMapper(MovieDTO movieDTO) {
-                movie = new MovieViewModel(movieDTO.getId(), movieDTO.getTitle(),
-                        movieDTO.getOverview(), movieDTO.getVoteAverage(), movieDTO.getReleaseDate(),
-                        movieDTO.getMovieGenres(), "http://image.tmdb.org/t/p/w600" + movieDTO.getPosterPath());
-                movieDataReady();
+            public void dataReady(ArrayList<ActorViewModel> cast) {
+                //TODO: detailView.showCast(cast); /*to show the actors list in the recyclerView*/
             }
-        });*/
+        });
     }
 }
