@@ -1,27 +1,33 @@
 package com.jag.movies.Presenter;
 
+import android.util.Log;
 import android.widget.ImageView;
 
-import com.jag.movies.Model.DiscoverModel;
-import com.jag.movies.Callbacks.MovieListCallback;
+import com.example.entities.Movie;
+import com.example.exception.ErrorBundle;
+import com.example.interactor.GetMovieListInteractor;
+import com.example.repositories.MovieRepository;
+import com.jag.movies.Mapper.MovieMapper;
 import com.jag.movies.UI.IDiscoverView;
-import com.jag.movies.UI.MovieViewModel;
+import com.jag.movies.UI.Models.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 @PerActivity
 public class DiscoverPresenter {
 
+    private static final String TAG = "DiscoverPresenter";
     private final IDiscoverView discoverView;
-    private final DiscoverModel discoverModel;
+    private final GetMovieListInteractor interactor;
 
     @Inject
-    public DiscoverPresenter(IDiscoverView discoverView, DiscoverModel discoverModel) {
+    public DiscoverPresenter(IDiscoverView discoverView, GetMovieListInteractor interactor) {
         this.discoverView = discoverView;
-        this.discoverModel = discoverModel;
+        this.interactor = interactor;
     }
 
     public void movieClicked(int movieId, ImageView movieCover) {
@@ -29,11 +35,24 @@ public class DiscoverPresenter {
     }
 
     public void onStart() {
-        discoverModel.getData(new MovieListCallback() {
+        interactor.execute(new MovieRepository.GetMoviesCallback() {
             @Override
-            public void dataReady(ArrayList<MovieViewModel> movies) {
-                discoverView.showMovies(movies);
+            public void onError(ErrorBundle errorBundle) {
+                Log.e(TAG, errorBundle.getErrorMessage());
             }
-        });
+
+            @Override
+            public void onSuccess(List<Movie> returnParam) {
+                List<MovieViewModel> movieList = MovieMapper.toListMovieViewModel(returnParam);
+                discoverView.showMovies(movieList);
+            }
+        }, null);
+
+//        interactor.getData(new MovieListCallback() {
+//            @Override
+//            public void dataReady(ArrayList<MovieViewModel> movies) {
+//                discoverView.showMovies(movies);
+//            }
+//        });
     }
 }

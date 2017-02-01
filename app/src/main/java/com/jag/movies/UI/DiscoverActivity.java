@@ -15,12 +15,13 @@ import com.jag.movies.App;
 import com.jag.movies.Adapters.DiscoverMovieAdapter;
 import com.jag.movies.Presenter.DiscoverPresenter;
 import com.jag.movies.R;
+import com.jag.movies.UI.Models.MovieViewModel;
 import com.jag.movies.dependencyinjector.activity.DiscoverActivityModule;
 import com.jag.movies.dependencyinjector.application.DiscoverModule;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
-import com.jag.movies.Utils.GlideLoader;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -78,8 +79,8 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
     }
 
     @Override
-    public void showMovies(ArrayList<MovieViewModel> movieData) {
-        discoverMovieAdapter.setMoviesData(movieData);
+    public void showMovies(List<MovieViewModel> movieViewModelData) {
+        discoverMovieAdapter.setMoviesData(movieViewModelData);
     }
 
     @Override
