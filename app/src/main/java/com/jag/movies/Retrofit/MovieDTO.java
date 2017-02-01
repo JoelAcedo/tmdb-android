@@ -1,4 +1,4 @@
-package com.jag.movies.Model;
+package com.jag.movies.Retrofit;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -6,32 +6,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Albert Ruiz on 27/01/2017.
+ * Created by joela on 30/01/2017.
  */
 
-public class MoviesDTO {
+public class MovieDTO {
 
     @SerializedName("poster_path")
     private String posterPath;
+
     @SerializedName("overview")
     private String overview;
+
     @SerializedName("release_date")
     private String releaseDate;
-    @SerializedName("genre_ids")
-    private List<Integer> genreIds = new ArrayList<Integer>();
+
+    @SerializedName("genres")
+    private List<Genre> genresList;
+
     @SerializedName("id")
     private Integer id;
+
     @SerializedName("title")
     private String title;
+
     @SerializedName("vote_average")
     private float voteAverage;
 
-    public MoviesDTO(String posterPath, String overview, String releaseDate, List<Integer> genreIds, Integer id,
-                     String title, float voteAverage) {
+    public MovieDTO(String posterPath, String overview, String releaseDate, List<Genre> genresList, Integer id,
+                    String title, float voteAverage) {
         this.posterPath = posterPath;
         this.overview = overview;
         this.releaseDate = releaseDate;
-        this.genreIds = genreIds;
+        this.genresList = genresList;
         this.id = id;
         this.title = title;
         this.voteAverage = voteAverage;
@@ -49,8 +55,8 @@ public class MoviesDTO {
         return releaseDate;
     }
 
-    public List<Integer> getGenreIds() {
-        return genreIds;
+    public List<Genre> getGenresList() {
+        return genresList;
     }
 
     public Integer getId() {
@@ -76,7 +82,11 @@ public class MoviesDTO {
     public List<String> getMovieGenres() {
         List<String> genres = new ArrayList<>();
 
-        List<Integer> ids = getGenreIds();
+        List<Integer> ids = new ArrayList<>();
+        for (Genre genre : getGenresList()) {
+            ids.add(genre.getId());
+        }
+
         for (int i = 0; i < ids.size(); i++) {
             MovieGenre genre = MovieGenre.getById(ids.get(i));
             if (genre != null) {

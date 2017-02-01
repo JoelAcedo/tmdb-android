@@ -2,7 +2,9 @@ package com.jag.movies.UI;
 
 
 import android.content.Intent;
+import android.widget.ImageView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public interface IDetailView {
@@ -22,4 +24,10 @@ public interface IDetailView {
     void renderScore(float voteAverage);
 
     void renderReleaseDate(String releaseDate);
+
+    void computePalette(ImageView imageView);
+
+    void renderColors(int vibrantColor);
+
+    void showCast(List<ActorViewModel> castData);
 }

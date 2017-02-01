@@ -2,16 +2,18 @@ package com.jag.movies.Presenter;
 
 import android.content.Intent;
 
+import com.jag.movies.Callbacks.ActorListCallback;
 import com.jag.movies.Model.DetailModel;
-import com.jag.movies.Model.MovieCallback;
-import com.jag.movies.Model.MovieDTO;
-import com.jag.movies.Model.MoviesDTO;
+import com.jag.movies.Callbacks.MovieCallback;
+import com.jag.movies.Retrofit.MovieDTO;
+import com.jag.movies.UI.ActorViewModel;
 import com.jag.movies.UI.DetailActivity;
 import com.jag.movies.UI.IDetailView;
 import com.jag.movies.UI.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -21,6 +23,7 @@ public class DetailPresenter {
     private final IDetailView detailView;
     private final DetailModel detailModel;
     private MovieViewModel movie;
+    private ArrayList<ActorViewModel> cast;
     private int movieId;
 
     @Inject
@@ -32,11 +35,12 @@ public class DetailPresenter {
     public void onStart(Intent intent) {
         getExtrasFromIntent(intent);
         getMovieDataByID();
-
+        getCastByMovieID();
     }
 
     private void movieDataReady() {
         detailView.renderCover(movie.getCoverUrl());
+        //detailView.computePalette();
         detailView.renderTitle(movie.getTitle());
         detailView.renderOverview(movie.getOverview());
         detailView.renderGenres(movie.getGenresList());
@@ -55,12 +59,12 @@ public class DetailPresenter {
     }
 
     private void getMovieDataByID() {
-        detailModel.getMoviebyIndex(movieId, new MovieCallback() {
+        detailModel.getMovieByIndex(movieId, new MovieCallback() {
             @Override
             public void movieMapper(MovieDTO movieDTO) {
                 movie = new MovieViewModel(movieDTO.getId(), movieDTO.getTitle(),
                         movieDTO.getOverview(), movieDTO.getVoteAverage(), movieDTO.getReleaseDate(),
-                        new ArrayList<String>(), "http://image.tmdb.org/t/p/w600" + movieDTO.getPosterPath());
+                        movieDTO.getMovieGenres(), "http://image.tmdb.org/t/p/w600" + movieDTO.getPosterPath());
                 movieDataReady();
             }
         });
@@ -76,4 +80,16 @@ public class DetailPresenter {
     }
 
 
+    public void updateVibrantColor(int vibrantColor) {
+        detailView.renderColors(vibrantColor);
+    }
+
+    private void getCastByMovieID() {
+        detailModel.getCastByMovieId(movieId, new ActorListCallback() {
+            @Override
+            public void dataReady(List<ActorViewModel> cast) {
+                detailView.showCast(cast);
+            }
+        });
+    }
 }

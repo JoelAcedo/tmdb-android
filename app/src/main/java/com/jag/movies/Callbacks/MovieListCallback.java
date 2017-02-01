@@ -1,4 +1,4 @@
-package com.jag.movies.Model;
+package com.jag.movies.Callbacks;
 
 import com.jag.movies.UI.MovieViewModel;
 

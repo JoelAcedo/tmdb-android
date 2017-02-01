@@ -1,13 +1,15 @@
 package com.jag.movies.UI;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.widget.ImageView;
 
 import com.jag.movies.App;
 import com.jag.movies.Adapters.DiscoverMovieAdapter;
@@ -16,6 +18,7 @@ import com.jag.movies.R;
 import com.jag.movies.dependencyinjector.activity.DiscoverActivityModule;
 import com.jag.movies.dependencyinjector.application.DiscoverModule;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
+import com.jag.movies.Utils.GlideLoader;
 
 import java.util.ArrayList;
 
@@ -36,8 +39,10 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
     @Inject
     DiscoverPresenter presenter;
 
-    LinearLayoutManager linearLayoutManager;
+    @Inject
     DiscoverMovieAdapter discoverMovieAdapter;
+
+    LinearLayoutManager linearLayoutManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,12 +59,12 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
 
         setSupportActionBar(toolbar);
         setupRecyclerView();
+        presenter.onStart();
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        presenter.onStart();
     }
 
     private void setupRecyclerView() {
@@ -68,7 +73,7 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
         linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
 
-        discoverMovieAdapter = new DiscoverMovieAdapter(context, presenter);
+        //discoverMovieAdapter = new DiscoverMovieAdapter(context, presenter, new GlideLoader(context));
         recyclerView.setAdapter(discoverMovieAdapter);
     }
 
@@ -78,8 +83,12 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
     }
 
     @Override
-    public void startDetailActivity(int movieId) {
+    public void startDetailActivity(int movieId, ImageView movieCover) {
         Intent intent = DetailActivity.getLauncherIntent(context, movieId);
-        context.startActivity(intent);
+        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
+                ((Activity) context), movieCover, getString(R.string.cover_transition_name));
+
+
+        context.startActivity(intent, optionsCompat.toBundle());
     }
 }

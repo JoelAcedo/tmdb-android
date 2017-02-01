@@ -1,4 +1,4 @@
-package com.jag.movies.Model;
+package com.jag.movies.Retrofit;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -36,6 +36,9 @@ public enum MovieGenre {
     MovieGenre(int id, String title) {
         this.id = id;
         this.title = title;
+    }
+
+    MovieGenre() {
     }
 
     public static MovieGenre getById(int id) {

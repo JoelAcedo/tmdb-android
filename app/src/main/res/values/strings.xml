@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Movies</string>
     <string name="more_info">MORE INFO</string>
+
+    <string name="cover_transition_name">movieCover</string>
+    <string name="castTitleMovie">Movie cast</string>
 </resources>

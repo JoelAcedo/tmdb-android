@@ -8,6 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+        <item name="android:windowContentTransitions">true</item>
+        <!--<item name="android:windowEnterTransition">@null</item>-->
+        <!--<item name="android:windowExitTransition">@null</item>-->
     </style>
 
 </resources>

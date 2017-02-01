@@ -2,18 +2,17 @@ package com.jag.movies.Adapters;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.jag.movies.Presenter.DiscoverPresenter;
 import com.jag.movies.R;
 import com.jag.movies.UI.MovieViewModel;
-import com.jag.movies.dependencyinjector.scope.PerActivity;
+import com.jag.movies.Utils.ImageLoader;
+import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,20 +26,22 @@ import butterknife.ButterKnife;
 public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdapter.MovieHolder> {
 
     private final Context context;
+    private final ImageLoader imageLoader;
     private List<MovieViewModel> movieDataset;
     private final DiscoverPresenter presenter;
 
-    // TODO: intentar injectar con Dagger pasando el context del activity
-    public DiscoverMovieAdapter(Context context, DiscoverPresenter discoverPresenter) {
+    @Inject
+    public DiscoverMovieAdapter(@ForActivity Context context, DiscoverPresenter discoverPresenter, ImageLoader imageLoader) {
         this.movieDataset = new ArrayList<>();
         this.context = context;
         presenter = discoverPresenter;
+        this.imageLoader = imageLoader;
     }
 
     @Override
     public MovieHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.list_discover, parent, false);
+                .inflate(R.layout.list_discover_item, parent, false);
 
         return new MovieHolder(view);
     }
@@ -86,15 +87,13 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    presenter.movieClicked(movieId);
+                    presenter.movieClicked(movieId, movieCover);
                 }
             });
         }
 
         void renderMovieCover(String coverUrl) {
-            Glide.with(context)
-                    .load(coverUrl)
-                    .into(movieCover);
+            imageLoader.bindImage(coverUrl, movieCover);
         }
 
         void renderMovieName(String title) {
