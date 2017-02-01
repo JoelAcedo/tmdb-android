@@ -85,7 +85,8 @@ public class CastMovieAdapter extends RecyclerView.Adapter<CastMovieAdapter.Acto
         }
 
         void renderActorImage(String profileUrl) {
-            imageLoader.bindImage(profileUrl, actorImage, R.drawable.ic_account_grey600_48dp);
+            //TODO Push images
+            imageLoader.bindImage(profileUrl, actorImage);
             actorImage.setBorderColor(vibrantColor);
         }
 
