@@ -1,10 +1,10 @@
-package com.example.data.repository.datasource;
+package com.example.data.repository.datasource.movies;
 
 import com.example.data.retrofit.entities.MovieDTO;
 import com.example.data.retrofit.entities.MovieList;
 import com.example.data.mapper.MovieMapper;
 import com.example.data.retrofit.ApiClient;
-import com.example.data.retrofit.MovieService;
+import com.example.data.retrofit.RetrofitService;
 import com.example.entities.Movie;
 
 import java.io.IOException;
@@ -19,7 +19,7 @@ import retrofit2.Retrofit;
  * Created by inlab on 01/02/2017.
  */
 
-public class ApiMovieDataSource implements MovieDataSource {
+public class ApiMovieDataSource implements ReadableMovieDataSource {
 
     @Inject
     public ApiMovieDataSource() {
@@ -30,8 +30,8 @@ public class ApiMovieDataSource implements MovieDataSource {
         //TODO injectar dagger
         Retrofit retrofit = ApiClient.getClient();
 
-        MovieService movieService = retrofit.create(MovieService.class);
-        Response<MovieList> moviesResponse = movieService.fetchMovies(ApiClient.API_KEY).execute();
+        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+        Response<MovieList> moviesResponse = retrofitService.fetchMovies(ApiClient.API_KEY).execute();
 
         List<Movie> movies = MovieMapper.fromMovieListDTO(moviesResponse.body().getResults());
         return movies;
@@ -41,8 +41,8 @@ public class ApiMovieDataSource implements MovieDataSource {
     public Movie getMovieById(int movieId) throws IOException {
         Retrofit retrofit = ApiClient.getClient();
 
-        MovieService movieService = retrofit.create(MovieService.class);
-        Response<MovieDTO> movieResponse = movieService.getMovieById(String.valueOf(movieId), ApiClient.API_KEY).execute();
+        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+        Response<MovieDTO> movieResponse = retrofitService.getMovieById(String.valueOf(movieId), ApiClient.API_KEY).execute();
 
         Movie movie = MovieMapper.fromMovieDTO(movieResponse.body());
         return movie;

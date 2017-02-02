@@ -1,7 +1,7 @@
 package com.example.data.repository;
 
-import com.example.data.repository.datasource.CacheCastDataSource;
-import com.example.data.repository.datasource.ReadableCastDataSource;
+import com.example.data.repository.datasource.actors.CacheCastDataSource;
+import com.example.data.repository.datasource.actors.ReadableCastDataSource;
 import com.example.entities.Actor;
 import com.example.repositories.CastRepository;
 

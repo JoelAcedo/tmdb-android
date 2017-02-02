@@ -1,9 +1,9 @@
-package com.example.data.repository.datasource;
+package com.example.data.repository.datasource.actors;
 
 import com.example.data.retrofit.entities.ActorList;
 import com.example.data.mapper.CastMapper;
 import com.example.data.retrofit.ApiClient;
-import com.example.data.retrofit.MovieService;
+import com.example.data.retrofit.RetrofitService;
 import com.example.entities.Actor;
 
 import java.io.IOException;
@@ -28,8 +28,8 @@ public class ApiCastDataSource implements ReadableCastDataSource {
     public List<Actor> getCastByMovieId(int movieId) throws IOException {
         Retrofit retrofit = ApiClient.getClient();
 
-        MovieService movieService = retrofit.create(MovieService.class);
-        Response<ActorList> moviesResponse = movieService.getCastByMovieId(String.valueOf(movieId), ApiClient.API_KEY).execute();
+        RetrofitService retrofitService = retrofit.create(RetrofitService.class);
+        Response<ActorList> moviesResponse = retrofitService.getCastByMovieId(String.valueOf(movieId), ApiClient.API_KEY).execute();
 
         return CastMapper.fromActorListDTO(moviesResponse.body().getCast());
     }

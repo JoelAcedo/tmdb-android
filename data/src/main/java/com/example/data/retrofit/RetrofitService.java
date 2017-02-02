@@ -14,7 +14,7 @@ import retrofit2.http.Query;
  * Created by Albert Ruiz on 27/01/2017.
  */
 
-public interface MovieService {
+public interface RetrofitService {
 
     //@GET("movie/top_rated")
     //Call<MovieList> getTopRatedMovies(@Query("api_key") String apiKey);

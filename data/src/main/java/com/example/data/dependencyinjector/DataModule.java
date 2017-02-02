@@ -1,16 +1,15 @@
 package com.example.data.dependencyinjector;
 
-import android.content.Context;
-
 import com.example.data.repository.CastDataRepository;
 import com.example.data.repository.MovieDataRepository;
-import com.example.data.repository.datasource.ApiCastDataSource;
-import com.example.data.repository.datasource.ApiMovieDataSource;
-import com.example.data.repository.datasource.CacheCastDataSource;
-import com.example.data.repository.datasource.ReadableCastDataSource;
-import com.example.data.repository.datasource.MovieDataSource;
-import com.example.data.repository.datasource.RealmCastDataSource;
-import com.example.data.repository.datasource.WriteableCastDataSource;
+import com.example.data.repository.datasource.actors.ApiCastDataSource;
+import com.example.data.repository.datasource.movies.ApiMovieDataSource;
+import com.example.data.repository.datasource.actors.CacheCastDataSource;
+import com.example.data.repository.datasource.actors.ReadableCastDataSource;
+import com.example.data.repository.datasource.actors.RealmCastDataSource;
+import com.example.data.repository.datasource.movies.CacheMovieDataSource;
+import com.example.data.repository.datasource.movies.ReadableMovieDataSource;
+import com.example.data.repository.datasource.movies.RealmMovieDataSource;
 import com.example.repositories.CastRepository;
 import com.example.repositories.MovieRepository;
 
@@ -42,8 +41,14 @@ public class DataModule {
 
     @Provides
     @Singleton
-    public MovieDataSource providesMovieDataSource(ApiMovieDataSource apiDataSource){
+    public ReadableMovieDataSource providesMovieDataSource(ApiMovieDataSource apiDataSource){
         return apiDataSource;
+    }
+
+    @Provides
+    @Singleton
+    public CacheMovieDataSource providesCacheMovieDataSource(RealmMovieDataSource realmDataSource){
+        return realmDataSource;
     }
 
     @Provides

@@ -1,4 +1,4 @@
-package com.example.data.repository.datasource;
+package com.example.data.repository.datasource.actors;
 
 import com.example.data.mapper.CastMapper;
 import com.example.data.realm.entities.ActorRealm;
@@ -19,14 +19,8 @@ import io.realm.RealmResults;
 
 public class RealmCastDataSource implements CacheCastDataSource {
 
-    //TODO pasar realm como parametro en el constructor con dagger
-
-  //  private Realm realm;
-
     @Inject
-    public RealmCastDataSource(Realm realm) {
-      //  this.realm = realm;
-    }
+    public RealmCastDataSource() {}
 
     @Override
     public List<Actor> getCastByMovieId(int movieId) throws IOException {
