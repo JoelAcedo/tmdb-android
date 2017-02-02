@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import retrofit2.Response;
 import retrofit2.Retrofit;
 
@@ -19,6 +21,10 @@ import retrofit2.Retrofit;
  */
 
 public class ApiCastDataSource implements CastDataSource {
+
+    @Inject
+    public ApiCastDataSource() {
+    }
 
     @Override
     public List<Actor> getCastByMovieId(int movieId) throws IOException {

@@ -7,6 +7,8 @@ import com.example.data.repository.datasource.ApiMovieDataSource;
 import com.example.data.repository.datasource.CastDataSource;
 import com.example.data.repository.datasource.MovieDataSource;
 import com.example.entities.Actor;
+import com.example.repositories.CastRepository;
+import com.example.repositories.MovieRepository;
 
 import javax.inject.Singleton;
 
@@ -22,13 +24,13 @@ public class DataModule {
 
     @Provides
     @Singleton
-    public MovieDataRepository providesMovieDataRepository(MovieDataRepository repository){
+    public MovieRepository providesMovieDataRepository(MovieDataRepository repository){
         return repository;
     }
 
     @Provides
     @Singleton
-    public CastDataRepository providesCastDataRepository(CastDataRepository repository){
+    public CastRepository providesCastDataRepository(CastDataRepository repository){
         return repository;
     }
 
@@ -41,7 +43,7 @@ public class DataModule {
 
     @Provides
     @Singleton
-    public CastDataSource providesMovieDataSource(ApiCastDataSource apiDataSource){
+    public CastDataSource providesCastDataSource(ApiCastDataSource apiDataSource){
         return apiDataSource;
     }
 }

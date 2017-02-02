@@ -8,6 +8,8 @@ import com.example.repositories.CastRepository;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by inlab on 01/02/2017.
  */
@@ -30,6 +32,7 @@ public class GetMovieCastInteractor extends BaseUseCase<List<Actor>> implements 
         }
     };
 
+    @Inject
     public GetMovieCastInteractor(PostExecutionThread postExecutionThread, ThreadExecutor threadExecutor, CastRepository castRepository) {
         super(postExecutionThread);
         this.castRepository = castRepository;

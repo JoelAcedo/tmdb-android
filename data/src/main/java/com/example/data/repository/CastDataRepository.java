@@ -7,6 +7,8 @@ import com.example.repositories.CastRepository;
 import java.io.IOException;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by inlab on 01/02/2017.
  */
@@ -15,6 +17,7 @@ public class CastDataRepository implements CastRepository {
 
     private final CastDataSource castDataSource;
 
+    @Inject
     public CastDataRepository(CastDataSource castDataSource) {
         this.castDataSource = castDataSource;
     }
