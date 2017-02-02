@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.jag.movies.Presenter.DiscoverPresenter;
@@ -77,6 +78,7 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
         @BindView(R.id.movie_overview_discover) TextView movieOverview;
         @BindView(R.id.movie_score_discover) TextView movieScore;
         @BindView(R.id.movie_date_discover) TextView movieReleaseDate;
+        @BindView(R.id.progressBarMovieCover) ProgressBar movieCoverProgressBar;
 
         MovieHolder(View itemView) {
             super(itemView);
@@ -93,7 +95,7 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
         }
 
         void renderMovieCover(String coverUrl) {
-            imageLoader.bindImage(coverUrl, movieCover);
+            imageLoader.bindImage(coverUrl, movieCover, movieCoverProgressBar);
         }
 
         void renderMovieName(String title) {
