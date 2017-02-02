@@ -1,12 +1,16 @@
 package com.example.data.dependencyinjector;
 
+import android.content.Context;
+
 import com.example.data.repository.CastDataRepository;
 import com.example.data.repository.MovieDataRepository;
 import com.example.data.repository.datasource.ApiCastDataSource;
 import com.example.data.repository.datasource.ApiMovieDataSource;
-import com.example.data.repository.datasource.CastDataSource;
+import com.example.data.repository.datasource.CacheCastDataSource;
+import com.example.data.repository.datasource.ReadableCastDataSource;
 import com.example.data.repository.datasource.MovieDataSource;
-import com.example.entities.Actor;
+import com.example.data.repository.datasource.RealmCastDataSource;
+import com.example.data.repository.datasource.WriteableCastDataSource;
 import com.example.repositories.CastRepository;
 import com.example.repositories.MovieRepository;
 
@@ -14,6 +18,7 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import io.realm.Realm;
 
 /**
  * Created by inlab on 01/02/2017.
@@ -43,7 +48,26 @@ public class DataModule {
 
     @Provides
     @Singleton
-    public CastDataSource providesCastDataSource(ApiCastDataSource apiDataSource){
+    public ReadableCastDataSource providesReadableCastDataSource(ApiCastDataSource apiDataSource){
         return apiDataSource;
+    }
+
+    @Provides
+    @Singleton
+    public CacheCastDataSource providesCacheCastDataSource(RealmCastDataSource realmDataSource){
+        return realmDataSource;
+    }
+
+//    @Provides
+//    @Singleton
+//    public Realm providesRealm(@ForApp Context context){
+//        Realm.init(context);
+//        return Realm.getDefaultInstance();
+//    }
+
+    @Provides
+    @Singleton
+    public Realm providesRealm(){
+        return Realm.getDefaultInstance();
     }
 }

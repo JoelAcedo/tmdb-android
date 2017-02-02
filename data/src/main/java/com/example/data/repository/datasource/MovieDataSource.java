@@ -1,6 +1,5 @@
 package com.example.data.repository.datasource;
 
-import com.example.data.entities.MovieDTO;
 import com.example.entities.Movie;
 
 import java.io.IOException;

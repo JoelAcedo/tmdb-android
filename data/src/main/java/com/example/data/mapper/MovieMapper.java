@@ -1,6 +1,6 @@
 package com.example.data.mapper;
 
-import com.example.data.entities.MovieDTO;
+import com.example.data.retrofit.entities.MovieDTO;
 import com.example.entities.Movie;
 
 import java.util.ArrayList;

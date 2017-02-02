@@ -1,6 +1,7 @@
 package com.example.data.mapper;
 
-import com.example.data.entities.ActorDTO;
+import com.example.data.realm.entities.ActorRealm;
+import com.example.data.retrofit.entities.ActorDTO;
 import com.example.entities.Actor;
 
 import java.util.ArrayList;
@@ -27,4 +28,7 @@ public class CastMapper {
         return new Actor(actorDTO.getName(), actorDTO.getCharacter(), BASE_IMAGE_URL + actorDTO.getProfile_path());
     }
 
+    public static Actor fromActorRealm(ActorRealm actorRealm) {
+        return new Actor(actorRealm.getName(), actorRealm.getCharacter(), actorRealm.getProfile_path());
+    }
 }

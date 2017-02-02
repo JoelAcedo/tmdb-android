@@ -1,14 +1,12 @@
 package com.example.data.repository.datasource;
 
-import com.example.data.entities.ActorDTO;
-import com.example.data.entities.ActorList;
+import com.example.data.retrofit.entities.ActorList;
 import com.example.data.mapper.CastMapper;
 import com.example.data.retrofit.ApiClient;
 import com.example.data.retrofit.MovieService;
 import com.example.entities.Actor;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -20,7 +18,7 @@ import retrofit2.Retrofit;
  * Created by inlab on 01/02/2017.
  */
 
-public class ApiCastDataSource implements CastDataSource {
+public class ApiCastDataSource implements ReadableCastDataSource {
 
     @Inject
     public ApiCastDataSource() {

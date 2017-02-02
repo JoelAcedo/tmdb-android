@@ -1,14 +1,13 @@
 package com.example.data.repository.datasource;
 
-import com.example.data.entities.MovieDTO;
-import com.example.data.entities.MovieList;
+import com.example.data.retrofit.entities.MovieDTO;
+import com.example.data.retrofit.entities.MovieList;
 import com.example.data.mapper.MovieMapper;
 import com.example.data.retrofit.ApiClient;
 import com.example.data.retrofit.MovieService;
 import com.example.entities.Movie;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
