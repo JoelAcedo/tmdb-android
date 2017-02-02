@@ -1,10 +1,10 @@
 package com.jag.movies.UI;
 
 
-import android.content.Intent;
 import android.widget.ImageView;
 
-import java.util.ArrayList;
+import com.jag.movies.UI.Models.ActorViewModel;
+
 import java.util.List;
 
 public interface IDetailView {

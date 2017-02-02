@@ -22,6 +22,7 @@ import com.jag.movies.Adapters.CastMovieAdapter;
 import com.jag.movies.App;
 import com.jag.movies.Presenter.DetailPresenter;
 import com.jag.movies.R;
+import com.jag.movies.UI.Models.ActorViewModel;
 import com.jag.movies.Utils.NestedScrollViewForHorizontalList;
 import com.jag.movies.dependencyinjector.activity.DetailActivityModule;
 import com.jag.movies.dependencyinjector.application.DetailModule;

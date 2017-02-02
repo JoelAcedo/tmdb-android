@@ -1,17 +1,15 @@
 package com.jag.movies.Adapters;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.jag.movies.Presenter.DetailPresenter;
 import com.jag.movies.R;
-import com.jag.movies.UI.ActorViewModel;
+import com.jag.movies.UI.Models.ActorViewModel;
 import com.jag.movies.Utils.ImageLoader;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 import com.makeramen.roundedimageview.RoundedImageView;
@@ -69,6 +67,7 @@ public class CastMovieAdapter extends RecyclerView.Adapter<CastMovieAdapter.Acto
 
     public void setVibrantColor(int vibrantColor) {
         this.vibrantColor = vibrantColor;
+        notifyDataSetChanged();
         // TODO Actualizar las vistas que ya estan pintadas, para que se pinten con el color vibrant
     }
 
@@ -86,7 +85,7 @@ public class CastMovieAdapter extends RecyclerView.Adapter<CastMovieAdapter.Acto
 
         void renderActorImage(String profileUrl) {
             //TODO Push images
-            imageLoader.bindImage(profileUrl, actorImage);
+            imageLoader.bindImage(profileUrl, actorImage, R.drawable.ic_account_grey600_48dp);
             actorImage.setBorderColor(vibrantColor);
         }
 

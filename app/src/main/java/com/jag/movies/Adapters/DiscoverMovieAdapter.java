@@ -10,7 +10,7 @@ import android.widget.TextView;
 
 import com.jag.movies.Presenter.DiscoverPresenter;
 import com.jag.movies.R;
-import com.jag.movies.UI.MovieViewModel;
+import com.jag.movies.UI.Models.MovieViewModel;
 import com.jag.movies.Utils.ImageLoader;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 
@@ -27,12 +27,12 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
 
     private final Context context;
     private final ImageLoader imageLoader;
-    private List<MovieViewModel> movieDataset;
+    private List<MovieViewModel> movieViewModelDataset;
     private final DiscoverPresenter presenter;
 
     @Inject
     public DiscoverMovieAdapter(@ForActivity Context context, DiscoverPresenter discoverPresenter, ImageLoader imageLoader) {
-        this.movieDataset = new ArrayList<>();
+        this.movieViewModelDataset = new ArrayList<>();
         this.context = context;
         presenter = discoverPresenter;
         this.imageLoader = imageLoader;
@@ -48,23 +48,23 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
 
     @Override
     public void onBindViewHolder(MovieHolder holder, int position) {
-        holder.renderMovieName(movieDataset.get(position).getTitle());
-        holder.renderMovieCategory(movieDataset.get(position).getGenresList());
-        holder.renderMovieOverview(movieDataset.get(position).getOverview());
-        holder.renderMovieScore(movieDataset.get(position).getVoteAverage());
-        holder.renderMovieReleaseDate(movieDataset.get(position).getReleaseDate());
-        holder.renderMovieCover(movieDataset.get(position).getCoverUrl());
+        holder.renderMovieName(movieViewModelDataset.get(position).getTitle());
+        holder.renderMovieCategory(movieViewModelDataset.get(position).getGenresList());
+        holder.renderMovieOverview(movieViewModelDataset.get(position).getOverview());
+        holder.renderMovieScore(movieViewModelDataset.get(position).getVoteAverage());
+        holder.renderMovieReleaseDate(movieViewModelDataset.get(position).getReleaseDate());
+        holder.renderMovieCover(movieViewModelDataset.get(position).getCoverUrl());
 
-        holder.bind(movieDataset.get(position).getMovieId());
+        holder.bind(movieViewModelDataset.get(position).getMovieId());
     }
 
     @Override
     public int getItemCount() {
-        return movieDataset.size();
+        return movieViewModelDataset.size();
     }
 
-    public void setMoviesData(ArrayList<MovieViewModel> moviesData) {
-        this.movieDataset = moviesData;
+    public void setMoviesData(List<MovieViewModel> moviesData) {
+        this.movieViewModelDataset = moviesData;
         notifyDataSetChanged();
     }
 

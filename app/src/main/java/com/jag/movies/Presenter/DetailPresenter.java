@@ -1,15 +1,21 @@
 package com.jag.movies.Presenter;
 
 import android.content.Intent;
+import android.util.Log;
 
-import com.jag.movies.Callbacks.ActorListCallback;
-import com.jag.movies.Model.DetailModel;
-import com.jag.movies.Callbacks.MovieCallback;
-import com.jag.movies.Retrofit.MovieDTO;
-import com.jag.movies.UI.ActorViewModel;
+import com.example.entities.Actor;
+import com.example.entities.Movie;
+import com.example.exception.ErrorBundle;
+import com.example.interactor.GetMovieByIdInteractor;
+import com.example.interactor.GetMovieCastInteractor;
+import com.example.repositories.CastRepository;
+import com.example.repositories.MovieRepository;
+import com.jag.movies.Mapper.CastMapper;
+import com.jag.movies.Mapper.MovieMapper;
+import com.jag.movies.UI.Models.ActorViewModel;
 import com.jag.movies.UI.DetailActivity;
 import com.jag.movies.UI.IDetailView;
-import com.jag.movies.UI.MovieViewModel;
+import com.jag.movies.UI.Models.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
 
 import java.util.ArrayList;
@@ -20,16 +26,20 @@ import javax.inject.Inject;
 @PerActivity
 public class DetailPresenter {
 
+    private static final String TAG = "DetailPresenter";
     private final IDetailView detailView;
-    private final DetailModel detailModel;
-    private MovieViewModel movie;
+    private final GetMovieByIdInteractor getMovieByIdInteractor;
+    private final GetMovieCastInteractor getMovieCastInteractor;
+    private MovieViewModel movieViewModel;
     private ArrayList<ActorViewModel> cast;
     private int movieId;
 
     @Inject
-    public DetailPresenter(IDetailView detailView, DetailModel detailModel) {
+    public DetailPresenter(IDetailView detailView, GetMovieByIdInteractor getMovieByIdInteractor,
+                           GetMovieCastInteractor getMovieCastInteractor) {
         this.detailView = detailView;
-        this.detailModel = detailModel;
+        this.getMovieByIdInteractor = getMovieByIdInteractor;
+        this.getMovieCastInteractor = getMovieCastInteractor;
     }
 
     public void onStart(Intent intent) {
@@ -39,35 +49,38 @@ public class DetailPresenter {
     }
 
     private void movieDataReady() {
-        detailView.renderCover(movie.getCoverUrl());
+        detailView.renderCover(movieViewModel.getCoverUrl());
         //detailView.computePalette();
-        detailView.renderTitle(movie.getTitle());
-        detailView.renderOverview(movie.getOverview());
-        detailView.renderGenres(movie.getGenresList());
-        detailView.renderScore(movie.getVoteAverage());
-        detailView.renderReleaseDate(movie.getReleaseDate());
+        detailView.renderTitle(movieViewModel.getTitle());
+        detailView.renderOverview(movieViewModel.getOverview());
+        detailView.renderGenres(movieViewModel.getGenresList());
+        detailView.renderScore(movieViewModel.getVoteAverage());
+        detailView.renderReleaseDate(movieViewModel.getReleaseDate());
     }
 
     public void floatingButtonClicked() {
-        if (movie.isFavorited()) {
-            movie.setFavorite(false);
+        if (movieViewModel.isFavorited()) {
+            movieViewModel.setFavorite(false);
             detailView.setFloatingButtonNotFavorited();
         } else {
-            movie.setFavorite(true);
+            movieViewModel.setFavorite(true);
             detailView.setFloatingButtonFavorited();
         }
     }
 
     private void getMovieDataByID() {
-        detailModel.getMovieByIndex(movieId, new MovieCallback() {
+        getMovieByIdInteractor.execute(new MovieRepository.GetMovieByIdCallback() {
             @Override
-            public void movieMapper(MovieDTO movieDTO) {
-                movie = new MovieViewModel(movieDTO.getId(), movieDTO.getTitle(),
-                        movieDTO.getOverview(), movieDTO.getVoteAverage(), movieDTO.getReleaseDate(),
-                        movieDTO.getMovieGenres(), "http://image.tmdb.org/t/p/w600" + movieDTO.getPosterPath());
+            public void onError(ErrorBundle errorBundle) {
+                Log.e(TAG, errorBundle.getErrorMessage());
+            }
+
+            @Override
+            public void onSuccess(Movie returnParam) {
+                movieViewModel = MovieMapper.toMovieViewModel(returnParam);
                 movieDataReady();
             }
-        });
+        }, movieId);
     }
 
     private void getExtrasFromIntent(Intent intent) {
@@ -85,11 +98,16 @@ public class DetailPresenter {
     }
 
     private void getCastByMovieID() {
-        detailModel.getCastByMovieId(movieId, new ActorListCallback() {
+        getMovieCastInteractor.execute(new CastRepository.GetCastCallback() {
             @Override
-            public void dataReady(List<ActorViewModel> cast) {
-                detailView.showCast(cast);
+            public void onError(ErrorBundle errorBundle) {
+                Log.e(TAG, errorBundle.getErrorMessage());
             }
-        });
+
+            @Override
+            public void onSuccess(List<Actor> returnParam) {
+                detailView.showCast(CastMapper.toListActorViewModel(returnParam));
+            }
+        }, movieId);
     }
 }
