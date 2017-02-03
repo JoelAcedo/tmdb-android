@@ -68,7 +68,7 @@ public class DiscoverActivity extends AppCompatActivity implements DiscoverView 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.onStart();
+        presenter.onCreate();
     }
 
 
@@ -85,8 +85,15 @@ public class DiscoverActivity extends AppCompatActivity implements DiscoverView 
     @Override
     public void showMovies(List<MovieViewModel> movieViewModelData) {
         ListAdapteeCollection<MovieViewModel> movies = new ListAdapteeCollection<>(movieViewModelData);
-        adapter = new RVRendererAdapter<MovieViewModel>(movieRendererBuilder, movies);
-        recyclerView.setAdapter(adapter);
+        if (adapter == null) {
+            adapter = new RVRendererAdapter<MovieViewModel>(movieRendererBuilder, movies);
+            recyclerView.setAdapter(adapter);
+        } else {
+            adapter.clear();
+            adapter.addAll(movies);
+            adapter.notifyDataSetChanged();
+        }
+
     }
 
     @Override
@@ -96,13 +103,6 @@ public class DiscoverActivity extends AppCompatActivity implements DiscoverView 
         adapter.notifyDataSetChanged();
     }
 
-    @Override
-    public void updateMovies(List<MovieViewModel> movieViewModelData) {
-        ListAdapteeCollection<MovieViewModel> movies = new ListAdapteeCollection<>(movieViewModelData);
-        adapter.clear();
-        adapter.addAll(movies);
-        adapter.notifyDataSetChanged();
-    }
 
     @Override
     public void startDetailActivity(int movieId, ImageView movieCover) {

@@ -11,7 +11,6 @@ public interface DiscoverView {
 
     void showMovies(List<MovieViewModel> movieViewModelData);
     void addMovies(List<MovieViewModel> movieViewModelData);
-    void updateMovies(List<MovieViewModel> movieViewModelData);
 
     void startDetailActivity(int movieId, ImageView movieCover);
 }

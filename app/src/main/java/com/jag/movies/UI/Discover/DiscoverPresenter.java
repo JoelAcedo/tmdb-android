@@ -33,7 +33,7 @@ public class DiscoverPresenter {
     }
 
 
-    public void onStart() {
+    public void onCreate() {
             getMovieListInteractor.execute(new MovieRepository.GetMoviesCallback() {
                 @Override
                 public void onError(ErrorBundle errorBundle) {
