@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.jag.movies.Adapters.CastMovieAdapter;
 import com.jag.movies.App;
+import com.jag.movies.BuildConfig;
 import com.jag.movies.Presenter.DetailPresenter;
 import com.jag.movies.R;
 import com.jag.movies.UI.Models.ActorViewModel;
@@ -121,14 +122,14 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     }
 
     private void setupAnimation() {
-        supportPostponeEnterTransition();
+       // supportPostponeEnterTransition();
         movieCover.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
                 if (movieCover.getDrawable() != null) {
                     movieCover.getViewTreeObserver().removeOnPreDrawListener(this);
                     computePalette(movieCover);
-                    supportStartPostponedEnterTransition();
+                    //supportStartPostponedEnterTransition();
                     return true;
                 }
                 return false;

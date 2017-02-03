@@ -1,5 +1,7 @@
 package com.example.data.repository;
 
+import android.util.Log;
+
 import com.example.data.expception.DataErrorBundle;
 import com.example.data.repository.datasource.actors.CacheCastDataSource;
 import com.example.data.repository.datasource.actors.ReadableCastDataSource;
@@ -7,6 +9,7 @@ import com.example.entities.Actor;
 import com.example.repositories.CastRepository;
 
 import java.io.IOException;
+import java.net.UnknownHostException;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -17,6 +20,7 @@ import javax.inject.Inject;
 
 public class CastDataRepository implements CastRepository {
 
+    public static final String TAG = "CastDataRepository";
     private final ReadableCastDataSource readableCastDataSource;
     private final CacheCastDataSource cacheCastDataSource;
 
@@ -42,7 +46,6 @@ public class CastDataRepository implements CastRepository {
             }
 
         } catch (IOException e) {
-            e.printStackTrace();
             callback.onError(new DataErrorBundle(e));
         }
     }
