@@ -6,6 +6,8 @@ import com.jag.movies.dependencyinjector.application.ApplicationComponent;
 import com.jag.movies.dependencyinjector.application.ApplicationModule;
 import com.jag.movies.dependencyinjector.application.DaggerApplicationComponent;
 
+import io.realm.Realm;
+
 /**
  * Created by inlab on 26/01/2017.
  */
@@ -21,6 +23,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Realm.init(this);
         component = DaggerApplicationComponent
                 .builder()
                 .applicationModule(new ApplicationModule(this))

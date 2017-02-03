@@ -1,9 +1,9 @@
 package com.example.data.retrofit;
 
 
-import com.example.data.entities.ActorList;
-import com.example.data.entities.MovieDTO;
-import com.example.data.entities.MovieList;
+import com.example.data.retrofit.entities.ActorList;
+import com.example.data.retrofit.entities.MovieDTO;
+import com.example.data.retrofit.entities.MovieList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -14,7 +14,7 @@ import retrofit2.http.Query;
  * Created by Albert Ruiz on 27/01/2017.
  */
 
-public interface MovieService {
+public interface RetrofitService {
 
     //@GET("movie/top_rated")
     //Call<MovieList> getTopRatedMovies(@Query("api_key") String apiKey);

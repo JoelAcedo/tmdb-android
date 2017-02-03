@@ -1,4 +1,5 @@
 apply plugin: 'com.android.library'
+apply plugin: 'realm-android'
 
 android {
     compileSdkVersion 25
@@ -34,4 +35,7 @@ dependencies {
     compile 'com.google.dagger:dagger:2.8'
     annotationProcessor 'com.google.dagger:dagger-compiler:2.8'
     compile project(path: ':domain')
+
+
+    compile 'io.realm:realm-android-library:2.3.0'
 }

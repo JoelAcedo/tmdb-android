@@ -8,7 +8,6 @@ import com.example.executor.PostExecutionThread;
 import com.example.executor.ThreadExecutor;
 import com.jag.movies.App;
 import com.jag.movies.UIThread;
-import com.jag.movies.Utils.PicassoLoader;
 import com.jag.movies.dependencyinjector.qualifier.ForApp;
 import com.jag.movies.Utils.GlideLoader;
 import com.jag.movies.Utils.ImageLoader;

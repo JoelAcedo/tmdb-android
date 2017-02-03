@@ -138,4 +138,14 @@
         android:layout_marginEnd="10dp"
         tools:background="@color/colorAccent"/>
 
+    <ProgressBar
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/movie_cover_discover"
+        android:layout_marginEnd="40dp"
+        android:id="@+id/progressBarMovieCover" />
+
 </RelativeLayout>
