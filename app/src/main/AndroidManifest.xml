@@ -12,7 +12,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.DiscoverActivity">
+        <activity android:name=".UI.Discover.DiscoverActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,11 +20,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UI.DetailActivity"
-            android:parentActivityName=".UI.DiscoverActivity">
+            android:name=".UI.Detail.DetailActivity"
+            android:parentActivityName=".UI.Discover.DiscoverActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".UI.DiscoverActivity" />
+                android:value=".UI.Discover.DiscoverActivity" />
         </activity>
     </application>
 

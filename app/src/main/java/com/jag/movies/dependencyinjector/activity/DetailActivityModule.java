@@ -3,7 +3,7 @@ package com.jag.movies.dependencyinjector.activity;
 import android.app.Activity;
 import android.content.Context;
 
-import com.jag.movies.UI.DetailActivity;
+import com.jag.movies.UI.Detail.DetailActivity;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
 

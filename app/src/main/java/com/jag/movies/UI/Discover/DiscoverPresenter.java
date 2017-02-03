@@ -1,4 +1,4 @@
-package com.jag.movies.Presenter;
+package com.jag.movies.UI.Discover;
 
 import android.util.Log;
 import android.widget.ImageView;
@@ -8,11 +8,9 @@ import com.example.exception.ErrorBundle;
 import com.example.interactor.GetMovieListInteractor;
 import com.example.repositories.MovieRepository;
 import com.jag.movies.Mapper.MovieMapper;
-import com.jag.movies.UI.IDiscoverView;
-import com.jag.movies.UI.Models.MovieViewModel;
+import com.jag.movies.Models.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -21,11 +19,11 @@ import javax.inject.Inject;
 public class DiscoverPresenter {
 
     private static final String TAG = "DiscoverPresenter";
-    private final IDiscoverView discoverView;
+    private final DiscoverView discoverView;
     private final GetMovieListInteractor getMovieListInteractor;
 
     @Inject
-    public DiscoverPresenter(IDiscoverView discoverView, GetMovieListInteractor getMovieListInteractor) {
+    public DiscoverPresenter(DiscoverView discoverView, GetMovieListInteractor getMovieListInteractor) {
         this.discoverView = discoverView;
         this.getMovieListInteractor = getMovieListInteractor;
     }
@@ -50,12 +48,5 @@ public class DiscoverPresenter {
                     discoverView.showMovies(movieList);
                 }
             }, null);
-
-//        getMovieListInteractor.getData(new MovieListCallback() {
-//            @Override
-//            public void dataReady(ArrayList<MovieViewModel> movies) {
-//                discoverView.showMovies(movies);
-//            }
-//        });
     }
 }

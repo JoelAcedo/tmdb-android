@@ -1,4 +1,4 @@
-package com.jag.movies.UI;
+package com.jag.movies.UI.Discover;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,10 +12,9 @@ import android.support.v7.widget.Toolbar;
 import android.widget.ImageView;
 
 import com.jag.movies.App;
-import com.jag.movies.Adapters.DiscoverMovieAdapter;
-import com.jag.movies.Presenter.DiscoverPresenter;
 import com.jag.movies.R;
-import com.jag.movies.UI.Models.MovieViewModel;
+import com.jag.movies.UI.Detail.DetailActivity;
+import com.jag.movies.Models.MovieViewModel;
 import com.jag.movies.UI.renderes.MovieRendererBuilder;
 import com.jag.movies.dependencyinjector.activity.DiscoverActivityModule;
 import com.jag.movies.dependencyinjector.application.DiscoverModule;
@@ -23,7 +22,6 @@ import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.RVRendererAdapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,7 +29,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class DiscoverActivity extends AppCompatActivity implements IDiscoverView {
+public class DiscoverActivity extends AppCompatActivity implements DiscoverView {
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.recycler_view_discover) RecyclerView recyclerView;
@@ -42,9 +40,6 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
 
     @Inject
     DiscoverPresenter presenter;
-
-    //@Inject
-    //DiscoverMovieAdapter discoverMovieAdapter;
 
     LinearLayoutManager linearLayoutManager;
 
@@ -76,6 +71,7 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
         presenter.onStart();
     }
 
+
     private void setupRecyclerView() {
         recyclerView.setHasFixedSize(true);
 
@@ -91,6 +87,21 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
         ListAdapteeCollection<MovieViewModel> movies = new ListAdapteeCollection<>(movieViewModelData);
         adapter = new RVRendererAdapter<MovieViewModel>(movieRendererBuilder, movies);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    public void addMovies(List<MovieViewModel> movieViewModelData) {
+        ListAdapteeCollection<MovieViewModel> movies = new ListAdapteeCollection<>(movieViewModelData);
+        adapter.addAll(movies);
+        adapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void updateMovies(List<MovieViewModel> movieViewModelData) {
+        ListAdapteeCollection<MovieViewModel> movies = new ListAdapteeCollection<>(movieViewModelData);
+        adapter.clear();
+        adapter.addAll(movies);
+        adapter.notifyDataSetChanged();
     }
 
     @Override

@@ -1,6 +1,4 @@
-package com.jag.movies.UI.Models;
-
-import android.graphics.Bitmap;
+package com.jag.movies.Models;
 
 import java.util.List;
 

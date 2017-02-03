@@ -1,4 +1,4 @@
-package com.jag.movies.UI;
+package com.jag.movies.UI.Detail;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,10 +20,8 @@ import android.widget.TextView;
 
 import com.jag.movies.Adapters.CastMovieAdapter;
 import com.jag.movies.App;
-import com.jag.movies.BuildConfig;
-import com.jag.movies.Presenter.DetailPresenter;
 import com.jag.movies.R;
-import com.jag.movies.UI.Models.ActorViewModel;
+import com.jag.movies.Models.ActorViewModel;
 import com.jag.movies.Utils.NestedScrollViewForHorizontalList;
 import com.jag.movies.dependencyinjector.activity.DetailActivityModule;
 import com.jag.movies.dependencyinjector.application.DetailModule;
@@ -39,7 +37,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class DetailActivity extends AppCompatActivity implements IDetailView {
+public class DetailActivity extends AppCompatActivity implements DetailView {
 
     @BindView(R.id.collapsingToolbar_detail) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.appbar_detail) AppBarLayout appBarLayout;
@@ -106,6 +104,13 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
         detailPresenter.onStart(getIntent());
     }
 
+//
+//    @Override
+//    public void onBackPressed() {
+//        floatingButton.hide();
+//        super.onBackPressed();
+//    }
+
     private void setupCastRecyclerView() {
         castList.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(context,
@@ -122,14 +127,14 @@ public class DetailActivity extends AppCompatActivity implements IDetailView {
     }
 
     private void setupAnimation() {
-       // supportPostponeEnterTransition();
+        supportPostponeEnterTransition();
         movieCover.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
                 if (movieCover.getDrawable() != null) {
                     movieCover.getViewTreeObserver().removeOnPreDrawListener(this);
                     computePalette(movieCover);
-                    //supportStartPostponedEnterTransition();
+                    supportStartPostponedEnterTransition();
                     return true;
                 }
                 return false;

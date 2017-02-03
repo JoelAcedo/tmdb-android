@@ -1,19 +1,20 @@
 package com.jag.movies.dependencyinjector.application;
 
-import com.jag.movies.UI.IDetailView;
+import com.jag.movies.UI.Detail.DetailView;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class DetailModule {
-    private IDetailView detailView;
+    private DetailView detailView;
 
-    public DetailModule(IDetailView detailView) {
+    public DetailModule(DetailView detailView) {
         this.detailView = detailView;
     }
 
-    @Provides IDetailView providesDetailView() {
+    @Provides
+    DetailView providesDetailView() {
         return detailView;
     }
 }

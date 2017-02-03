@@ -3,7 +3,7 @@ package com.jag.movies.dependencyinjector.activity;
 import android.app.Activity;
 import android.content.Context;
 
-import com.jag.movies.UI.DiscoverActivity;
+import com.jag.movies.UI.Discover.DiscoverActivity;
 import com.jag.movies.UI.renderes.MovieFavoriteRenderer;
 import com.jag.movies.UI.renderes.MovieRenderer;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;

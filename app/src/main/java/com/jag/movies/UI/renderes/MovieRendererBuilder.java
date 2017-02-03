@@ -1,11 +1,12 @@
 package com.jag.movies.UI.renderes;
 
-import com.jag.movies.UI.Models.MovieViewModel;
+import com.jag.movies.Models.MovieViewModel;
+import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.Renderer;
 import com.pedrogomez.renderers.RendererBuilder;
 
 import java.util.ArrayList;
-import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;

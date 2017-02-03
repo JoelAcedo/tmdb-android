@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jag.movies.Presenter.DiscoverPresenter;
+import com.jag.movies.UI.Discover.DiscoverPresenter;
 import com.jag.movies.R;
 import com.jag.movies.Utils.ImageLoader;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;

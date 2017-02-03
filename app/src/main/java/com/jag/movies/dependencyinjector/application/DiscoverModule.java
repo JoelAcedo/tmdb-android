@@ -1,6 +1,6 @@
 package com.jag.movies.dependencyinjector.application;
 
-import com.jag.movies.UI.IDiscoverView;
+import com.jag.movies.UI.Discover.DiscoverView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -8,13 +8,14 @@ import dagger.Provides;
 @Module
 public class DiscoverModule {
 
-    private IDiscoverView view;
+    private DiscoverView view;
 
-    public DiscoverModule(IDiscoverView view) {
+    public DiscoverModule(DiscoverView view) {
         this.view = view;
     }
 
-    @Provides IDiscoverView providesDiscoverView() {
+    @Provides
+    DiscoverView providesDiscoverView() {
         return view;
     }
 }

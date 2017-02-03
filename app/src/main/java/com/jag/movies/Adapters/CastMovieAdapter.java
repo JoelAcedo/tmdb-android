@@ -7,9 +7,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.jag.movies.Presenter.DetailPresenter;
+import com.jag.movies.UI.Detail.DetailPresenter;
 import com.jag.movies.R;
-import com.jag.movies.UI.Models.ActorViewModel;
+import com.jag.movies.Models.ActorViewModel;
 import com.jag.movies.Utils.ImageLoader;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 import com.makeramen.roundedimageview.RoundedImageView;
