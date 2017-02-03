@@ -1,5 +1,7 @@
 package com.example.data.mapper;
 
+import com.example.data.realm.entities.MovieRealm;
+import com.example.data.realm.util.RealmString;
 import com.example.data.retrofit.entities.MovieDTO;
 import com.example.entities.Movie;
 
@@ -25,8 +27,19 @@ public class MovieMapper {
 
     public static Movie fromMovieDTO(MovieDTO movieDTO) {
         return new Movie(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getOverview(), movieDTO.getVoteAverage(),
-                movieDTO.getReleaseDate(), movieDTO.getMovieGenres(), BASE_IMAGE_URL + movieDTO.getPosterPath());
+                movieDTO.getReleaseDate(), movieDTO.getMovieGenres(), BASE_IMAGE_URL + movieDTO.getPosterPath(), movieDTO.isFavorited());
     }
 
+    public static Movie fromMovieRealm(MovieRealm movieRealm) {
+        List<String> genres = new ArrayList<>();
+        for (RealmString realmString : movieRealm.getGenreIds()) {
+            genres.add(realmString.getString());
+        }
 
+        Movie movie = new Movie(movieRealm.getId(), movieRealm.getTitle(), movieRealm.getOverview(),
+                movieRealm.getVoteAverage(), movieRealm.getReleaseDate(), genres,
+                movieRealm.getPosterPath(), movieRealm.isFavorited());
+
+        return movie;
+    }
 }

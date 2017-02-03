@@ -5,6 +5,7 @@ import com.example.data.realm.util.RealmString;
 import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.Ignore;
+import io.realm.annotations.PrimaryKey;
 
 
 public class MovieRealm extends RealmObject {
@@ -16,15 +17,20 @@ public class MovieRealm extends RealmObject {
     private String overview;
     private String releaseDate;
     private RealmList<RealmString> genreIds;
+
+    //TODO  check primary key
+    @PrimaryKey
     private Integer id;
     private String title;
     private float voteAverage;
+    private boolean isFavorited;
 
     public MovieRealm() {
     }
 
     public MovieRealm(int id, String title, String overview, float voteAverage,
-                      String releaseDate, RealmList<RealmString> genreIds, String posterPath) {
+                      String releaseDate, RealmList<RealmString> genreIds, String posterPath,
+                      boolean isFavorited) {
         this.posterPath = posterPath;
         this.overview = overview;
         this.releaseDate = releaseDate;
@@ -32,6 +38,7 @@ public class MovieRealm extends RealmObject {
         this.id = id;
         this.title = title;
         this.voteAverage = voteAverage;
+        this.isFavorited = isFavorited;
     }
 
     public String getPosterPath() {
@@ -88,5 +95,13 @@ public class MovieRealm extends RealmObject {
 
     public void setGenreIds(RealmList<RealmString> genreIds) {
         this.genreIds = genreIds;
+    }
+
+    public boolean isFavorited() {
+        return isFavorited;
+    }
+
+    public void setFavorited(boolean favorited) {
+        isFavorited = favorited;
     }
 }

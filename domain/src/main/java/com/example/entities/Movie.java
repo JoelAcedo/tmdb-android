@@ -16,7 +16,8 @@ public class Movie {
     private String coverUrl;
     private boolean isFavorited;
 
-    public Movie(int movieId, String title, String overview, float voteAverage, String releaseDate, List<String> genresList, String coverUrl) {
+    public Movie(int movieId, String title, String overview, float voteAverage,
+                 String releaseDate, List<String> genresList, String coverUrl, boolean isFavorited) {
         this.movieId = movieId;
         this.title = title;
         this.overview = overview;
@@ -24,7 +25,7 @@ public class Movie {
         this.releaseDate = releaseDate;
         this.genresList = genresList;
         this.coverUrl = coverUrl;
-        this.isFavorited = false;
+        this.isFavorited = isFavorited;
     }
 
     public String getTitle() {

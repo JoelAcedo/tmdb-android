@@ -8,6 +8,7 @@ import com.example.entities.Movie;
 import com.example.exception.ErrorBundle;
 import com.example.interactor.GetMovieByIdInteractor;
 import com.example.interactor.GetMovieCastInteractor;
+import com.example.interactor.UpdateMovieFavoritedInteractor;
 import com.example.repositories.CastRepository;
 import com.example.repositories.MovieRepository;
 import com.jag.movies.Mapper.CastMapper;
@@ -30,16 +31,19 @@ public class DetailPresenter {
     private final IDetailView detailView;
     private final GetMovieByIdInteractor getMovieByIdInteractor;
     private final GetMovieCastInteractor getMovieCastInteractor;
+    private final UpdateMovieFavoritedInteractor updateMovieFavoritedInteractor;
     private MovieViewModel movieViewModel;
     private ArrayList<ActorViewModel> cast;
     private int movieId;
 
     @Inject
     public DetailPresenter(IDetailView detailView, GetMovieByIdInteractor getMovieByIdInteractor,
-                           GetMovieCastInteractor getMovieCastInteractor) {
+                           GetMovieCastInteractor getMovieCastInteractor,
+                           UpdateMovieFavoritedInteractor updateMovieFavoritedInteractor) {
         this.detailView = detailView;
         this.getMovieByIdInteractor = getMovieByIdInteractor;
         this.getMovieCastInteractor = getMovieCastInteractor;
+        this.updateMovieFavoritedInteractor = updateMovieFavoritedInteractor;
     }
 
     public void onStart(Intent intent) {
@@ -56,6 +60,14 @@ public class DetailPresenter {
         detailView.renderGenres(movieViewModel.getGenresList());
         detailView.renderScore(movieViewModel.getVoteAverage());
         detailView.renderReleaseDate(movieViewModel.getReleaseDate());
+
+        Log.e(TAG, String.valueOf(movieViewModel.isFavorited()));
+
+        if (movieViewModel.isFavorited()) {
+            detailView.setFloatingButtonFavorited();
+        } else {
+            detailView.setFloatingButtonNotFavorited();
+        }
     }
 
     public void floatingButtonClicked() {
@@ -66,6 +78,7 @@ public class DetailPresenter {
             movieViewModel.setFavorite(true);
             detailView.setFloatingButtonFavorited();
         }
+        updateMovieFavoritedInteractor.execute(null, movieId);
     }
 
     private void getMovieDataByID() {

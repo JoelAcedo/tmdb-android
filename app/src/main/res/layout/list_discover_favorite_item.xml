@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:id="@+id/list_discover_item"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:clickable="true"
+    android:background="?attr/selectableItemBackground">
+
+    <include layout="@layout/content_discover_item"/>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/ic_heart_white_48dp"
+        android:tint="@color/colorAccent"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="7dp"
+        android:scaleType="fitXY"/>
+
+</RelativeLayout>

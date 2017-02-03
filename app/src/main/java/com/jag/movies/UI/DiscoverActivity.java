@@ -16,9 +16,12 @@ import com.jag.movies.Adapters.DiscoverMovieAdapter;
 import com.jag.movies.Presenter.DiscoverPresenter;
 import com.jag.movies.R;
 import com.jag.movies.UI.Models.MovieViewModel;
+import com.jag.movies.UI.renderes.MovieRendererBuilder;
 import com.jag.movies.dependencyinjector.activity.DiscoverActivityModule;
 import com.jag.movies.dependencyinjector.application.DiscoverModule;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
+import com.pedrogomez.renderers.ListAdapteeCollection;
+import com.pedrogomez.renderers.RVRendererAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,10 +43,15 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
     @Inject
     DiscoverPresenter presenter;
 
-    @Inject
-    DiscoverMovieAdapter discoverMovieAdapter;
+    //@Inject
+    //DiscoverMovieAdapter discoverMovieAdapter;
 
     LinearLayoutManager linearLayoutManager;
+
+    @Inject
+    MovieRendererBuilder movieRendererBuilder;
+
+    RVRendererAdapter<MovieViewModel> adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,12 +68,12 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
 
         setSupportActionBar(toolbar);
         setupRecyclerView();
-        presenter.onStart();
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
+        presenter.onStart();
     }
 
     private void setupRecyclerView() {
@@ -75,12 +83,14 @@ public class DiscoverActivity extends AppCompatActivity implements IDiscoverView
         recyclerView.setLayoutManager(linearLayoutManager);
 
         //discoverMovieAdapter = new DiscoverMovieAdapter(context, presenter, new GlideLoader(context));
-        recyclerView.setAdapter(discoverMovieAdapter);
+        //recyclerView.setAdapter(discoverMovieAdapter);
     }
 
     @Override
     public void showMovies(List<MovieViewModel> movieViewModelData) {
-        discoverMovieAdapter.setMoviesData(movieViewModelData);
+        ListAdapteeCollection<MovieViewModel> movies = new ListAdapteeCollection<>(movieViewModelData);
+        adapter = new RVRendererAdapter<MovieViewModel>(movieRendererBuilder, movies);
+        recyclerView.setAdapter(adapter);
     }
 
     @Override

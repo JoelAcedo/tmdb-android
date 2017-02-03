@@ -11,4 +11,6 @@ import java.util.List;
 public interface WriteableMovieDataSource {
 
     void saveMovies(List<Movie> movies);
+
+    void updateMovieFavorited(int movieId);
 }

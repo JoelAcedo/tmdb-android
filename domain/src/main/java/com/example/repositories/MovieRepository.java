@@ -13,4 +13,6 @@ public interface MovieRepository {
     void getMovies(GetMoviesCallback callback);
 
     void getMovieById(int movieId, GetMovieByIdCallback callback);
+
+    void updateMovieFavorited(int movieId);
 }

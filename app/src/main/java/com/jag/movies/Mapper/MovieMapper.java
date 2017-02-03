@@ -23,7 +23,7 @@ public class MovieMapper {
 
     public static MovieViewModel toMovieViewModel(Movie movie) {
         return new MovieViewModel(movie.getMovieId(), movie.getTitle(), movie.getOverview(), movie.getVoteAverage(),
-                movie.getReleaseDate(), movie.getGenresList(), movie.getCoverUrl());
+                movie.getReleaseDate(), movie.getGenresList(), movie.getCoverUrl(), movie.isFavorited());
     }
 
 }

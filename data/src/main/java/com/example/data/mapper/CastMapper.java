@@ -34,15 +34,4 @@ public class CastMapper {
     public static Actor fromActorRealm(ActorRealm actorRealm) {
         return new Actor(actorRealm.getName(), actorRealm.getCharacter(), actorRealm.getProfile_path());
     }
-
-    public static Movie fromMovieRealm(MovieRealm movieRealm) {
-        List<String> genres = new ArrayList<>();
-        for (RealmString realmString : movieRealm.getGenreIds()) {
-            genres.add(realmString.getString());
-        }
-
-        return new Movie(movieRealm.getId(), movieRealm.getTitle(), movieRealm.getOverview(),
-                movieRealm.getVoteAverage(), movieRealm.getReleaseDate(), genres,
-                movieRealm.getPosterPath());
-    }
 }
