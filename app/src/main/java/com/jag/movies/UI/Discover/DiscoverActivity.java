@@ -16,6 +16,7 @@ import com.jag.movies.R;
 import com.jag.movies.UI.Detail.DetailActivity;
 import com.jag.movies.Models.MovieViewModel;
 import com.jag.movies.UI.renderes.MovieRendererBuilder;
+import com.jag.movies.Utils.EndlessRecyclerViewScrollListener;
 import com.jag.movies.dependencyinjector.activity.DiscoverActivityModule;
 import com.jag.movies.dependencyinjector.application.DiscoverModule;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
@@ -77,6 +78,12 @@ public class DiscoverActivity extends AppCompatActivity implements DiscoverView 
 
         linearLayoutManager = new LinearLayoutManager(context);
         recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.addOnScrollListener(new EndlessRecyclerViewScrollListener(linearLayoutManager) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                presenter.onLoadMore(page);
+            }
+        });
 
         //discoverMovieAdapter = new DiscoverMovieAdapter(context, presenter, new GlideLoader(context));
         //recyclerView.setAdapter(discoverMovieAdapter);

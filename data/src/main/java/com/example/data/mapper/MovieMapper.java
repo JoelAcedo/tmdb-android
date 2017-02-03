@@ -26,8 +26,9 @@ public class MovieMapper {
     }
 
     public static Movie fromMovieDTO(MovieDTO movieDTO) {
-        return new Movie(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getOverview(), movieDTO.getVoteAverage(),
-                movieDTO.getReleaseDate(), movieDTO.getMovieGenres(), BASE_IMAGE_URL + movieDTO.getPosterPath(), movieDTO.isFavorited());
+        return new Movie(movieDTO.getId(), movieDTO.getTitle(), movieDTO.getOverview(),
+                movieDTO.getVoteAverage(), movieDTO.getReleaseDate(), movieDTO.getMovieGenres(),
+                BASE_IMAGE_URL + movieDTO.getPosterPath(), false, movieDTO.getPopularity());
     }
 
     public static Movie fromMovieRealm(MovieRealm movieRealm) {
@@ -38,7 +39,7 @@ public class MovieMapper {
 
         Movie movie = new Movie(movieRealm.getId(), movieRealm.getTitle(), movieRealm.getOverview(),
                 movieRealm.getVoteAverage(), movieRealm.getReleaseDate(), genres,
-                movieRealm.getPosterPath(), movieRealm.isFavorited());
+                movieRealm.getPosterPath(), movieRealm.isFavorited(), movieRealm.getPopularity());
 
         return movie;
     }

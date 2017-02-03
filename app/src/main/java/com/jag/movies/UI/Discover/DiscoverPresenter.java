@@ -21,11 +21,13 @@ public class DiscoverPresenter {
     private static final String TAG = "DiscoverPresenter";
     private final DiscoverView discoverView;
     private final GetMovieListInteractor getMovieListInteractor;
+    private int page;
 
     @Inject
     public DiscoverPresenter(DiscoverView discoverView, GetMovieListInteractor getMovieListInteractor) {
         this.discoverView = discoverView;
         this.getMovieListInteractor = getMovieListInteractor;
+        this.page = 1;
     }
 
     public void movieClicked(int movieId, ImageView movieCover) {
@@ -47,6 +49,24 @@ public class DiscoverPresenter {
                     List<MovieViewModel> movieList = MovieMapper.toListMovieViewModel(returnParam);
                     discoverView.showMovies(movieList);
                 }
-            }, null);
+            }, page);
+    }
+
+    public void onLoadMore(int page) {
+        this.page = page;
+        Log.e(TAG,String.valueOf(page));
+        getMovieListInteractor.execute(new MovieRepository.GetMoviesCallback() {
+            @Override
+            public void onError(ErrorBundle errorBundle) {
+                Log.e(TAG, errorBundle.getErrorMessage());
+            }
+
+            @Override
+            public void onSuccess(List<Movie> returnParam) {
+                List<MovieViewModel> movieList = MovieMapper.toListMovieViewModel(returnParam);
+                discoverView.addMovies(movieList);
+            }
+        }, page);
+
     }
 }

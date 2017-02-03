@@ -3,7 +3,6 @@ package com.example.data.repository;
 import com.example.data.expception.DataErrorBundle;
 import com.example.data.repository.datasource.movies.CacheMovieDataSource;
 import com.example.data.repository.datasource.movies.ReadableMovieDataSource;
-import com.example.data.repository.datasource.movies.WriteableMovieDataSource;
 import com.example.entities.Movie;
 import com.example.repositories.MovieRepository;
 
@@ -20,6 +19,10 @@ public class MovieDataRepository implements MovieRepository {
 
     private final ReadableMovieDataSource dataSource;
     private final CacheMovieDataSource cacheMovieDataSource;
+    public final static int RESULTS_FOR_PAGE = 20;
+
+    //Tiempo entre cada actualizacion de la bd mediante red, en milisegundos.
+    private final static long TIME_BETWEEN_NETWORK_UPDATE = 3 * 60 * 60 * 1000;
 
     @Inject
     public MovieDataRepository(ReadableMovieDataSource dataSource, CacheMovieDataSource cacheMovieDataSource) {
@@ -28,14 +31,18 @@ public class MovieDataRepository implements MovieRepository {
     }
 
     @Override
-    public void getMovies(GetMoviesCallback callback) {
+    public void getMovies(int page, GetMoviesCallback callback) {
         try {
-            //Get movies form Realm
-            List<Movie> movies = cacheMovieDataSource.getMovies();
+//            if (checkIfDoNetworkUpdate()) {
+//
+//            }
 
-            if (movies.isEmpty()) {
+            //Get movies form Realm
+            List<Movie> movies = cacheMovieDataSource.getMoviesByPage(page);
+
+            if (movies.isEmpty() | movies.size() < RESULTS_FOR_PAGE) {
                 // If data is not save at Realm DB, it is downloaded with retrofit and save.
-                movies = dataSource.getMovies();
+                movies = dataSource.getMoviesByPage(page);
                 callback.onSuccess(movies);
                 cacheMovieDataSource.saveMovies(movies);
             } else {
@@ -45,6 +52,15 @@ public class MovieDataRepository implements MovieRepository {
             e.printStackTrace();
             callback.onError(new DataErrorBundle(e));
         }
+    }
+
+    private boolean checkIfDoNetworkUpdate() {
+        Long timestampLastCheck = cacheMovieDataSource.getTimeFromLastUpdateCheck();
+        if (System.currentTimeMillis() - TIME_BETWEEN_NETWORK_UPDATE > timestampLastCheck) {
+            return true;
+        }
+
+        return false;
     }
 
     @Override

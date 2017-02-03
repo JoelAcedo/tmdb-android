@@ -10,7 +10,7 @@ public interface MovieRepository {
     interface GetMoviesCallback extends DefaultCallback<List<Movie>> {}
     interface GetMovieByIdCallback extends DefaultCallback<Movie> {}
 
-    void getMovies(GetMoviesCallback callback);
+    void getMovies(int page, GetMoviesCallback callback);
 
     void getMovieById(int movieId, GetMovieByIdCallback callback);
 
