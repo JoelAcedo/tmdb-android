@@ -65,4 +65,9 @@ public class MovieDataRepository implements MovieRepository {
             callback.onError(new DataErrorBundle(e));
         }
     }
+
+    @Override
+    public void updateMovieFavorited(int movieId) {
+        cacheMovieDataSource.updateMovieFavorited(movieId);
+    }
 }

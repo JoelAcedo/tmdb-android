@@ -44,6 +44,9 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
         View view = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.list_discover_item, parent, false);
 
+//        View view = LayoutInflater.from(parent.getContext())
+//                .inflate(R.layout.list_discover_favorite_item, parent, false);
+
         return new MovieHolder(view);
     }
 

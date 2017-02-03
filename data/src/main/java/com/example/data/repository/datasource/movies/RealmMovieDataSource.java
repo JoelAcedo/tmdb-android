@@ -1,6 +1,7 @@
 package com.example.data.repository.datasource.movies;
 
 import com.example.data.mapper.CastMapper;
+import com.example.data.mapper.MovieMapper;
 import com.example.data.realm.entities.MovieRealm;
 import com.example.data.realm.util.RealmString;
 import com.example.entities.Movie;
@@ -29,26 +30,29 @@ public class RealmMovieDataSource implements CacheMovieDataSource {
     public List<Movie> getMovies() throws IOException {
         Realm realm = Realm.getDefaultInstance();
 
+        realm.beginTransaction();
         RealmResults<MovieRealm> moviesRealm = realm.where(MovieRealm.class).findAll();
 
         List<Movie> movies = new ArrayList<>();
         for (MovieRealm movieRealm : moviesRealm) {
-            movies.add(CastMapper.fromMovieRealm(movieRealm));
+            movies.add(MovieMapper.fromMovieRealm(movieRealm));
         }
 
+        realm.commitTransaction();
         return movies;
     }
 
     @Override
     public Movie getMovieById(int movieId) throws IOException {
         Realm realm = Realm.getDefaultInstance();
-
+        realm.beginTransaction();
         MovieRealm movieRealm = realm.where(MovieRealm.class).equalTo(MovieRealm.MOVIE_ID_REALM, movieId)
                 .findFirst();
 
         if (movieRealm == null) return null;
 
-        Movie movie = CastMapper.fromMovieRealm(movieRealm);
+        Movie movie = MovieMapper.fromMovieRealm(movieRealm);
+        realm.commitTransaction();
         return movie;
     }
 
@@ -65,9 +69,22 @@ public class RealmMovieDataSource implements CacheMovieDataSource {
 
             MovieRealm movieRealm = new MovieRealm(movie.getMovieId(), movie.getTitle(),
                     movie.getOverview(), movie.getVoteAverage(), movie.getReleaseDate(),
-                    realmStrings, movie.getCoverUrl());
+                    realmStrings, movie.getCoverUrl(), movie.isFavorited());
             realm.copyToRealm(movieRealm);
         }
         realm.commitTransaction();
+    }
+
+    @Override
+    public void updateMovieFavorited(int movieId) {
+        Realm realm = Realm.getDefaultInstance();
+
+        realm.beginTransaction();
+        MovieRealm movieRealm = realm.where(MovieRealm.class).equalTo(MovieRealm.MOVIE_ID_REALM, movieId)
+                .findFirst();
+        movieRealm.setFavorited(!movieRealm.isFavorited());
+        realm.copyToRealm(movieRealm);
+        realm.commitTransaction();
+
     }
 }
