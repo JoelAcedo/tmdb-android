@@ -1,5 +1,6 @@
 package com.example.data.repository;
 
+import com.example.data.expception.DataErrorBundle;
 import com.example.data.repository.datasource.actors.CacheCastDataSource;
 import com.example.data.repository.datasource.actors.ReadableCastDataSource;
 import com.example.entities.Actor;
@@ -42,6 +43,7 @@ public class CastDataRepository implements CastRepository {
 
         } catch (IOException e) {
             e.printStackTrace();
+            callback.onError(new DataErrorBundle(e));
         }
     }
 }

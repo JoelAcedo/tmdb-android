@@ -1,5 +1,6 @@
 package com.example.data.repository;
 
+import com.example.data.expception.DataErrorBundle;
 import com.example.data.repository.datasource.movies.CacheMovieDataSource;
 import com.example.data.repository.datasource.movies.ReadableMovieDataSource;
 import com.example.data.repository.datasource.movies.WriteableMovieDataSource;
@@ -42,6 +43,7 @@ public class MovieDataRepository implements MovieRepository {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            callback.onError(new DataErrorBundle(e));
         }
     }
 
@@ -60,6 +62,7 @@ public class MovieDataRepository implements MovieRepository {
             }
         } catch (IOException e) {
             e.printStackTrace();
+            callback.onError(new DataErrorBundle(e));
         }
     }
 }
