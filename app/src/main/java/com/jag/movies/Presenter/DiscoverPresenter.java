@@ -1,5 +1,7 @@
 package com.jag.movies.Presenter;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -12,7 +14,6 @@ import com.jag.movies.UI.IDiscoverView;
 import com.jag.movies.UI.Models.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -34,19 +35,20 @@ public class DiscoverPresenter {
         discoverView.startDetailActivity(movieId, movieCover);
     }
 
-    public void onStart() {
-        interactor.execute(new MovieRepository.GetMoviesCallback() {
-            @Override
-            public void onError(ErrorBundle errorBundle) {
-                Log.e(TAG, errorBundle.getErrorMessage());
-            }
 
-            @Override
-            public void onSuccess(List<Movie> returnParam) {
-                List<MovieViewModel> movieList = MovieMapper.toListMovieViewModel(returnParam);
-                discoverView.showMovies(movieList);
-            }
-        }, null);
+    public void onStart() {
+            interactor.execute(new MovieRepository.GetMoviesCallback() {
+                @Override
+                public void onError(ErrorBundle errorBundle) {
+                    Log.e(TAG, errorBundle.getErrorMessage());
+                }
+
+                @Override
+                public void onSuccess(List<Movie> returnParam) {
+                    List<MovieViewModel> movieList = MovieMapper.toListMovieViewModel(returnParam);
+                    discoverView.showMovies(movieList);
+                }
+            }, null);
 
 //        interactor.getData(new MovieListCallback() {
 //            @Override
