@@ -1,7 +1,5 @@
 package com.jag.movies.Presenter;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.util.Log;
 import android.widget.ImageView;
 
@@ -14,6 +12,7 @@ import com.jag.movies.UI.IDiscoverView;
 import com.jag.movies.UI.Models.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,12 +22,12 @@ public class DiscoverPresenter {
 
     private static final String TAG = "DiscoverPresenter";
     private final IDiscoverView discoverView;
-    private final GetMovieListInteractor interactor;
+    private final GetMovieListInteractor getMovieListInteractor;
 
     @Inject
-    public DiscoverPresenter(IDiscoverView discoverView, GetMovieListInteractor interactor) {
+    public DiscoverPresenter(IDiscoverView discoverView, GetMovieListInteractor getMovieListInteractor) {
         this.discoverView = discoverView;
-        this.interactor = interactor;
+        this.getMovieListInteractor = getMovieListInteractor;
     }
 
     public void movieClicked(int movieId, ImageView movieCover) {
@@ -37,10 +36,12 @@ public class DiscoverPresenter {
 
 
     public void onStart() {
-            interactor.execute(new MovieRepository.GetMoviesCallback() {
+            getMovieListInteractor.execute(new MovieRepository.GetMoviesCallback() {
                 @Override
                 public void onError(ErrorBundle errorBundle) {
                     Log.e(TAG, errorBundle.getErrorMessage());
+                    // TODO pasar lista con un elemento de error;
+        //            discoverView.showMovies(new ArrayList<MovieViewModel>());
                 }
 
                 @Override
@@ -50,7 +51,7 @@ public class DiscoverPresenter {
                 }
             }, null);
 
-//        interactor.getData(new MovieListCallback() {
+//        getMovieListInteractor.getData(new MovieListCallback() {
 //            @Override
 //            public void dataReady(ArrayList<MovieViewModel> movies) {
 //                discoverView.showMovies(movies);

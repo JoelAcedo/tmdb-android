@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.GlideBitmapDrawable;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
@@ -33,6 +34,7 @@ public class GlideLoader implements ImageLoader {
     public void bindImage(String imagePath, ImageView imageView) {
         Glide.with(context)
                 .load(imagePath)
+                .diskCacheStrategy( DiskCacheStrategy.ALL )
                 .dontAnimate()
                 .fitCenter()
                 .into(imageView);
@@ -42,6 +44,7 @@ public class GlideLoader implements ImageLoader {
     public void bindImage(String imagePath, ImageView imageView, final ProgressBar progressBar) {
         Glide.with(context)
                 .load(imagePath)
+                .diskCacheStrategy( DiskCacheStrategy.ALL )
                 .listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
@@ -65,6 +68,7 @@ public class GlideLoader implements ImageLoader {
     public void bindImage(String imagePath, ImageView imageView, int placeholder) {
         Glide.with(context)
                 .load(imagePath)
+                .diskCacheStrategy( DiskCacheStrategy.ALL )
                 .dontAnimate()
                 .fitCenter()
                 .placeholder(placeholder)
