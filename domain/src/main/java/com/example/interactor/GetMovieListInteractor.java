@@ -42,7 +42,6 @@ public class GetMovieListInteractor extends BaseUseCase<List<Movie>> implements 
 
     @Override
     public void run() {
-        // TODO add page from views, first page from 1
         movieRepository.getMovies(page, dataCallback);
     }
 

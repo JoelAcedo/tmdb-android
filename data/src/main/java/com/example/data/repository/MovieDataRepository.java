@@ -54,14 +54,14 @@ public class MovieDataRepository implements MovieRepository {
         }
     }
 
-    private boolean checkIfDoNetworkUpdate() {
+/*    private boolean checkIfDoNetworkUpdate() {
         Long timestampLastCheck = cacheMovieDataSource.getTimeFromLastUpdateCheck();
         if (System.currentTimeMillis() - TIME_BETWEEN_NETWORK_UPDATE > timestampLastCheck) {
             return true;
         }
 
         return false;
-    }
+    }*/
 
     @Override
     public void getMovieById(int movieId, GetMovieByIdCallback callback) {

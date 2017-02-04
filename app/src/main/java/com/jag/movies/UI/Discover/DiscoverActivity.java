@@ -16,6 +16,7 @@ import com.jag.movies.R;
 import com.jag.movies.UI.Detail.DetailActivity;
 import com.jag.movies.Models.MovieViewModel;
 import com.jag.movies.UI.renderes.MovieRendererBuilder;
+import com.jag.movies.UI.renderes.RendererAdapterWithItemPosition;
 import com.jag.movies.Utils.EndlessRecyclerViewScrollListener;
 import com.jag.movies.dependencyinjector.activity.DiscoverActivityModule;
 import com.jag.movies.dependencyinjector.application.DiscoverModule;
@@ -64,12 +65,13 @@ public class DiscoverActivity extends AppCompatActivity implements DiscoverView 
 
         setSupportActionBar(toolbar);
         setupRecyclerView();
+        presenter.onCreate();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        presenter.onCreate();
+        presenter.onResume();
     }
 
 
@@ -92,15 +94,14 @@ public class DiscoverActivity extends AppCompatActivity implements DiscoverView 
     @Override
     public void showMovies(List<MovieViewModel> movieViewModelData) {
         ListAdapteeCollection<MovieViewModel> movies = new ListAdapteeCollection<>(movieViewModelData);
-        if (adapter == null) {
-            adapter = new RVRendererAdapter<MovieViewModel>(movieRendererBuilder, movies);
-            recyclerView.setAdapter(adapter);
-        } else {
-            adapter.clear();
-            adapter.addAll(movies);
-            adapter.notifyDataSetChanged();
-        }
+        adapter = new RendererAdapterWithItemPosition<MovieViewModel>(movieRendererBuilder, movies);
+        recyclerView.setAdapter(adapter);
+    }
 
+    @Override
+    public void updateMovieFavoritedState(MovieViewModel movie, int position) {
+        adapter.getItem(position).setFavorite(movie.isFavorited());
+        adapter.notifyItemChanged(position);
     }
 
     @Override

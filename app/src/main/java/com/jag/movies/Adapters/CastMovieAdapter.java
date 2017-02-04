@@ -68,7 +68,6 @@ public class CastMovieAdapter extends RecyclerView.Adapter<CastMovieAdapter.Acto
     public void setVibrantColor(int vibrantColor) {
         this.vibrantColor = vibrantColor;
         notifyDataSetChanged();
-        // TODO Actualizar las vistas que ya estan pintadas, para que se pinten con el color vibrant
     }
 
 
@@ -84,7 +83,6 @@ public class CastMovieAdapter extends RecyclerView.Adapter<CastMovieAdapter.Acto
         }
 
         void renderActorImage(String profileUrl) {
-            //TODO Push images
             imageLoader.bindImage(profileUrl, actorImage, R.drawable.ic_account_grey600_48dp);
             actorImage.setBorderColor(vibrantColor);
         }

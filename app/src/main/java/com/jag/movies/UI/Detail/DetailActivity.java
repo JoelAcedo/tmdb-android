@@ -62,7 +62,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @Inject
     DetailPresenter detailPresenter;
 
-    // TODO: Probablemente falte injectarlo en algun lado
     @Inject
     CastMovieAdapter castMovieAdapter;
 

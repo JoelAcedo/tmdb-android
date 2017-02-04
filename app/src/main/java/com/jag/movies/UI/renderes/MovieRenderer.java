@@ -28,7 +28,7 @@ import butterknife.OnClick;
  * Created by inlab on 03/02/2017.
  */
 
-public class MovieRenderer extends Renderer<MovieViewModel> {
+public class MovieRenderer extends RendererWithItemPosition<MovieViewModel> {
 
     private final Context context;
     private final DiscoverPresenter presenter;
@@ -111,6 +111,6 @@ public class MovieRenderer extends Renderer<MovieViewModel> {
     @OnClick(R.id.list_discover_item)
     void onClickMovie() {
         MovieViewModel movieViewModel = getContent();
-        presenter.movieClicked(movieViewModel.getMovieId(), movieCover);
+        presenter.movieClicked(movieViewModel.getMovieId(), getPosition(),  movieCover);
     }
 }

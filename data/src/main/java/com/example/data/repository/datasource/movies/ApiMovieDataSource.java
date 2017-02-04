@@ -30,8 +30,6 @@ public class ApiMovieDataSource implements ReadableMovieDataSource {
         //TODO injectar dagger
         Retrofit retrofit = ApiClient.getClient();
 
-
-        // TODO Retrofit with page
         RetrofitService retrofitService = retrofit.create(RetrofitService.class);
         Response<MovieList> moviesResponse = retrofitService.fetchMovies(page, ApiClient.API_KEY).execute();
 
