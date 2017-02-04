@@ -8,22 +8,21 @@ import io.realm.annotations.PrimaryKey;
  * Created by joela on 03/02/2017.
  */
 
-public class TimestampRealm extends RealmObject {
-
+public class LastUpdateTimeByPageRealm extends RealmObject {
     @Ignore
-    private final static int ID = 1;
+    public static final String PAGE_ID_REALM = "pageId";
 
     @PrimaryKey
-    int uniqueId;
+    int pageId;
 
     Long timestampInMilis;
 
-    public TimestampRealm() {
+    public LastUpdateTimeByPageRealm() {
     }
 
-    public TimestampRealm(Long timestampInMilis) {
+    public LastUpdateTimeByPageRealm(Long timestampInMilis, int pageId) {
         this.timestampInMilis = timestampInMilis;
-        uniqueId = ID;
+        this.pageId = pageId;
     }
 
     public Long getTimestampInMilis() {
@@ -32,5 +31,13 @@ public class TimestampRealm extends RealmObject {
 
     public void setTimestampInMilis(Long timestampInMilis) {
         this.timestampInMilis = timestampInMilis;
+    }
+
+    public int getPageId() {
+        return pageId;
+    }
+
+    public void setPageId(int pageId) {
+        this.pageId = pageId;
     }
 }

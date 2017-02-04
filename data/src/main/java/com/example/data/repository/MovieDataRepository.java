@@ -1,5 +1,7 @@
 package com.example.data.repository;
 
+import android.util.Log;
+
 import com.example.data.expception.DataErrorBundle;
 import com.example.data.repository.datasource.movies.CacheMovieDataSource;
 import com.example.data.repository.datasource.movies.ReadableMovieDataSource;
@@ -17,6 +19,7 @@ import javax.inject.Inject;
 
 public class MovieDataRepository implements MovieRepository {
 
+    public static final String TAG = "MovieDataRepository";
     private final ReadableMovieDataSource dataSource;
     private final CacheMovieDataSource cacheMovieDataSource;
     public final static int RESULTS_FOR_PAGE = 20;
@@ -33,20 +36,18 @@ public class MovieDataRepository implements MovieRepository {
     @Override
     public void getMovies(int page, GetMoviesCallback callback) {
         try {
-//            if (checkIfDoNetworkUpdate()) {
-//
-//            }
+            List<Movie> movies;
 
-            //Get movies form Realm
-            List<Movie> movies = cacheMovieDataSource.getMoviesByPage(page);
-
-            if (movies.isEmpty() | movies.size() < RESULTS_FOR_PAGE) {
-                // If data is not save at Realm DB, it is downloaded with retrofit and save.
-                movies = dataSource.getMoviesByPage(page);
-                callback.onSuccess(movies);
-                cacheMovieDataSource.saveMovies(movies);
+            if (checkIfDoNetworkUpdate(page)) {
+                updateFromNetwork(page, callback);
             } else {
-                callback.onSuccess(movies);
+                movies = cacheMovieDataSource.getMoviesByPage(page);
+
+                if (movies.isEmpty() | movies.size() < RESULTS_FOR_PAGE) {
+                    updateFromNetwork(page, callback);
+                } else {
+                    callback.onSuccess(movies);
+                }
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -54,14 +55,24 @@ public class MovieDataRepository implements MovieRepository {
         }
     }
 
-/*    private boolean checkIfDoNetworkUpdate() {
-        Long timestampLastCheck = cacheMovieDataSource.getTimeFromLastUpdateCheck();
+    private void updateFromNetwork(int page, GetMoviesCallback callback) throws IOException {
+        List<Movie> movies;
+        movies = dataSource.getMoviesByPage(page);
+        callback.onSuccess(movies);
+        cacheMovieDataSource.saveMovies(movies);
+        cacheMovieDataSource.setTimeFromLastUpdateCheck(page);
+    }
+
+    private boolean checkIfDoNetworkUpdate(int page) {
+        Long timestampLastCheck = cacheMovieDataSource.getTimeFromLastUpdateCheck(page);
         if (System.currentTimeMillis() - TIME_BETWEEN_NETWORK_UPDATE > timestampLastCheck) {
+//            Log.e(TAG, "Page: " + String.valueOf(page) + " need network update");
             return true;
         }
-
+//        Log.e(TAG, "Page: " + String.valueOf(page) + " no network update");
         return false;
-    }*/
+    }
+
 
     @Override
     public void getMovieById(int movieId, GetMovieByIdCallback callback) {

@@ -6,6 +6,6 @@ package com.example.data.repository.datasource.movies;
 
 public interface CacheMovieDataSource extends ReadableMovieDataSource, WriteableMovieDataSource {
 
-    public long getTimeFromLastUpdateCheck();
-    public void setTimeFromLastUpdateCheck();
+    public long getTimeFromLastUpdateCheck(int page);
+    public void setTimeFromLastUpdateCheck(int page);
 }

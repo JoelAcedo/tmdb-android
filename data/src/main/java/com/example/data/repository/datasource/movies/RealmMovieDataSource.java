@@ -3,7 +3,7 @@ package com.example.data.repository.datasource.movies;
 import com.example.data.mapper.MovieMapper;
 import com.example.data.realm.entities.MovieRealm;
 import com.example.data.realm.util.RealmString;
-import com.example.data.realm.util.TimestampRealm;
+import com.example.data.realm.util.LastUpdateTimeByPageRealm;
 import com.example.data.repository.MovieDataRepository;
 import com.example.entities.Movie;
 
@@ -17,6 +17,8 @@ import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.Sort;
+
+import static com.example.data.realm.util.LastUpdateTimeByPageRealm.PAGE_ID_REALM;
 
 /**
  * Created by inlab on 02/02/2017.
@@ -76,7 +78,7 @@ public class RealmMovieDataSource implements CacheMovieDataSource {
                     movie.getOverview(), movie.getVoteAverage(), movie.getReleaseDate(),
                     realmStrings, movie.getCoverUrl(), movie.isFavorited(), movie.getPopularity());
 
-            realm.copyToRealm(movieRealm);
+            realm.copyToRealmOrUpdate(movieRealm);
         }
         realm.commitTransaction();
     }
@@ -95,25 +97,30 @@ public class RealmMovieDataSource implements CacheMovieDataSource {
 
 
     @Override
-    public long getTimeFromLastUpdateCheck() {
+    public long getTimeFromLastUpdateCheck(int page) {
         Realm realm = Realm.getDefaultInstance();
 
         Long timestamp;
         realm.beginTransaction();
-        TimestampRealm timestampRealm = realm.where(TimestampRealm.class).findFirst();
-        timestamp = timestampRealm.getTimestampInMilis();
+        LastUpdateTimeByPageRealm lastUpdateTimeByPageRealm = realm.where(LastUpdateTimeByPageRealm.class).equalTo(PAGE_ID_REALM, page).findFirst();
+        if (lastUpdateTimeByPageRealm == null) {
+            timestamp = 0l;
+        }
+        else {
+            timestamp = lastUpdateTimeByPageRealm.getTimestampInMilis();
+        }
         realm.commitTransaction();
 
         return timestamp;
     }
 
     @Override
-    public void setTimeFromLastUpdateCheck() {
+    public void setTimeFromLastUpdateCheck(int page) {
         Realm realm = Realm.getDefaultInstance();
 
         realm.beginTransaction();
-        TimestampRealm timestampRealm = new TimestampRealm(System.currentTimeMillis());
-        realm.copyToRealmOrUpdate(timestampRealm);
+        LastUpdateTimeByPageRealm lastUpdateTimeByPageRealm = new LastUpdateTimeByPageRealm(System.currentTimeMillis(), page);
+        realm.copyToRealmOrUpdate(lastUpdateTimeByPageRealm);
         realm.commitTransaction();
     }
 }
