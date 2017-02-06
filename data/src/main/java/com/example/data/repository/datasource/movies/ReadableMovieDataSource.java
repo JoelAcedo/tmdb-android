@@ -11,6 +11,6 @@ import java.util.List;
 
 public interface ReadableMovieDataSource {
 
-    List<Movie> getMovies() throws IOException;
+    List<Movie> getMoviesByPage(int page) throws IOException;
     Movie getMovieById(int movieId) throws IOException;
 }

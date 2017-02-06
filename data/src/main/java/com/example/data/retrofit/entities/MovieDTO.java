@@ -35,10 +35,11 @@ public class MovieDTO {
     @SerializedName("vote_average")
     private float voteAverage;
 
-    private boolean isFavorited;
+    @SerializedName("popularity")
+    private float popularity;
 
     public MovieDTO(String posterPath, String overview, String releaseDate, List<Genre> genresList, List<Integer> genreIds, Integer id,
-                    String title, float voteAverage, boolean isFavorited) {
+                    String title, float voteAverage, float popularity) {
         this.posterPath = posterPath;
         this.overview = overview;
         this.releaseDate = releaseDate;
@@ -47,7 +48,7 @@ public class MovieDTO {
         this.id = id;
         this.title = title;
         this.voteAverage = voteAverage;
-        this.isFavorited = isFavorited;
+        this.popularity = popularity;
     }
 
     public String getPosterPath() {
@@ -107,7 +108,7 @@ public class MovieDTO {
         return genres;
     }
 
-    public boolean isFavorited() {
-        return isFavorited;
+    public float getPopularity() {
+        return popularity;
     }
 }

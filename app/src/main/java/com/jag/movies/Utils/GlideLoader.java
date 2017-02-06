@@ -34,7 +34,7 @@ public class GlideLoader implements ImageLoader {
     public void bindImage(String imagePath, ImageView imageView) {
         Glide.with(context)
                 .load(imagePath)
-                .diskCacheStrategy( DiskCacheStrategy.ALL )
+                .diskCacheStrategy( DiskCacheStrategy.SOURCE )
                 .dontAnimate()
                 .fitCenter()
                 .into(imageView);
@@ -44,7 +44,7 @@ public class GlideLoader implements ImageLoader {
     public void bindImage(String imagePath, ImageView imageView, final ProgressBar progressBar) {
         Glide.with(context)
                 .load(imagePath)
-                .diskCacheStrategy( DiskCacheStrategy.ALL )
+                .diskCacheStrategy( DiskCacheStrategy.SOURCE )
                 .listener(new RequestListener<String, GlideDrawable>() {
                     @Override
                     public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
@@ -68,7 +68,7 @@ public class GlideLoader implements ImageLoader {
     public void bindImage(String imagePath, ImageView imageView, int placeholder) {
         Glide.with(context)
                 .load(imagePath)
-                .diskCacheStrategy( DiskCacheStrategy.ALL )
+                .diskCacheStrategy( DiskCacheStrategy.SOURCE )
                 .dontAnimate()
                 .fitCenter()
                 .placeholder(placeholder)

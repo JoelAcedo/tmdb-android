@@ -1,4 +1,4 @@
-package com.jag.movies.Presenter;
+package com.jag.movies.UI.Detail;
 
 import android.content.Intent;
 import android.util.Log;
@@ -13,10 +13,10 @@ import com.example.repositories.CastRepository;
 import com.example.repositories.MovieRepository;
 import com.jag.movies.Mapper.CastMapper;
 import com.jag.movies.Mapper.MovieMapper;
-import com.jag.movies.UI.Models.ActorViewModel;
-import com.jag.movies.UI.DetailActivity;
-import com.jag.movies.UI.IDetailView;
-import com.jag.movies.UI.Models.MovieViewModel;
+import com.jag.movies.Models.ActorViewModel;
+import com.jag.movies.UI.Detail.DetailActivity;
+import com.jag.movies.UI.Detail.DetailView;
+import com.jag.movies.Models.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ import javax.inject.Inject;
 public class DetailPresenter {
 
     private static final String TAG = "DetailPresenter";
-    private final IDetailView detailView;
+    private final DetailView detailView;
     private final GetMovieByIdInteractor getMovieByIdInteractor;
     private final GetMovieCastInteractor getMovieCastInteractor;
     private final UpdateMovieFavoritedInteractor updateMovieFavoritedInteractor;
@@ -37,7 +37,7 @@ public class DetailPresenter {
     private int movieId;
 
     @Inject
-    public DetailPresenter(IDetailView detailView, GetMovieByIdInteractor getMovieByIdInteractor,
+    public DetailPresenter(DetailView detailView, GetMovieByIdInteractor getMovieByIdInteractor,
                            GetMovieCastInteractor getMovieCastInteractor,
                            UpdateMovieFavoritedInteractor updateMovieFavoritedInteractor) {
         this.detailView = detailView;

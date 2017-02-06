@@ -9,9 +9,9 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
-import com.jag.movies.Presenter.DiscoverPresenter;
+import com.jag.movies.UI.Discover.DiscoverPresenter;
 import com.jag.movies.R;
-import com.jag.movies.UI.Models.MovieViewModel;
+import com.jag.movies.Models.MovieViewModel;
 import com.jag.movies.Utils.ImageLoader;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 
@@ -92,7 +92,7 @@ public class DiscoverMovieAdapter extends RecyclerView.Adapter<DiscoverMovieAdap
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    presenter.movieClicked(movieId, movieCover);
+                    //presenter.movieClicked(movieId,  movieCover);
                 }
             });
         }

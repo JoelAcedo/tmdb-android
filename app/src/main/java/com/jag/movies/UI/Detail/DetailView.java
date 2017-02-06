@@ -1,13 +1,13 @@
-package com.jag.movies.UI;
+package com.jag.movies.UI.Detail;
 
 
 import android.widget.ImageView;
 
-import com.jag.movies.UI.Models.ActorViewModel;
+import com.jag.movies.Models.ActorViewModel;
 
 import java.util.List;
 
-public interface IDetailView {
+public interface DetailView {
 
     void setFloatingButtonNotFavorited();
 

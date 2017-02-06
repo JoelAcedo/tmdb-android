@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
-    tools:context="com.jag.movies.UI.DetailActivity"
+    tools:context="com.jag.movies.UI.Detail.DetailActivity"
     android:adjustViewBounds="true">
 
 
@@ -47,7 +47,7 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <com.jag.movies.Utils.NestedScrollViewForHorizontalList
+    <android.support.v4.widget.NestedScrollView
         android:id="@+id/scroll_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -176,8 +176,9 @@
 
         </LinearLayout>
 
-    </com.jag.movies.Utils.NestedScrollViewForHorizontalList>
+    </android.support.v4.widget.NestedScrollView>
 
+    <!-- El problema de la animacion puede ser por el layout_behavior del fab -->
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab_detail"
         android:layout_height="wrap_content"
@@ -185,6 +186,6 @@
         android:layout_margin="@dimen/activity_horizontal_margin"
         app:layout_anchor="@id/appbar_detail"
         app:layout_anchorGravity="bottom|right|end"
-        android:src="@drawable/ic_heart_outline_white_48dp"/>
+        android:src="@drawable/ic_heart_outline_white_48dp" />
 
 </android.support.design.widget.CoordinatorLayout>

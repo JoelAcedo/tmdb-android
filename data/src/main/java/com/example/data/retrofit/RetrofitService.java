@@ -21,7 +21,7 @@ public interface RetrofitService {
 
     //Gets page 1 by default
     @GET("discover/movie/")
-    Call<MovieList> fetchMovies(@Query("api_key") String apiKey);
+    Call<MovieList> fetchMovies(@Query("page") int page, @Query("api_key") String apiKey);
 
     @GET("movie/{movieId}")
     Call<MovieDTO> getMovieById(@Path("movieId") String movieId, @Query("api_key") String apiKey);

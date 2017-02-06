@@ -1,7 +1,7 @@
 package com.jag.movies.Mapper;
 
 import com.example.entities.Movie;
-import com.jag.movies.UI.Models.MovieViewModel;
+import com.jag.movies.Models.MovieViewModel;
 
 import java.util.ArrayList;
 import java.util.List;

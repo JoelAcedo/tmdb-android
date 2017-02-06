@@ -1,4 +1,4 @@
-package com.jag.movies.UI.Models;
+package com.jag.movies.Models;
 
 /**
  * Created by Albert.Ruiz on 31/01/2017.
