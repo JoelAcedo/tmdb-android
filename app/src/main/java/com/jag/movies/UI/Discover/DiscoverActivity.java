@@ -18,8 +18,8 @@ import com.jag.movies.Models.MovieViewModel;
 import com.jag.movies.UI.renderes.MovieRendererBuilder;
 import com.jag.movies.UI.renderes.RendererAdapterWithItemPosition;
 import com.jag.movies.Utils.EndlessRecyclerViewScrollListener;
-import com.jag.movies.dependencyinjector.activity.DiscoverActivityModule;
-import com.jag.movies.dependencyinjector.application.DiscoverModule;
+import com.jag.movies.dependencyinjector.activity.ActivityModule;
+import com.jag.movies.dependencyinjector.application.ViewModule;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 import com.pedrogomez.renderers.ListAdapteeCollection;
 import com.pedrogomez.renderers.RVRendererAdapter;
@@ -59,8 +59,8 @@ public class DiscoverActivity extends AppCompatActivity implements DiscoverView 
 
         ((App) getApplication())
                 .getComponent()
-                .plusDiscover(new DiscoverActivityModule(this),
-                        new DiscoverModule(this))
+                .plus(new ActivityModule(this),
+                        new ViewModule(this))
                 .inject(this);
 
         setSupportActionBar(toolbar);

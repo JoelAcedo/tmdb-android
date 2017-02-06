@@ -22,9 +22,8 @@ import com.jag.movies.Adapters.CastMovieAdapter;
 import com.jag.movies.App;
 import com.jag.movies.R;
 import com.jag.movies.Models.ActorViewModel;
-import com.jag.movies.Utils.NestedScrollViewForHorizontalList;
-import com.jag.movies.dependencyinjector.activity.DetailActivityModule;
-import com.jag.movies.dependencyinjector.application.DetailModule;
+import com.jag.movies.dependencyinjector.activity.ActivityModule;
+import com.jag.movies.dependencyinjector.application.ViewModule;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 import com.jag.movies.Utils.ImageLoader;
 
@@ -44,7 +43,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @BindView(R.id.toolbar_detail) Toolbar toolbar;
     @BindView(R.id.movie_info_detail) RelativeLayout movieInfo;
     @BindView(R.id.imageToolbar_detail) ImageView movieCover;
-    @BindView(R.id.scroll_detail) NestedScrollViewForHorizontalList nestedScrollView;
+    //@BindView(R.id.scroll_detail) NestedScrollView nestedScrollView;
     @BindView(R.id.fab_detail) FloatingActionButton floatingButton;
     @BindView(R.id.movie_name_detail) TextView movieName;
     @BindView(R.id.movie_genres_detail) TextView movieGenres;
@@ -91,8 +90,8 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
         ((App) getApplication())
                 .getComponent()
-                .plusDetail(new DetailActivityModule(this),
-                        new DetailModule(this))
+                .plus(new ActivityModule(this),
+                        new ViewModule(this))
                 .inject(this);
 
         setupAnimation();
