@@ -4,6 +4,8 @@ package com.example.data.retrofit;
 import com.example.data.retrofit.entities.ActorList;
 import com.example.data.retrofit.entities.MovieDTO;
 import com.example.data.retrofit.entities.MovieList;
+import com.example.data.retrofit.entities.TvShowDTO;
+import com.example.data.retrofit.entities.TvShowList;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -28,5 +30,11 @@ public interface RetrofitService {
 
     @GET("movie/{movieId}/credits")
     Call<ActorList> getCastByMovieId(@Path("movieId") String movieId, @Query("api_key") String apiKey);
+
+    @GET("discover/tv")
+    Call<TvShowList> fetchTvShows(@Query("page") int page, @Query("api_key") String apiKey);
+
+    @GET("tv/{tv_id}")
+    Call<TvShowDTO> getTvShowById(@Path("tv_id") int id, @Query("api_key")String apiKey);
 
 }
