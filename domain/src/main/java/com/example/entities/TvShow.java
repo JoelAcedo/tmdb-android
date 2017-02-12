@@ -14,12 +14,13 @@ public class TvShow {
     private float voteAverage;
     private float popularity;
     private List<String> genresList;
+    private List<Season> seasons;
     private boolean isFavorited;
     private int numberOfSeasons;
     private int numberOfEspisodes;
 
     public TvShow(String overview, String name, String poster_path, int id, float voteAverage, float popularity,
-                  List<String> genresList, boolean isFavorited, int numberOfSeasons, int numberOfEspisodes) {
+                  List<String> genresList, boolean isFavorited, int numberOfSeasons, int numberOfEspisodes, List<Season> seasons) {
         this.overview = overview;
         this.name = name;
         this.poster_path = poster_path;
@@ -30,6 +31,11 @@ public class TvShow {
         this.isFavorited = isFavorited;
         this.numberOfEspisodes = numberOfEspisodes;
         this.numberOfSeasons = numberOfSeasons;
+        this.seasons = seasons;
+    }
+
+    public List<Season> getSeasons() {
+        return seasons;
     }
 
     public int getNumberOfSeasons() {
