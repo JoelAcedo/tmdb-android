@@ -1,6 +1,7 @@
 package com.jag.movies.dependencyinjector.fragment;
 
 import com.jag.movies.UI.Discover.fragments.MoviesFragment;
+import com.jag.movies.UI.Discover.fragments.TvShowsFragment;
 import com.jag.movies.dependencyinjector.activity.ActivityComponent;
 import com.jag.movies.dependencyinjector.activity.ActivityModule;
 import com.jag.movies.dependencyinjector.application.ViewModule;
@@ -20,4 +21,5 @@ public interface FragmentComponent {
 
     void inject(MoviesFragment fragment);
 
+    void inject(TvShowsFragment fragment);
 }

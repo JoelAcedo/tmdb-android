@@ -8,28 +8,21 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.test.mock.MockApplication;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.jag.movies.App;
 import com.jag.movies.Models.MovieViewModel;
 import com.jag.movies.R;
 import com.jag.movies.UI.Detail.DetailActivity;
 import com.jag.movies.UI.Discover.DiscoverActivity;
-import com.jag.movies.UI.Discover.DiscoverPresenter;
-import com.jag.movies.UI.renderes.MovieRendererBuilder;
+import com.jag.movies.UI.renderes.movies.MovieRendererBuilder;
 import com.jag.movies.UI.renderes.RendererAdapterWithItemPosition;
 import com.jag.movies.Utils.EndlessRecyclerViewScrollListener;
-import com.jag.movies.dependencyinjector.activity.ActivityModule;
-import com.jag.movies.dependencyinjector.application.DaggerApplicationComponent;
-import com.jag.movies.dependencyinjector.application.ViewModule;
 import com.jag.movies.dependencyinjector.fragment.DaggerFragmentComponent;
 import com.jag.movies.dependencyinjector.fragment.FragmentComponent;
 import com.jag.movies.dependencyinjector.fragment.FragmentModule;
@@ -80,7 +73,6 @@ public class MoviesFragment extends Fragment implements FragmentDiscoverView<Mov
                 .activityComponent(((DiscoverActivity) getActivity()).getActivityComponent())
                 .build();
         fragmentComponent.inject(this);
-
     }
 
     @Override
@@ -113,9 +105,6 @@ public class MoviesFragment extends Fragment implements FragmentDiscoverView<Mov
                 presenter.onLoadMore(page);
             }
         });
-
-//        discoverMovieAdapter = new DiscoverMovieAdapter(context, presenter, new GlideLoader(context));
-//        recyclerView.setAdapter(discoverMovieAdapter);
     }
 
     @Override
@@ -144,7 +133,6 @@ public class MoviesFragment extends Fragment implements FragmentDiscoverView<Mov
         Intent intent = DetailActivity.getLauncherIntent(context, itemId);
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 ((Activity) context), cover, getString(R.string.cover_transition_name));
-
 
         context.startActivity(intent, optionsCompat.toBundle());
     }

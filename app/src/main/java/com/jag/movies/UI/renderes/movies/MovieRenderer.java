@@ -1,4 +1,4 @@
-package com.jag.movies.UI.renderes;
+package com.jag.movies.UI.renderes.movies;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,6 +12,7 @@ import com.jag.movies.UI.Discover.DiscoverPresenter;
 import com.jag.movies.R;
 import com.jag.movies.Models.MovieViewModel;
 import com.jag.movies.UI.Discover.fragments.MoviesPresenter;
+import com.jag.movies.UI.renderes.RendererWithItemPosition;
 import com.jag.movies.Utils.ImageLoader;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 

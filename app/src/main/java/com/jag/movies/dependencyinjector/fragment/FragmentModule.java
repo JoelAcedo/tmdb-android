@@ -1,12 +1,14 @@
 package com.jag.movies.dependencyinjector.fragment;
 
-import android.app.FragmentManager;
 import android.support.v4.app.Fragment;
 
-import com.jag.movies.UI.Discover.fragments.MoviesFragment;
-import com.jag.movies.UI.renderes.MovieFavoriteRenderer;
-import com.jag.movies.UI.renderes.MovieRenderer;
-import com.jag.movies.dependencyinjector.scope.PerActivity;
+import com.example.entities.TvShow;
+import com.jag.movies.UI.renderes.movies.MovieFavoriteRenderer;
+import com.jag.movies.UI.renderes.movies.MovieRenderer;
+import com.jag.movies.UI.renderes.tvShows.TvShowFavoriteRenderer;
+import com.jag.movies.UI.renderes.tvShows.TvShowRenderer;
+import com.jag.movies.dependencyinjector.qualifier.ForMovies;
+import com.jag.movies.dependencyinjector.qualifier.ForTvShows;
 import com.jag.movies.dependencyinjector.scope.PerFragment;
 import com.pedrogomez.renderers.Renderer;
 
@@ -29,6 +31,7 @@ public class FragmentModule {
 
     @Provides
     @IntoSet
+    @ForMovies
     @PerFragment
     public Renderer providesMovieRenderer(MovieRenderer renderer) {
         return renderer;
@@ -37,8 +40,26 @@ public class FragmentModule {
 
     @Provides
     @IntoSet
+    @ForMovies
     @PerFragment
     public Renderer providesMovieFavoriteRenderer(MovieFavoriteRenderer renderer) {
+        return renderer;
+    }
+
+    @Provides
+    @IntoSet
+    @ForTvShows
+    @PerFragment
+    public Renderer providesTvShowRenderer(TvShowRenderer renderer) {
+        return renderer;
+    }
+
+
+    @Provides
+    @IntoSet
+    @ForTvShows
+    @PerFragment
+    public Renderer providesTvShowFavoriteRenderer(TvShowFavoriteRenderer renderer) {
         return renderer;
     }
 }

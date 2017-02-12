@@ -1,23 +1,17 @@
 package com.jag.movies.UI.Discover;
 
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.support.design.widget.TabLayout;
-import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.test.mock.MockApplication;
 
 import com.jag.movies.Adapters.DiscoverFragmentAdapter;
 import com.jag.movies.App;
 import com.jag.movies.R;
-import com.jag.movies.UI.Detail.DetailActivity;
 import com.jag.movies.UI.Discover.fragments.MoviesFragment;
 import com.jag.movies.UI.Discover.fragments.TvShowsFragment;
-import com.jag.movies.UI.renderes.MovieRendererBuilder;
 import com.jag.movies.dependencyinjector.activity.ActivityComponent;
 import com.jag.movies.dependencyinjector.activity.ActivityModule;
 import com.jag.movies.dependencyinjector.activity.DaggerActivityComponent;
