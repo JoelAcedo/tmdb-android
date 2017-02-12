@@ -2,6 +2,7 @@ package com.jag.movies.dependencyinjector.application;
 
 import com.jag.movies.UI.Detail.DetailView;
 import com.jag.movies.UI.Discover.DiscoverView;
+import com.jag.movies.UI.Discover.fragments.FragmentDiscoverView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -16,7 +17,6 @@ public class ViewModule {
         this.discoverView = discoverView;
     }
 
-
     public ViewModule(DetailView detailView) {
         this.detailView = detailView;
     }
@@ -30,4 +30,5 @@ public class ViewModule {
     DetailView providesDetailView() {
         return detailView;
     }
+
 }

@@ -1,6 +1,7 @@
 package com.jag.movies.dependencyinjector.activity;
 
 import android.app.Activity;
+import android.app.FragmentManager;
 import android.content.Context;
 
 import com.jag.movies.UI.Detail.DetailActivity;
@@ -32,17 +33,8 @@ public class ActivityModule {
     }
 
     @Provides
-    @IntoSet
     @PerActivity
-    public Renderer providesRenderer(MovieRenderer renderer) {
-        return renderer;
-    }
-
-
-    @Provides
-    @IntoSet
-    @PerActivity
-    public Renderer providesFavoriteRenderer(MovieFavoriteRenderer renderer) {
-        return renderer;
+    public FragmentManager providesFragmentManager() {
+        return activity.getFragmentManager();
     }
 }

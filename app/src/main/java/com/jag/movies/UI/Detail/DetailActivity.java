@@ -12,6 +12,7 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.test.mock.MockApplication;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -22,7 +23,9 @@ import com.jag.movies.Adapters.CastMovieAdapter;
 import com.jag.movies.App;
 import com.jag.movies.R;
 import com.jag.movies.Models.ActorViewModel;
+import com.jag.movies.dependencyinjector.activity.ActivityComponent;
 import com.jag.movies.dependencyinjector.activity.ActivityModule;
+import com.jag.movies.dependencyinjector.activity.DaggerActivityComponent;
 import com.jag.movies.dependencyinjector.application.ViewModule;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 import com.jag.movies.Utils.ImageLoader;
@@ -43,7 +46,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @BindView(R.id.toolbar_detail) Toolbar toolbar;
     @BindView(R.id.movie_info_detail) RelativeLayout movieInfo;
     @BindView(R.id.imageToolbar_detail) ImageView movieCover;
-    //@BindView(R.id.scroll_detail) NestedScrollView nestedScrollView;
     @BindView(R.id.fab_detail) FloatingActionButton floatingButton;
     @BindView(R.id.movie_name_detail) TextView movieName;
     @BindView(R.id.movie_genres_detail) TextView movieGenres;
@@ -88,11 +90,12 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
 
         ButterKnife.bind(this);
 
-        ((App) getApplication())
-                .getComponent()
-                .plus(new ActivityModule(this),
-                        new ViewModule(this))
-                .inject(this);
+        ActivityComponent activityComponent = DaggerActivityComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .viewModule(new ViewModule(this))
+                .applicationComponent(((App) getApplication()).getComponent())
+                .build();
+        activityComponent.inject(this);
 
         setupAnimation();
         setupToolbar();
@@ -102,12 +105,6 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         detailPresenter.onStart(getIntent());
     }
 
-//
-//    @Override
-//    public void onBackPressed() {
-//        floatingButton.hide();
-//        super.onBackPressed();
-//    }
 
     private void setupCastRecyclerView() {
         castList.setHasFixedSize(true);

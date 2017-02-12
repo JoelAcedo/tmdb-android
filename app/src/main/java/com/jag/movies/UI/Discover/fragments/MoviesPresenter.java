@@ -1,4 +1,4 @@
-package com.jag.movies.UI.Discover;
+package com.jag.movies.UI.Discover.fragments;
 
 import android.util.Log;
 import android.widget.ImageView;
@@ -11,18 +11,20 @@ import com.example.repositories.MovieRepository;
 import com.jag.movies.Mapper.MovieMapper;
 import com.jag.movies.Models.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
+import com.jag.movies.dependencyinjector.scope.PerFragment;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-@PerActivity
-public class DiscoverPresenter {
+/**
+ * Created by joela on 12/02/2017.
+ */
+@PerFragment
+public class MoviesPresenter {
 
-    //TODO Seria buena idea guardar la posicion y la movieId junto con el lifecycle de el activity?
-
-    private static final String TAG = "DiscoverPresenter";
-    private final DiscoverView discoverView;
+    private static final String TAG = "MoviePresenter";
+    private final FragmentDiscoverView discoverView;
     private final GetMovieListInteractor getMovieListInteractor;
     private final GetMovieByIdInteractor getMovieByIdInteractor;
     private int page;
@@ -30,7 +32,7 @@ public class DiscoverPresenter {
     private int movieId;
 
     @Inject
-    public DiscoverPresenter(DiscoverView discoverView, GetMovieListInteractor getMovieListInteractor, GetMovieByIdInteractor getMovieByIdInteractor) {
+    public MoviesPresenter(FragmentDiscoverView discoverView, GetMovieListInteractor getMovieListInteractor, GetMovieByIdInteractor getMovieByIdInteractor) {
         this.discoverView = discoverView;
         this.getMovieListInteractor = getMovieListInteractor;
         this.getMovieByIdInteractor = getMovieByIdInteractor;
@@ -38,17 +40,14 @@ public class DiscoverPresenter {
         this.position = -1;
     }
 
-/*    public void movieClicked(int movieId, int position, ImageView movieCover) {
+    public void movieClicked(int movieId, int position, ImageView movieCover) {
         discoverView.startDetailActivity(movieId, movieCover);
         this.movieId = movieId;
         this.position = position;
-//        Log.d(TAG, "OnClick (position): " + String.valueOf(this.position));
-//        Log.d(TAG, "OnClick (movieId): " + String.valueOf(this.movieId));
     }
 
     public void onResume() {
-//        Log.d(TAG, "OnResume (position): " + String.valueOf(this.position));
-//        Log.d(TAG, "OnResume (movieId): " + String.valueOf(this.movieId));
+//        Log.e(TAG, "onResume");
         if (position > -1) {
             getMovieByIdInteractor.execute(new MovieRepository.GetMovieByIdCallback() {
                 @Override
@@ -58,29 +57,32 @@ public class DiscoverPresenter {
 
                 @Override
                 public void onSuccess(Movie returnParam) {
+//                    Log.e(TAG, "onResumeSucces");
                     MovieViewModel movie = MovieMapper.toMovieViewModel(returnParam);
-                    discoverView.updateMovieFavoritedState(movie, position);
+                    discoverView.updateItemFavoritedState(movie, position);
                 }
             }, movieId);
+        } else {
+            onCreate();
         }
     }
 
 
     public void onCreate() {
-            getMovieListInteractor.execute(new MovieRepository.GetMoviesCallback() {
-                @Override
-                public void onError(ErrorBundle errorBundle) {
-                    Log.e(TAG, errorBundle.getErrorMessage());
-                    // TODO pasar lista con un elemento de error;
-        //            discoverView.showData(new ArrayList<MovieViewModel>());
-                }
+        getMovieListInteractor.execute(new MovieRepository.GetMoviesCallback() {
+            @Override
+            public void onError(ErrorBundle errorBundle) {
+                Log.e(TAG, errorBundle.getErrorMessage());
+                // TODO pasar lista con un elemento de error;
+                //            discoverView.showData(new ArrayList<MovieViewModel>());
+            }
 
-                @Override
-                public void onSuccess(List<Movie> returnParam) {
-                    List<MovieViewModel> movieList = MovieMapper.toListMovieViewModel(returnParam);
-                    discoverView.showMovies(movieList);
-                }
-            }, page);
+            @Override
+            public void onSuccess(List<Movie> returnParam) {
+                List<MovieViewModel> movieList = MovieMapper.toListMovieViewModel(returnParam);
+                discoverView.showData(movieList);
+            }
+        }, page);
     }
 
     public void onLoadMore(int page) {
@@ -94,9 +96,9 @@ public class DiscoverPresenter {
             @Override
             public void onSuccess(List<Movie> returnParam) {
                 List<MovieViewModel> movieList = MovieMapper.toListMovieViewModel(returnParam);
-                discoverView.addMovies(movieList);
+                discoverView.addData(movieList);
             }
         }, page);
 
-    }*/
+    }
 }

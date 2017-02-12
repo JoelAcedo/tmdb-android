@@ -2,10 +2,12 @@ package com.jag.movies;
 
 import android.app.Application;
 
+import com.crashlytics.android.Crashlytics;
 import com.jag.movies.dependencyinjector.application.ApplicationComponent;
 import com.jag.movies.dependencyinjector.application.ApplicationModule;
 import com.jag.movies.dependencyinjector.application.DaggerApplicationComponent;
 
+import io.fabric.sdk.android.Fabric;
 import io.realm.Realm;
 
 /**
@@ -23,6 +25,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        Fabric.with(this, new Crashlytics());
         Realm.init(this);
         component = DaggerApplicationComponent
                 .builder()

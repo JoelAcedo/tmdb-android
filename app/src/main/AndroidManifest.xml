@@ -26,6 +26,9 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".UI.Discover.DiscoverActivity" />
         </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="503250df6b834a5836e4786b05fed8af18151e47" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

@@ -4,4 +4,8 @@
 
     <string name="cover_transition_name">movieCover</string>
     <string name="castTitleMovie">Movie cast</string>
+
+
+    <string name="movie_fragment_title">Movies</string>
+    <string name="tv_shows_fragment_title">TV Shows</string>
 </resources>

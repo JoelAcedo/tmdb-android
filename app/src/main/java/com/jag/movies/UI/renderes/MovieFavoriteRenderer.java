@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.jag.movies.UI.Discover.DiscoverPresenter;
 import com.jag.movies.R;
+import com.jag.movies.UI.Discover.fragments.MoviesPresenter;
 import com.jag.movies.Utils.ImageLoader;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 
@@ -21,8 +22,8 @@ import butterknife.ButterKnife;
 public class MovieFavoriteRenderer extends MovieRenderer {
 
     @Inject
-    public MovieFavoriteRenderer(@ForActivity Context context, DiscoverPresenter discoverPresenter, ImageLoader imageLoader) {
-        super(context, discoverPresenter, imageLoader);
+    public MovieFavoriteRenderer(@ForActivity Context context, MoviesPresenter moviesPresenter, ImageLoader imageLoader) {
+        super(context, moviesPresenter, imageLoader);
     }
 
     @Override
