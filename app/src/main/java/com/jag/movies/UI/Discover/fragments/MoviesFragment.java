@@ -18,7 +18,7 @@ import android.widget.LinearLayout;
 
 import com.jag.movies.Models.MovieViewModel;
 import com.jag.movies.R;
-import com.jag.movies.UI.Detail.DetailActivity;
+import com.jag.movies.UI.Detail.movie.MovieDetailActivity;
 import com.jag.movies.UI.Discover.DiscoverActivity;
 import com.jag.movies.UI.renderes.movies.MovieRendererBuilder;
 import com.jag.movies.UI.renderes.RendererAdapterWithItemPosition;
@@ -130,7 +130,7 @@ public class MoviesFragment extends Fragment implements FragmentDiscoverView<Mov
 
     @Override
     public void startDetailActivity(int itemId, ImageView cover) {
-        Intent intent = DetailActivity.getLauncherIntent(context, itemId);
+        Intent intent = MovieDetailActivity.getLauncherIntent(context, itemId);
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 ((Activity) context), cover, getString(R.string.cover_transition_name));
 

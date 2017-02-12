@@ -20,7 +20,14 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UI.Detail.DetailActivity"
+            android:name=".UI.Detail.movie.MovieDetailActivity"
+            android:parentActivityName=".UI.Discover.DiscoverActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UI.Discover.DiscoverActivity" />
+        </activity>
+        <activity
+            android:name=".UI.Detail.tvshow.TvShowDetailActivity"
             android:parentActivityName=".UI.Discover.DiscoverActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"

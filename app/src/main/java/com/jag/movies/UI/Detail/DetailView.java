@@ -28,6 +28,4 @@ public interface DetailView {
     void computePalette(ImageView imageView);
 
     void renderColors(int vibrantColor);
-
-    void showCast(List<ActorViewModel> castData);
 }

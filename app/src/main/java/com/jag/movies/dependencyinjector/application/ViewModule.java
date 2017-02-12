@@ -1,8 +1,9 @@
 package com.jag.movies.dependencyinjector.application;
 
 import com.jag.movies.UI.Detail.DetailView;
+import com.jag.movies.UI.Detail.movie.MovieDetailView;
+import com.jag.movies.UI.Detail.tvshow.TvShowDetailView;
 import com.jag.movies.UI.Discover.DiscoverView;
-import com.jag.movies.UI.Discover.fragments.FragmentDiscoverView;
 
 import dagger.Module;
 import dagger.Provides;
@@ -12,6 +13,8 @@ public class ViewModule {
 
     private DiscoverView discoverView;
     private DetailView detailView;
+    private MovieDetailView movieDetailView;
+    private TvShowDetailView tvShowDetailView;
 
     public ViewModule(DiscoverView discoverView) {
         this.discoverView = discoverView;
@@ -19,6 +22,14 @@ public class ViewModule {
 
     public ViewModule(DetailView detailView) {
         this.detailView = detailView;
+    }
+
+    public ViewModule(MovieDetailView movieDetailView) {
+        this.movieDetailView = movieDetailView;
+    }
+
+    public ViewModule(TvShowDetailView tvShowDetailView) {
+        this.tvShowDetailView = tvShowDetailView;
     }
 
     @Provides
@@ -31,4 +42,8 @@ public class ViewModule {
         return detailView;
     }
 
+    @Provides
+    public MovieDetailView getMovieDetailView() {
+        return movieDetailView;
+    }
 }

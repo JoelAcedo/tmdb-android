@@ -1,4 +1,4 @@
-package com.jag.movies.UI.Detail;
+package com.jag.movies.UI.Detail.movie;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,6 @@ import android.support.v7.graphics.Palette;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.test.mock.MockApplication;
 import android.view.View;
 import android.view.ViewTreeObserver;
 import android.widget.ImageView;
@@ -39,18 +38,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class DetailActivity extends AppCompatActivity implements DetailView {
+public class MovieDetailActivity extends AppCompatActivity implements MovieDetailView {
 
     @BindView(R.id.collapsingToolbar_detail) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.appbar_detail) AppBarLayout appBarLayout;
     @BindView(R.id.toolbar_detail) Toolbar toolbar;
-    @BindView(R.id.movie_info_detail) RelativeLayout movieInfo;
+    @BindView(R.id.item_info_detail) RelativeLayout movieInfo;
     @BindView(R.id.imageToolbar_detail) ImageView movieCover;
     @BindView(R.id.fab_detail) FloatingActionButton floatingButton;
-    @BindView(R.id.movie_name_detail) TextView movieName;
-    @BindView(R.id.movie_genres_detail) TextView movieGenres;
-    @BindView(R.id.movie_score_detail) TextView movieScore;
-    @BindView(R.id.movie_date_detail) TextView movieReleaseDate;
+    @BindView(R.id.item_name_detail) TextView movieName;
+    @BindView(R.id.item_genres_detail) TextView movieGenres;
+    @BindView(R.id.item_score_detail) TextView movieScore;
+    @BindView(R.id.item_date_detail) TextView movieReleaseDate;
     @BindView(R.id.movie_overview_detail) TextView movieOverview;
     @BindView(R.id.movie_cast_title) TextView castTitle;
 
@@ -61,7 +60,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     Context context;
 
     @Inject
-    DetailPresenter detailPresenter;
+    MovieDetailPresenter movieDetailPresenter;
 
     @Inject
     CastMovieAdapter castMovieAdapter;
@@ -76,7 +75,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     public final static String ID_MOVIE = "movieId";
 
     public static Intent getLauncherIntent(Context context, int movieId) {
-        Intent intent = new Intent(context, DetailActivity.class);
+        Intent intent = new Intent(context, MovieDetailActivity.class);
         intent.putExtra(ID_MOVIE, movieId);
 
         return intent;
@@ -86,7 +85,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_movie_detail);
 
         ButterKnife.bind(this);
 
@@ -102,7 +101,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         setupFloatingButton();
         setupCastRecyclerView();
 
-        detailPresenter.onStart(getIntent());
+        movieDetailPresenter.onStart(getIntent());
     }
 
 
@@ -141,7 +140,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         floatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                detailPresenter.floatingButtonClicked();
+                movieDetailPresenter.floatingButtonClicked();
             }
         });
     }
@@ -166,9 +165,9 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         Palette.from(imageLoader.getBitmap(movieCover)).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-                DetailActivity.this.palette = palette;
+                MovieDetailActivity.this.palette = palette;
                 int defaultColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
-                detailPresenter.updateVibrantColor(palette.getVibrantColor(defaultColor));
+                movieDetailPresenter.updateVibrantColor(palette.getVibrantColor(defaultColor));
             }
         });
     }

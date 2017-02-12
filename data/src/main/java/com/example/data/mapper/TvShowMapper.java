@@ -29,10 +29,10 @@ public class TvShowMapper {
 
     public static TvShow fromTvShowDTO(TvShowDTO TvShowDTO) {
         List<Season> seasons= new ArrayList<>();
-        for (SeasonDTO s : TvShowDTO.getSeasonDTO()) {
-            Season season = new Season(s.getEpisodeCount(),s.getSeasonNumber(),s.getPosterPath());
-            seasons.add(season);
-        }
+//        for (SeasonDTO s : TvShowDTO.getSeasonDTO()) {
+//            Season season = new Season(s.getEpisodeCount(),s.getSeasonNumber(),s.getPosterPath());
+//            seasons.add(season);
+//        }
         return new TvShow(TvShowDTO.getOverview(),TvShowDTO.getName(),BASE_IMAGE_URL+TvShowDTO.getPosterPath(),
                 TvShowDTO.getId(),TvShowDTO.getVoteAverage(),TvShowDTO.getPopularity(),
                 TvShowDTO.getTvShowGenres(),false, TvShowDTO.getNumberOfSeasons(), TvShowDTO.getNumberOfEpisodes(), seasons);

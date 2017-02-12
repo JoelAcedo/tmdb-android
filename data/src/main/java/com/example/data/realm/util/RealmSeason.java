@@ -11,6 +11,9 @@ public class RealmSeason extends RealmObject {
     private int seasonNumber;
     private int posterPath;
 
+    public RealmSeason() {
+    }
+
     public RealmSeason(int episodeCount, int seasonNumber, int posterPath) {
         this.episodeCount = episodeCount;
         this.seasonNumber = seasonNumber;

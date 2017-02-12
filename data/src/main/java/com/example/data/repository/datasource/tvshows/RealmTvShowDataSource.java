@@ -65,22 +65,22 @@ public class RealmTvShowDataSource implements CacheTvShowDataSource {
 
         @Override
         public void saveTvShows(List<TvShow> tvShows) {
-            Realm realm = Realm.getDefaultInstance();
-
-            realm.beginTransaction();
-            for (TvShow tvShow : tvShows) {
-                RealmList<RealmString> realmGenres = new RealmList<>();
-                for (String genre : tvShow.getGenresList()) {
-                    realmGenres.add(new RealmString(genre));
-                }
-
-                TvShowRealm tvShowRealm = new TvShowRealm(tvShow.getPoster_path(), tvShow.getOverview(),
-                        realmGenres, tvShow.getId(), tvShow.getVoteAverage(), tvShow.getName(),
-                        tvShow.isFavorited(), tvShow.getPopularity(), tvShow.getNumberOfEspisodes(),
-                        tvShow.getNumberOfSeasons());
-                realm.copyToRealmOrUpdate(tvShowRealm);
-            }
-            realm.commitTransaction();
+//            Realm realm = Realm.getDefaultInstance();
+//
+//            realm.beginTransaction();
+//            for (TvShow tvShow : tvShows) {
+//                RealmList<RealmString> realmGenres = new RealmList<>();
+//                for (String genre : tvShow.getGenresList()) {
+//                    realmGenres.add(new RealmString(genre));
+//                }
+//
+//                TvShowRealm tvShowRealm = new TvShowRealm(tvShow.getPoster_path(), tvShow.getOverview(),
+//                        realmGenres, tvShow.getId(), tvShow.getVoteAverage(), tvShow.getName(),
+//                        tvShow.isFavorited(), tvShow.getPopularity(), tvShow.getNumberOfEspisodes(),
+//                        tvShow.getNumberOfSeasons());
+//                realm.copyToRealmOrUpdate(tvShowRealm);
+//            }
+//            realm.commitTransaction();
         }
 
         @Override

@@ -18,9 +18,9 @@ import android.widget.LinearLayout;
 
 import com.jag.movies.Models.TvShowViewModel;
 import com.jag.movies.R;
-import com.jag.movies.UI.Detail.DetailActivity;
+import com.jag.movies.UI.Detail.movie.MovieDetailActivity;
+import com.jag.movies.UI.Detail.tvshow.TvShowDetailActivity;
 import com.jag.movies.UI.Discover.DiscoverActivity;
-import com.jag.movies.UI.renderes.movies.MovieRendererBuilder;
 import com.jag.movies.UI.renderes.RendererAdapterWithItemPosition;
 import com.jag.movies.UI.renderes.tvShows.TvShowRendererBuilder;
 import com.jag.movies.Utils.EndlessRecyclerViewScrollListener;
@@ -129,7 +129,7 @@ public class TvShowsFragment extends Fragment implements FragmentDiscoverView<Tv
 
     @Override
     public void startDetailActivity(int itemId, ImageView cover) {
-        Intent intent = DetailActivity.getLauncherIntent(context, itemId);
+        Intent intent = TvShowDetailActivity.getLauncherIntent(context, itemId);
         ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(
                 ((Activity) context), cover, getString(R.string.cover_transition_name));
 
