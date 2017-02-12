@@ -86,7 +86,7 @@ public class TvShowRenderer extends RendererWithItemPosition<TvShowViewModel> {
     }
 
     private void renderTvShowScore(float voteAverage) {
-        tvShoweScore.setText(String.format(Locale.getDefault(), "%0.01f", voteAverage));
+        tvShoweScore.setText(String.format(Locale.getDefault(), "%.01f", voteAverage));
     }
 
     private void renderTvShowOverview(String overview) {

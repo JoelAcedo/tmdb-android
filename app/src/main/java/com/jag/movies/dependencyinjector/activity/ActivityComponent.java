@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import com.example.executor.PostExecutionThread;
 import com.example.executor.ThreadExecutor;
 import com.example.repositories.MovieRepository;
+import com.example.repositories.TvShowRepository;
 import com.jag.movies.UI.Detail.DetailActivity;
 import com.jag.movies.UI.Discover.DiscoverActivity;
 import com.jag.movies.Utils.ImageLoader;
@@ -35,4 +36,5 @@ public interface ActivityComponent {
     PostExecutionThread getPostExecutionThread();
 
     MovieRepository getMovieRepository();
+    TvShowRepository getTvShowRepository();
 }

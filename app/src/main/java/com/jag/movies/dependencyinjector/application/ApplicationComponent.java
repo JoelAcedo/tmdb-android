@@ -6,6 +6,7 @@ import com.example.executor.PostExecutionThread;
 import com.example.executor.ThreadExecutor;
 import com.example.repositories.CastRepository;
 import com.example.repositories.MovieRepository;
+import com.example.repositories.TvShowRepository;
 import com.jag.movies.App;
 import com.jag.movies.Utils.ImageLoader;
 import com.jag.movies.dependencyinjector.activity.ActivityComponent;
@@ -32,6 +33,7 @@ public interface ApplicationComponent {
 
     MovieRepository getMovieRepository();
     CastRepository getCastRepository();
+    TvShowRepository getTvShowRepository();
 
 //    ActivityComponent plus(ActivityModule activityModule, ViewModule viewModule);
 

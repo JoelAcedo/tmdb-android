@@ -69,14 +69,15 @@ public class RealmTvShowDataSource implements CacheTvShowDataSource {
 
             realm.beginTransaction();
             for (TvShow tvShow : tvShows) {
-                RealmList<RealmString> realmStrings = new RealmList<>();
+                RealmList<RealmString> realmGenres = new RealmList<>();
                 for (String genre : tvShow.getGenresList()) {
-                    realmStrings.add(new RealmString(genre));
+                    realmGenres.add(new RealmString(genre));
                 }
 
-                TvShowRealm tvShowRealm = new TvShowRealm(tvShow.getId(),tvShow.getName(),
-                        tvShow.getOverview(),tvShow.getVoteAverage(),realmStrings,
-                        tvShow.getPoster_path(),tvShow.isFavorited(),tvShow.getPopularity());
+                TvShowRealm tvShowRealm = new TvShowRealm(tvShow.getPoster_path(), tvShow.getOverview(),
+                        realmGenres, tvShow.getId(), tvShow.getVoteAverage(), tvShow.getName(),
+                        tvShow.isFavorited(), tvShow.getPopularity(), tvShow.getNumberOfEspisodes(),
+                        tvShow.getNumberOfSeasons());
                 realm.copyToRealmOrUpdate(tvShowRealm);
             }
             realm.commitTransaction();
