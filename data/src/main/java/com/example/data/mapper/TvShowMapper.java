@@ -27,7 +27,7 @@ public class TvShowMapper {
     public static TvShow fromTvShowDTO(TvShowDTO TvShowDTO) {
         return new TvShow(TvShowDTO.getOverview(),TvShowDTO.getName(),BASE_IMAGE_URL+TvShowDTO.getPosterPath(),
                 TvShowDTO.getId(),TvShowDTO.getVoteAverage(),TvShowDTO.getPopularity(),
-                TvShowDTO.getTvShowGenres(),false);
+                TvShowDTO.getTvShowGenres(),false, TvShowDTO.getNumberOfSeasons(), TvShowDTO.getNumberOfEpisodes());
     }
 
 
@@ -39,7 +39,7 @@ public class TvShowMapper {
 
         TvShow TvShow = new TvShow(TvShowRealm.getOverview(),TvShowRealm.getName(),TvShowRealm.getPosterPath(),
                 TvShowRealm.getId(),TvShowRealm.getVoteAverage(),TvShowRealm.getPopularity(),
-                genres,TvShowRealm.isFavorited());
+                genres,TvShowRealm.isFavorited(), TvShowRealm.getNumberOfSeasons(), TvShowRealm.getNumberOfEpisodes());
 
         return TvShow;
     }
