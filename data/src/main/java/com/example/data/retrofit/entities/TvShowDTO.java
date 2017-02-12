@@ -26,16 +26,29 @@ public class TvShowDTO {
     private List<Integer> genreIds = new ArrayList<Integer>();
     @SerializedName("genres")
     private List<Genre> genresList;
+    @SerializedName("number_of_episodes")
+    private int numberOfEpisodes;
+    @SerializedName("number_of_seasons")
+    private int numberOfSeasons;
 
-    public TvShowDTO(String overview, String name, String posterPath, int id, float voteAverage, float popularity, List<Integer> genreIds, List<Genre> genresList) {
+    public TvShowDTO(String overview, String name, String posterPath, int id, float voteAverage, float popularity, List<Genre> genresList, int numberOfEpisodes, int numberOfSeasons) {
         this.overview = overview;
         this.name = name;
         this.posterPath = posterPath;
         this.id = id;
         this.voteAverage = voteAverage;
         this.popularity = popularity;
-        this.genreIds = genreIds;
         this.genresList = genresList;
+        this.numberOfEpisodes = numberOfEpisodes;
+        this.numberOfSeasons = numberOfSeasons;
+    }
+
+    public int getNumberOfEpisodes() {
+        return numberOfEpisodes;
+    }
+
+    public int getNumberOfSeasons() {
+        return numberOfSeasons;
     }
 
     public int getId() {

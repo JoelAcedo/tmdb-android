@@ -26,23 +26,31 @@ public class TvShowRealm extends RealmObject{
     private float voteAverage;
     private boolean isFavorited;
     private float popularity;
-    private long createdAt;
+    private int numberOfEpisodes;
+    private int numberOfSeasons;
 
     public TvShowRealm() {
     }
 
-    public TvShowRealm(int id, String name, String overview, float voteAverage,
-                      RealmList<RealmString> genreIds, String posterPath,
-                      boolean isFavorited, float popularity) {
+    public TvShowRealm(String posterPath, String overview, RealmList<RealmString> genreIds, Integer id, float voteAverage, String name, boolean isFavorited, float popularity, int numberOfEpisodes, int numberOfSeasons) {
         this.posterPath = posterPath;
         this.overview = overview;
         this.genreIds = genreIds;
         this.id = id;
-        this.name = name;
         this.voteAverage = voteAverage;
+        this.name = name;
         this.isFavorited = isFavorited;
         this.popularity = popularity;
-        this.createdAt = System.currentTimeMillis();
+        this.numberOfEpisodes = numberOfEpisodes;
+        this.numberOfSeasons = numberOfSeasons;
+    }
+
+    public int getNumberOfEpisodes() {
+        return numberOfEpisodes;
+    }
+
+    public int getNumberOfSeasons() {
+        return numberOfSeasons;
     }
 
     public String getPosterPath() {

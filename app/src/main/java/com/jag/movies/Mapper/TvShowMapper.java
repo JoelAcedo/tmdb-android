@@ -22,6 +22,6 @@ public class TvShowMapper {
 
     public static TvShowViewModel toTvShowViewModel(TvShow tvShow) {
         return new TvShowViewModel(tvShow.getId(),tvShow.getName(),tvShow.getOverview(),tvShow.getVoteAverage(),
-                tvShow.getGenresList(),tvShow.getCoverUrl(),tvShow.isFavorited());
+                tvShow.getGenresList(),tvShow.getCoverUrl(),tvShow.isFavorited(), tvShow.getNumberOfSeasons(), tvShow.getNumberOfEspisodes());
     }
 }
