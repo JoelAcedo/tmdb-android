@@ -16,9 +16,10 @@ public class TvShowViewModel {
     private boolean isFavorited;
     private int numberOfSeasons;
     private int numberOfEpisodes;
+    private List<SeasonViewModel> seasons;
 
     public TvShowViewModel(int tvShowId, String name, String overview, float voteAverage, List<String> genresList,
-                           String coverUrl, boolean isFavorited, int numberOfSeasons, int numberOfEpisodes) {
+                           String coverUrl, boolean isFavorited, int numberOfSeasons, int numberOfEpisodes, List<SeasonViewModel> seasons) {
         this.tvShowId = tvShowId;
         this.name = name;
         this.overview = overview;
@@ -28,6 +29,11 @@ public class TvShowViewModel {
         this.isFavorited = isFavorited;
         this.numberOfSeasons = numberOfSeasons;
         this.numberOfEpisodes = numberOfEpisodes;
+        this.seasons = seasons;
+    }
+
+    public List<SeasonViewModel> getSeasons() {
+        return seasons;
     }
 
     public int getNumberOfSeasons() {

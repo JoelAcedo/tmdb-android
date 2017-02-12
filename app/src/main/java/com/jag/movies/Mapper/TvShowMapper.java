@@ -1,6 +1,8 @@
 package com.jag.movies.Mapper;
 
+import com.example.entities.Season;
 import com.example.entities.TvShow;
+import com.jag.movies.Models.SeasonViewModel;
 import com.jag.movies.Models.TvShowViewModel;
 
 import java.util.ArrayList;
@@ -21,7 +23,13 @@ public class TvShowMapper {
     }
 
     public static TvShowViewModel toTvShowViewModel(TvShow tvShow) {
+        List<SeasonViewModel> seasons= new ArrayList<>();
+        for (Season s : tvShow.getSeasons()) {
+            SeasonViewModel season = new SeasonViewModel(s.getEpisodeCount(),s.getSeasonNumber(),s.getPosterPath());
+            seasons.add(season);
+        }
+
         return new TvShowViewModel(tvShow.getId(),tvShow.getName(),tvShow.getOverview(),tvShow.getVoteAverage(),
-                tvShow.getGenresList(),tvShow.getCoverUrl(),tvShow.isFavorited(), tvShow.getNumberOfSeasons(), tvShow.getNumberOfEspisodes());
+                tvShow.getGenresList(),tvShow.getCoverUrl(),tvShow.isFavorited(), tvShow.getNumberOfSeasons(), tvShow.getNumberOfEspisodes(), seasons);
     }
 }

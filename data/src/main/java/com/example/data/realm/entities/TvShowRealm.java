@@ -1,5 +1,6 @@
 package com.example.data.realm.entities;
 
+import com.example.data.realm.util.RealmSeason;
 import com.example.data.realm.util.RealmString;
 
 import io.realm.RealmList;
@@ -28,21 +29,31 @@ public class TvShowRealm extends RealmObject{
     private float popularity;
     private int numberOfEpisodes;
     private int numberOfSeasons;
+    private RealmList<RealmSeason> seasons;
 
     public TvShowRealm() {
     }
 
-    public TvShowRealm(String posterPath, String overview, RealmList<RealmString> genreIds, Integer id, float voteAverage, String name, boolean isFavorited, float popularity, int numberOfEpisodes, int numberOfSeasons) {
+    public TvShowRealm(String posterPath, String overview, RealmList<RealmString> genreIds, Integer id, String name, float voteAverage, boolean isFavorited, float popularity, int numberOfEpisodes, int numberOfSeasons, RealmList<RealmSeason> seasons) {
         this.posterPath = posterPath;
         this.overview = overview;
         this.genreIds = genreIds;
         this.id = id;
-        this.voteAverage = voteAverage;
         this.name = name;
+        this.voteAverage = voteAverage;
         this.isFavorited = isFavorited;
         this.popularity = popularity;
         this.numberOfEpisodes = numberOfEpisodes;
         this.numberOfSeasons = numberOfSeasons;
+        this.seasons = seasons;
+    }
+
+    public RealmList<RealmSeason> getSeasons() {
+        return seasons;
+    }
+
+    public void setSeasons(RealmList<RealmSeason> seasons) {
+        this.seasons = seasons;
     }
 
     public int getNumberOfEpisodes() {

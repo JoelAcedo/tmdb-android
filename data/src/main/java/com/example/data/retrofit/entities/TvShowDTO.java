@@ -30,6 +30,8 @@ public class TvShowDTO {
     private int numberOfEpisodes;
     @SerializedName("number_of_seasons")
     private int numberOfSeasons;
+    @SerializedName("seasons")
+    private List<SeasonDTO> seasonDTO;
 
     public TvShowDTO(String overview, String name, String posterPath, int id, float voteAverage, float popularity, List<Genre> genresList, int numberOfEpisodes, int numberOfSeasons) {
         this.overview = overview;
@@ -41,6 +43,19 @@ public class TvShowDTO {
         this.genresList = genresList;
         this.numberOfEpisodes = numberOfEpisodes;
         this.numberOfSeasons = numberOfSeasons;
+    }
+
+    public List<SeasonDTO> getSeasonDTO() {
+        return seasonDTO;
+    }
+
+    public int getNumberOfEpisodesPerSeason(int seasonNumber) {
+        for (SeasonDTO s: seasonDTO) {
+            if (seasonNumber == s.getSeasonNumber()) {
+                return s.getEpisodeCount();
+            }
+        }
+        return 0;
     }
 
     public int getNumberOfEpisodes() {
