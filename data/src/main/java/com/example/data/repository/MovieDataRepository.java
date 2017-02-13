@@ -57,10 +57,12 @@ public class MovieDataRepository implements MovieRepository {
 
     private void updateFromNetwork(int page, GetMoviesCallback callback) throws IOException {
         List<Movie> movies;
+        // Para cargar los favoritos existentes debemos comprobar que pelis estan marcada en DB
         movies = dataSource.getMoviesByPage(page);
-        callback.onSuccess(movies);
         cacheMovieDataSource.saveMovies(movies);
+        movies = cacheMovieDataSource.getMoviesByPage(page);
         cacheMovieDataSource.setTimeFromLastUpdateCheck(page);
+        callback.onSuccess(movies);
     }
 
     private boolean checkIfDoNetworkUpdate(int page) {

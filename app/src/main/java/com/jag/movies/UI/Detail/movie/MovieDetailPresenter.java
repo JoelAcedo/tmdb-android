@@ -59,7 +59,7 @@ public class MovieDetailPresenter {
         movieDetailView.renderScore(movieViewModel.getVoteAverage());
         movieDetailView.renderReleaseDate(movieViewModel.getReleaseDate());
 
-        Log.e(TAG, String.valueOf(movieViewModel.isFavorited()));
+//        Log.e(TAG, String.valueOf(movieViewModel.isFavorited()));
 
         if (movieViewModel.isFavorited()) {
             movieDetailView.setFloatingButtonFavorited();

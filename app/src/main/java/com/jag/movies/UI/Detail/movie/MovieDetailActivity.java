@@ -121,6 +121,7 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
     }
 
     private void setupAnimation() {
+        // TODO: error si no hay internet, no se como se podria solucionar para llamar al computePalette
         supportPostponeEnterTransition();
         movieCover.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override

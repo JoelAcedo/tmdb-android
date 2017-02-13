@@ -14,17 +14,18 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
-import com.jag.movies.Adapters.CastMovieAdapter;
 import com.jag.movies.App;
 import com.jag.movies.Models.EpisodeViewModel;
+import com.jag.movies.Models.SeasonViewModel;
 import com.jag.movies.R;
-import com.jag.movies.UI.Detail.movie.MovieDetailActivity;
-import com.jag.movies.UI.Detail.movie.MovieDetailPresenter;
 import com.jag.movies.Utils.ImageLoader;
 import com.jag.movies.dependencyinjector.activity.ActivityComponent;
 import com.jag.movies.dependencyinjector.activity.ActivityModule;
@@ -32,6 +33,7 @@ import com.jag.movies.dependencyinjector.activity.DaggerActivityComponent;
 import com.jag.movies.dependencyinjector.application.ViewModule;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -66,8 +68,8 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
     @ForActivity
     Context context;
 
-//    @Inject
-//    MovieDetailPresenter movieDetailPresenter;
+    @Inject
+    TvShowDetailPresenter tvShowDetailPresenter;
 //
 //    @Inject
 //    CastMovieAdapter castMovieAdapter;
@@ -110,7 +112,7 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
         setupFloatingButton();
 //        setupCastRecyclerView();
 //
-//        movieDetailPresenter.onStart(getIntent());
+        tvShowDetailPresenter.onStart(getIntent());
     }
 
     private void setupToolbar() {
@@ -121,7 +123,7 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
 
     private void setupAnimation() {
         //TODO Revisar que pasa sin network
-/*        supportPostponeEnterTransition();
+        supportPostponeEnterTransition();
         tvShowCover.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
             @Override
             public boolean onPreDraw() {
@@ -133,14 +135,14 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
                 }
                 return false;
             }
-        });*/
+        });
     }
 
     private void setupFloatingButton() {
         floatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                movieDetailPresenter.floatingButtonClicked();
+                tvShowDetailPresenter.floatingButtonClicked();
             }
         });
     }
@@ -188,7 +190,11 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
 
     @Override
     public void renderReleaseDate(String releaseDate) {
-        //TODO Fecha de inicio de la serie
+        String[] date = releaseDate.split("-");
+        if (date.length > 0)
+            tvShowReleaseDate.setText(date[0]);
+        else
+            tvShowReleaseDate.setText("-");
     }
 
     @Override
@@ -198,7 +204,7 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
             public void onGenerated(Palette palette) {
                 TvShowDetailActivity.this.palette = palette;
                 int defaultColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
-//                movieDetailPresenter.updateVibrantColor(palette.getVibrantColor(defaultColor));
+                tvShowDetailPresenter.updateVibrantColor(palette.getVibrantColor(defaultColor));
             }
         });
     }
@@ -214,8 +220,27 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
 //        castMovieAdapter.setVibrantColor(vibrantColor);
     }
 
+
     @Override
-    public void showEpisodes(List<EpisodeViewModel> castData) {
+    public void showSeasons(List<SeasonViewModel> seasonData) {
+        ArrayList seasonNames = new ArrayList();
+        for (SeasonViewModel seasonViewModel : seasonData) {
+            seasonNames.add(getString(R.string.season_pre) + " " + String.valueOf(seasonViewModel.getSeasonNumber() + 1) /*+ "("
+                + seasonViewModel.getEpisodeCount() + ")"*/);
+        }
+
+        SpinnerAdapter spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, seasonNames);
+        seasonSpinn.setAdapter(spinnerAdapter);
+        seasonSpinn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                tvShowDetailPresenter.seasonSelected(position);
+            }
+        });
+    }
+
+    @Override
+    public void showEpisodes(List<EpisodeViewModel> episodesData) {
         //TODO
     }
 }

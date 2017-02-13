@@ -7,9 +7,9 @@ package com.example.entities;
 public class Season {
     private int episodeCount;
     private int seasonNumber;
-    private int posterPath;
+    private String posterPath;
 
-    public Season(int episodeCount, int seasonNumber, int posterPath) {
+    public Season(int episodeCount, int seasonNumber, String posterPath) {
         this.episodeCount = episodeCount;
         this.seasonNumber = seasonNumber;
         this.posterPath = posterPath;
@@ -31,11 +31,11 @@ public class Season {
         this.seasonNumber = seasonNumber;
     }
 
-    public int getPosterPath() {
+    public String getPosterPath() {
         return posterPath;
     }
 
-    public void setPosterPath(int posterPath) {
+    public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
     }
 }

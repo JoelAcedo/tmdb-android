@@ -71,4 +71,43 @@ public class PicassoLoader implements ImageLoader {
     public Bitmap getBitmap(ImageView movieCover) {
         return ((BitmapDrawable) movieCover.getDrawable()).getBitmap();
     }
+
+    @Override
+    public void bindImage(String imagePath, ImageView imageView, final ProgressBar progressBar, final ImageCallbak imageCallbak) {
+        Picasso.with(context)
+                .load(imagePath)
+                .noFade()
+                .centerInside()
+                .fit()
+                .into(imageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        progressBar.setVisibility(View.GONE);
+                        imageCallbak.onSucces();
+                    }
+
+                    @Override
+                    public void onError() {
+                    }
+                });
+    }
+
+    @Override
+    public void bindImage(String imagePath, ImageView imageView, final ImageCallbak imageCallbak) {
+        Picasso.with(context)
+                .load(imagePath)
+                .noFade()
+                .centerInside()
+                .fit()
+                .into(imageView, new Callback() {
+                    @Override
+                    public void onSuccess() {
+                        imageCallbak.onSucces();
+                    }
+
+                    @Override
+                    public void onError() {
+                    }
+                });
+    }
 }

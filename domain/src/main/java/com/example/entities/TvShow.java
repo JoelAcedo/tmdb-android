@@ -18,9 +18,10 @@ public class TvShow {
     private boolean isFavorited;
     private int numberOfSeasons;
     private int numberOfEspisodes;
+    private String releaseDate;
 
     public TvShow(String overview, String name, String poster_path, int id, float voteAverage, float popularity,
-                  List<String> genresList, boolean isFavorited, int numberOfSeasons, int numberOfEspisodes, List<Season> seasons) {
+                  List<String> genresList, boolean isFavorited, int numberOfSeasons, int numberOfEspisodes, List<Season> seasons, String releaseDate) {
         this.overview = overview;
         this.name = name;
         this.poster_path = poster_path;
@@ -32,6 +33,7 @@ public class TvShow {
         this.numberOfEspisodes = numberOfEspisodes;
         this.numberOfSeasons = numberOfSeasons;
         this.seasons = seasons;
+        this.releaseDate = releaseDate;
     }
 
     public List<Season> getSeasons() {
@@ -112,5 +114,17 @@ public class TvShow {
 
     public String getCoverUrl() {
         return poster_path;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+    public void setSeasons(List<Season> seasons) {
+        this.seasons = seasons;
     }
 }

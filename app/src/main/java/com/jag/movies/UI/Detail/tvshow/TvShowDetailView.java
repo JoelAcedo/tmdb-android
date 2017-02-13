@@ -1,6 +1,7 @@
 package com.jag.movies.UI.Detail.tvshow;
 
 import com.jag.movies.Models.EpisodeViewModel;
+import com.jag.movies.Models.SeasonViewModel;
 import com.jag.movies.UI.Detail.DetailView;
 
 import java.util.List;
@@ -11,5 +12,6 @@ import java.util.List;
 
 public interface TvShowDetailView extends DetailView {
 
-    void showEpisodes(List<EpisodeViewModel> castData);
+    void showSeasons(List<SeasonViewModel> seasonData);
+    void showEpisodes(List<EpisodeViewModel> episodesData);
 }

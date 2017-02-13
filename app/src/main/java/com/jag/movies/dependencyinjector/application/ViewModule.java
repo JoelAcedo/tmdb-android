@@ -46,4 +46,9 @@ public class ViewModule {
     public MovieDetailView getMovieDetailView() {
         return movieDetailView;
     }
+
+    @Provides
+    public TvShowDetailView getTvShowDetailView() {
+        return tvShowDetailView;
+    }
 }

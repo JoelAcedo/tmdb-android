@@ -27,34 +27,40 @@ public class TvShowMapper {
         return TvShows;
     }
 
-    public static TvShow fromTvShowDTO(TvShowDTO TvShowDTO) {
-        List<Season> seasons= new ArrayList<>();
-//        for (SeasonDTO s : TvShowDTO.getSeasonDTO()) {
-//            Season season = new Season(s.getEpisodeCount(),s.getSeasonNumber(),s.getPosterPath());
-//            seasons.add(season);
-//        }
-        return new TvShow(TvShowDTO.getOverview(),TvShowDTO.getName(),BASE_IMAGE_URL+TvShowDTO.getPosterPath(),
-                TvShowDTO.getId(),TvShowDTO.getVoteAverage(),TvShowDTO.getPopularity(),
-                TvShowDTO.getTvShowGenres(),false, TvShowDTO.getNumberOfSeasons(), TvShowDTO.getNumberOfEpisodes(), seasons);
+    public static TvShow fromTvShowDTO(TvShowDTO tvShowDTO) {
+        List<Season> seasons = new ArrayList<>();
+
+        if (tvShowDTO.getSeasonDTO() != null) {
+            for (SeasonDTO s : tvShowDTO.getSeasonDTO()) {
+                Season season = new Season(s.getEpisodeCount(), s.getSeasonNumber(), s.getPosterPath());
+                seasons.add(season);
+            }
+        }
+
+        return new TvShow(tvShowDTO.getOverview(),tvShowDTO.getName(),BASE_IMAGE_URL+tvShowDTO.getPosterPath(),
+                tvShowDTO.getId(),tvShowDTO.getVoteAverage(),tvShowDTO.getPopularity(),
+                tvShowDTO.getTvShowGenres(),false, tvShowDTO.getNumberOfSeasons(), tvShowDTO.getNumberOfEpisodes(), seasons,
+                tvShowDTO.getReleaseDate());
     }
 
 
-    public static TvShow fromTvShowRealm(TvShowRealm TvShowRealm) {
+    public static TvShow fromTvShowRealm(TvShowRealm tvShowRealm) {
         List<String> genres = new ArrayList<>();
-        for (RealmString realmString : TvShowRealm.getGenreIds()) {
+        for (RealmString realmString : tvShowRealm.getGenreIds()) {
             genres.add(realmString.getString());
         }
 
         List<Season> seasons= new ArrayList<>();
-        for (RealmSeason s : TvShowRealm.getSeasons()) {
+        for (RealmSeason s : tvShowRealm.getSeasons()) {
             Season season = new Season(s.getEpisodeCount(),s.getSeasonNumber(),s.getPosterPath());
             seasons.add(season);
         }
 
-        TvShow TvShow = new TvShow(TvShowRealm.getOverview(),TvShowRealm.getName(),TvShowRealm.getPosterPath(),
-                TvShowRealm.getId(),TvShowRealm.getVoteAverage(),TvShowRealm.getPopularity(),
-                genres,TvShowRealm.isFavorited(), TvShowRealm.getNumberOfSeasons(), TvShowRealm.getNumberOfEpisodes(), seasons);
+        TvShow tvShow = new TvShow(tvShowRealm.getOverview(),tvShowRealm.getName(),tvShowRealm.getPosterPath(),
+                tvShowRealm.getId(),tvShowRealm.getVoteAverage(),tvShowRealm.getPopularity(),
+                genres,tvShowRealm.isFavorited(), tvShowRealm.getNumberOfSeasons(), tvShowRealm.getNumberOfEpisodes(),
+                seasons, tvShowRealm.getReleaseDate());
 
-        return TvShow;
+        return tvShow;
     }
 }

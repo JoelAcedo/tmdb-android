@@ -30,11 +30,14 @@ public class TvShowRealm extends RealmObject{
     private int numberOfEpisodes;
     private int numberOfSeasons;
     private RealmList<RealmSeason> seasons;
+    private String releaseDate;
 
     public TvShowRealm() {
     }
 
-    public TvShowRealm(String posterPath, String overview, RealmList<RealmString> genreIds, Integer id, String name, float voteAverage, boolean isFavorited, float popularity, int numberOfEpisodes, int numberOfSeasons, RealmList<RealmSeason> seasons) {
+    public TvShowRealm(String posterPath, String overview, RealmList<RealmString> genreIds, Integer id, String name,
+                       float voteAverage, boolean isFavorited, float popularity, int numberOfEpisodes,
+                       int numberOfSeasons, RealmList<RealmSeason> seasons, String releaseDate) {
         this.posterPath = posterPath;
         this.overview = overview;
         this.genreIds = genreIds;
@@ -46,6 +49,7 @@ public class TvShowRealm extends RealmObject{
         this.numberOfEpisodes = numberOfEpisodes;
         this.numberOfSeasons = numberOfSeasons;
         this.seasons = seasons;
+        this.releaseDate = releaseDate;
     }
 
     public RealmList<RealmSeason> getSeasons() {
@@ -109,4 +113,14 @@ public class TvShowRealm extends RealmObject{
     public float getPopularity() {
         return popularity;
     }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
+    }
+
+
 }

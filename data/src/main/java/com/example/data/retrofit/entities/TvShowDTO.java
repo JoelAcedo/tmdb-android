@@ -1,5 +1,6 @@
 package com.example.data.retrofit.entities;
 
+import com.example.entities.Season;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
@@ -32,8 +33,11 @@ public class TvShowDTO {
     private int numberOfSeasons;
     @SerializedName("seasons")
     private List<SeasonDTO> seasonDTO;
+    @SerializedName("first_air_date")
+    private String releaseDate;
 
-    public TvShowDTO(String overview, String name, String posterPath, int id, float voteAverage, float popularity, List<Genre> genresList, int numberOfEpisodes, int numberOfSeasons) {
+    public TvShowDTO(String overview, String name, String posterPath, int id, float voteAverage, float popularity, List<Genre> genresList, int numberOfEpisodes,
+                     int numberOfSeasons, String releaseDate, List<SeasonDTO> seasons) {
         this.overview = overview;
         this.name = name;
         this.posterPath = posterPath;
@@ -43,6 +47,8 @@ public class TvShowDTO {
         this.genresList = genresList;
         this.numberOfEpisodes = numberOfEpisodes;
         this.numberOfSeasons = numberOfSeasons;
+        this.releaseDate = releaseDate;
+        this.seasonDTO = seasons;
     }
 
     public List<SeasonDTO> getSeasonDTO() {
@@ -119,4 +125,7 @@ public class TvShowDTO {
         return genresList;
     }
 
+    public String getReleaseDate() {
+        return releaseDate;
+    }
 }

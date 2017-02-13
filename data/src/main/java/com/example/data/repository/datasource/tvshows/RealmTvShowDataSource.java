@@ -3,8 +3,10 @@ package com.example.data.repository.datasource.tvshows;
 import com.example.data.mapper.TvShowMapper;
 import com.example.data.realm.entities.TvShowRealm;
 import com.example.data.realm.util.LastUpdateTimeByPageRealm;
+import com.example.data.realm.util.RealmSeason;
 import com.example.data.realm.util.RealmString;
 import com.example.data.repository.TvShowDataRepository;
+import com.example.entities.Season;
 import com.example.entities.TvShow;
 
 import java.util.ArrayList;
@@ -19,6 +21,8 @@ import io.realm.Sort;
 import io.realm.internal.IOException;
 
 import static com.example.data.realm.util.LastUpdateTimeByPageRealm.PAGE_ID_REALM;
+import static com.example.data.realm.util.LastUpdateTimeByPageRealm.PAGE_TYPE;
+import static com.example.data.realm.util.LastUpdateTimeByPageRealm.TVSHOW_PAGE;
 
 /**
  * Created by Albert.Ruiz on 09/02/2017.
@@ -65,22 +69,33 @@ public class RealmTvShowDataSource implements CacheTvShowDataSource {
 
         @Override
         public void saveTvShows(List<TvShow> tvShows) {
-//            Realm realm = Realm.getDefaultInstance();
-//
-//            realm.beginTransaction();
-//            for (TvShow tvShow : tvShows) {
-//                RealmList<RealmString> realmGenres = new RealmList<>();
-//                for (String genre : tvShow.getGenresList()) {
-//                    realmGenres.add(new RealmString(genre));
-//                }
-//
-//                TvShowRealm tvShowRealm = new TvShowRealm(tvShow.getPoster_path(), tvShow.getOverview(),
-//                        realmGenres, tvShow.getId(), tvShow.getVoteAverage(), tvShow.getName(),
-//                        tvShow.isFavorited(), tvShow.getPopularity(), tvShow.getNumberOfEspisodes(),
-//                        tvShow.getNumberOfSeasons());
-//                realm.copyToRealmOrUpdate(tvShowRealm);
-//            }
-//            realm.commitTransaction();
+            Realm realm = Realm.getDefaultInstance();
+
+            realm.beginTransaction();
+            for (TvShow tvShow : tvShows) {
+                TvShowRealm tvShowRealm = realm.where(TvShowRealm.class).equalTo(TvShowRealm.TVSHOW_ID_REALM, tvShow.getId())
+                        .findFirst();
+
+                if (tvShowRealm == null) {
+                    RealmList<RealmString> realmGenres = new RealmList<>();
+                    for (String genre : tvShow.getGenresList()) {
+                        realmGenres.add(new RealmString(genre));
+                    }
+
+                    RealmList<RealmSeason> realmSeasons = new RealmList<>();
+                    for (Season season : tvShow.getSeasons()) {
+                        realmSeasons.add(new RealmSeason(season.getEpisodeCount(), season.getSeasonNumber(),
+                                season.getPosterPath()));
+                    }
+
+                    TvShowRealm newTvShowRealm = new TvShowRealm(tvShow.getPoster_path(), tvShow.getOverview(),
+                            realmGenres, tvShow.getId(), tvShow.getName(), tvShow.getVoteAverage(),
+                            tvShow.isFavorited(), tvShow.getPopularity(), tvShow.getNumberOfEspisodes(),
+                            tvShow.getNumberOfSeasons(), realmSeasons, tvShow.getReleaseDate());
+                    realm.copyToRealmOrUpdate(newTvShowRealm);
+                }
+            }
+            realm.commitTransaction();
         }
 
         @Override
@@ -95,6 +110,27 @@ public class RealmTvShowDataSource implements CacheTvShowDataSource {
             realm.commitTransaction();
         }
 
+        @Override
+        public void updateTvShow(TvShow tvShow) {
+            Realm realm = Realm.getDefaultInstance();
+
+            realm.beginTransaction();
+            TvShowRealm tvShowRealm = realm.where(TvShowRealm.class).equalTo(TvShowRealm.TVSHOW_ID_REALM, tvShow.getId())
+                    .findFirst();
+
+            List<Season> seasons = tvShow.getSeasons();
+            RealmList<RealmSeason> realmSeasons = new RealmList<>();
+            for (Season season : seasons) {
+                RealmSeason newRealmSeason = realm.createObject(RealmSeason.class);
+                newRealmSeason.setEpisodeCount(season.getEpisodeCount());
+                newRealmSeason.setSeasonNumber(season.getSeasonNumber());
+                newRealmSeason.setPosterPath(season.getPosterPath());
+                realmSeasons.add(newRealmSeason);
+            }
+            tvShowRealm.setSeasons(realmSeasons);
+            realm.copyToRealmOrUpdate(tvShowRealm);
+            realm.commitTransaction();
+        }
 
         @Override
         public long getTimeFromLastUpdateCheck(int page) {
@@ -102,7 +138,9 @@ public class RealmTvShowDataSource implements CacheTvShowDataSource {
 
             Long timestamp;
             realm.beginTransaction();
-            LastUpdateTimeByPageRealm lastUpdateTimeByPageRealm = realm.where(LastUpdateTimeByPageRealm.class).equalTo(PAGE_ID_REALM, page).findFirst();
+            String compoundId = LastUpdateTimeByPageRealm.getCompoundId(page, TVSHOW_PAGE);
+            LastUpdateTimeByPageRealm lastUpdateTimeByPageRealm = realm.where(LastUpdateTimeByPageRealm.class).equalTo(PAGE_ID_REALM, compoundId)
+                    .findFirst();
             if (lastUpdateTimeByPageRealm == null) {
                 timestamp = 0l;
             }
@@ -119,7 +157,7 @@ public class RealmTvShowDataSource implements CacheTvShowDataSource {
             Realm realm = Realm.getDefaultInstance();
 
             realm.beginTransaction();
-            LastUpdateTimeByPageRealm lastUpdateTimeByPageRealm = new LastUpdateTimeByPageRealm(System.currentTimeMillis(), page);
+            LastUpdateTimeByPageRealm lastUpdateTimeByPageRealm = new LastUpdateTimeByPageRealm(System.currentTimeMillis(), page, TVSHOW_PAGE);
             realm.copyToRealmOrUpdate(lastUpdateTimeByPageRealm);
             realm.commitTransaction();
         }

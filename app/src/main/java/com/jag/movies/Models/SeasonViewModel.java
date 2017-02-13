@@ -7,9 +7,9 @@ package com.jag.movies.Models;
 public class SeasonViewModel {
     private int episodeCount;
     private int seasonNumber;
-    private int posterPath;
+    private String posterPath;
 
-    public SeasonViewModel(int episodeCount, int seasonNumber, int posterPath) {
+    public SeasonViewModel(int episodeCount, int seasonNumber, String posterPath) {
         this.episodeCount = episodeCount;
         this.seasonNumber = seasonNumber;
         this.posterPath = posterPath;
@@ -31,11 +31,11 @@ public class SeasonViewModel {
         this.seasonNumber = seasonNumber;
     }
 
-    public int getPosterPath() {
+    public String getPosterPath() {
         return posterPath;
     }
 
-    public void setPosterPath(int posterPath) {
+    public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
     }
 }

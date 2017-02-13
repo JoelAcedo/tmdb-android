@@ -1,5 +1,7 @@
 package com.example.data.retrofit.entities;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 /**
@@ -7,6 +9,7 @@ import java.util.List;
  */
 
 public class TvShowList {
+    @SerializedName("results")
     List<TvShowDTO> results;
 
     public List<TvShowDTO> getResults() {

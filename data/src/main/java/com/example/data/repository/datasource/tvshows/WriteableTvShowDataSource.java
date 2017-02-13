@@ -10,6 +10,6 @@ import java.util.List;
 
 public interface WriteableTvShowDataSource {
     void saveTvShows(List<TvShow> movies);
-
+    void updateTvShow(TvShow tvShow);
     void updateTvShowFavorited(int movieId);
 }

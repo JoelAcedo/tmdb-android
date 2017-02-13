@@ -37,7 +37,4 @@ public interface RetrofitService {
     @GET("tv/{tv_id}")
     Call<TvShowDTO> getTvShowById(@Path("tv_id") int id, @Query("api_key")String apiKey);
 
-
-
-
 }

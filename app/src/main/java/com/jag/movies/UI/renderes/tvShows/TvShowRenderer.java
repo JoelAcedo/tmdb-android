@@ -76,9 +76,16 @@ public class TvShowRenderer extends RendererWithItemPosition<TvShowViewModel> {
         renderTvShowCategory(tvShowViewModel.getGenresList());
         renderTvShowOverview(tvShowViewModel.getOverview());
         renderTvShowScore(tvShowViewModel.getVoteAverage());
-        //TODO Get show release date
-//        renderTvShowReleaseDate(tvShowViewModel.getReleaseDate());
+        renderTvShowReleaseDate(tvShowViewModel.getReleaseDate());
         renderTvShowCover(tvShowViewModel.getCoverUrl());
+    }
+
+    private void renderTvShowReleaseDate(String releaseDate) {
+        String[] date = releaseDate.split("-");
+        if (date.length > 0)
+            tvShoweReleaseDate.setText(date[0]);
+        else
+            tvShoweReleaseDate.setText("-");
     }
 
     private void renderTvShowCover(String coverUrl) {

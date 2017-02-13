@@ -55,9 +55,10 @@ public class TvShowDataRepository implements TvShowRepository {
     private void updateFromNetwork(int page, GetTvShowsCallback callback) throws IOException {
         List<TvShow> tvShows;
         tvShows = dataSource.getTvShowsByPage(page);
-        callback.onSuccess(tvShows);
         cacheTvShowDataSource.saveTvShows(tvShows);
+        tvShows = cacheTvShowDataSource.getTvShowsByPage(page);
         cacheTvShowDataSource.setTimeFromLastUpdateCheck(page);
+        callback.onSuccess(tvShows);
     }
 
     private boolean checkIfDoNetworkUpdate(int page) {
@@ -79,16 +80,21 @@ public class TvShowDataRepository implements TvShowRepository {
 
             if (tvShow == null) {
                 // If data is not save at Realm DB, it is downloaded with retrofit and save.
-                tvShow = dataSource.getTvShowById(tvShowId);
-                callback.onSuccess(tvShow);
-            } else {
-                callback.onSuccess(tvShow);
+                tvShow  = dataSource.getTvShowById(tvShowId);
+            } else if (tvShow.getSeasons().size() == 0) {
+                TvShow apiTvShow = dataSource.getTvShowById(tvShowId);
+                tvShow.setSeasons(apiTvShow.getSeasons());
+                cacheTvShowDataSource.updateTvShow(tvShow);
             }
+
+            callback.onSuccess(tvShow);
         } catch (IOException e) {
             e.printStackTrace();
             callback.onError(new DataErrorBundle(e));
         }
     }
+
+
 
     @Override
     public void updateTvShowFavorited(int tvShowId) {

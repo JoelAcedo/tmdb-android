@@ -12,9 +12,9 @@ public class SeasonDTO {
     @SerializedName("season_number")
     private int seasonNumber;
     @SerializedName("poster_path")
-    private int posterPath;
+    private String posterPath;
 
-    public SeasonDTO(int episodeCount, int seasonNumber, int posterPath) {
+    public SeasonDTO(int episodeCount, int seasonNumber, String posterPath) {
         this.episodeCount = episodeCount;
         this.seasonNumber = seasonNumber;
         this.posterPath = posterPath;
@@ -36,11 +36,11 @@ public class SeasonDTO {
         this.seasonNumber = seasonNumber;
     }
 
-    public int getPosterPath() {
+    public String getPosterPath() {
         return posterPath;
     }
 
-    public void setPosterPath(int posterPath) {
+    public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
     }
 }
