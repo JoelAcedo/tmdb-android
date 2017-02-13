@@ -245,9 +245,12 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
     @Override
     public void showSeasons(List<SeasonViewModel> seasonData) {
         ArrayList seasonNames = new ArrayList();
-        for (SeasonViewModel seasonViewModel : seasonData) {
-            seasonNames.add(getString(R.string.season_pre) + " " + String.valueOf(seasonViewModel.getSeasonNumber() + 1) /*+ "("
+        for (int i = 0; i < seasonData.size(); i++) {
+            SeasonViewModel seasonViewModel = seasonData.get(i);
+            if (seasonViewModel.getSeasonNumber() > 0) {
+                seasonNames.add(getString(R.string.season_pre) + " " + seasonViewModel.getSeasonNumber() /*+ "("
                 + seasonViewModel.getEpisodeCount() + ")"*/);
+            }
         }
 
         SpinnerAdapter spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, seasonNames);
@@ -255,7 +258,7 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
         seasonSpinn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                tvShowDetailPresenter.seasonSelected(position);
+                tvShowDetailPresenter.seasonSelected(position+1);
             }
 
             @Override
