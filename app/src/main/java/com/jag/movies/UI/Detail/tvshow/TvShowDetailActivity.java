@@ -2,6 +2,8 @@ package com.jag.movies.UI.Detail.tvshow;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -92,6 +94,13 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
         return intent;
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -133,19 +142,21 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
 
     private void setupAnimation() {
         //TODO Revisar que pasa sin network
-        supportPostponeEnterTransition();
-        tvShowCover.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                if (tvShowCover.getDrawable() != null) {
-                    tvShowCover.getViewTreeObserver().removeOnPreDrawListener(this);
-                    computePalette(tvShowCover);
-                    supportStartPostponedEnterTransition();
-                    return true;
+        if (isNetworkAvailable()) {
+            supportPostponeEnterTransition();
+            tvShowCover.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    if (tvShowCover.getDrawable() != null) {
+                        tvShowCover.getViewTreeObserver().removeOnPreDrawListener(this);
+                        computePalette(tvShowCover);
+                        supportStartPostponedEnterTransition();
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }
     }
 
     private void setupFloatingButton() {

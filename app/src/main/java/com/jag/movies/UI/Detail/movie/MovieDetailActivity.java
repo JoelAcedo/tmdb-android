@@ -2,6 +2,8 @@ package com.jag.movies.UI.Detail.movie;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -81,6 +83,13 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
         return intent;
     }
 
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,19 +131,21 @@ public class MovieDetailActivity extends AppCompatActivity implements MovieDetai
 
     private void setupAnimation() {
         // TODO: error si no hay internet, no se como se podria solucionar para llamar al computePalette
-        supportPostponeEnterTransition();
-        movieCover.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                if (movieCover.getDrawable() != null) {
-                    movieCover.getViewTreeObserver().removeOnPreDrawListener(this);
-                    computePalette(movieCover);
-                    supportStartPostponedEnterTransition();
-                    return true;
+        if (isNetworkAvailable()) {
+            supportPostponeEnterTransition();
+            movieCover.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    if (movieCover.getDrawable() != null) {
+                        movieCover.getViewTreeObserver().removeOnPreDrawListener(this);
+                        computePalette(movieCover);
+                        supportStartPostponedEnterTransition();
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }
     }
 
     private void setupFloatingButton() {
