@@ -3,14 +3,21 @@ package com.jag.movies.UI.Detail.tvshow;
 import android.content.Intent;
 import android.util.Log;
 
+import com.example.entities.Episode;
 import com.example.entities.TvShow;
 import com.example.exception.ErrorBundle;
+import com.example.interactor.GetEpisodeInteractor;
 import com.example.interactor.GetTvShowByIdInteractor;
 import com.example.interactor.UpdateTvShowFavoritedInteractor;
+import com.example.repositories.EpisodeRepository;
 import com.example.repositories.TvShowRepository;
+import com.jag.movies.Mapper.EpisodeMapper;
 import com.jag.movies.Mapper.TvShowMapper;
+import com.jag.movies.Models.EpisodeViewModel;
 import com.jag.movies.Models.TvShowViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -25,15 +32,18 @@ public class TvShowDetailPresenter {
     private final TvShowDetailView tvShowDetailView;
     private final GetTvShowByIdInteractor getTvShowByIdInteractor;
     private final UpdateTvShowFavoritedInteractor updateTvShowFavoritedInteractor;
+    private final GetEpisodeInteractor getEpisodeInteractor;
     private TvShowViewModel tvShowViewModel;
     private int tvShowId;
 
     @Inject
     public TvShowDetailPresenter(TvShowDetailView tvShowDetailView, GetTvShowByIdInteractor getTvShowByIdInteractor,
-                                 UpdateTvShowFavoritedInteractor updateTvShowFavoritedInteractor) {
+                                 UpdateTvShowFavoritedInteractor updateTvShowFavoritedInteractor,
+                                 GetEpisodeInteractor getEpisodeInteractor) {
         this.tvShowDetailView = tvShowDetailView;
         this.getTvShowByIdInteractor = getTvShowByIdInteractor;
         this.updateTvShowFavoritedInteractor = updateTvShowFavoritedInteractor;
+        this.getEpisodeInteractor = getEpisodeInteractor;
     }
 
     public void onStart(Intent intent) {
@@ -96,7 +106,21 @@ public class TvShowDetailPresenter {
         tvShowDetailView.renderColors(vibrantColor);
     }
 
-    public void seasonSelected(int season) {
-        //TODO get episodes from that season
+    public void seasonSelected(int seasonNumber) {
+
+        /* args = { tvShowId, seasonNumber} */
+        Integer[] args = {tvShowId, seasonNumber};
+        getEpisodeInteractor.execute(new EpisodeRepository.GetEpisodesCallback() {
+            @Override
+            public void onError(ErrorBundle errorBundle) {
+                Log.e(TAG, errorBundle.getErrorMessage());
+            }
+
+            @Override
+            public void onSuccess(List<Episode> returnParam) {
+                List<EpisodeViewModel> episodes = EpisodeMapper.toListEpisodeViewModel(returnParam);
+                tvShowDetailView.showEpisodes(episodes);
+            }
+        }, args);
     }
 }

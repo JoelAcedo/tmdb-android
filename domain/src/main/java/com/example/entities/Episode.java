@@ -1,9 +1,10 @@
-package com.jag.movies.Models;
+package com.example.entities;
 
 /**
- * Created by joela on 12/02/2017.
+ * Created by joela on 13/02/2017.
  */
-public class EpisodeViewModel {
+
+public class Episode {
     private int id;
     private int episodeNumber;
     private String name;
@@ -11,7 +12,7 @@ public class EpisodeViewModel {
     private String overview;
     private String posterPath;
 
-    public EpisodeViewModel(int id, int episodeNumber, String name, String releaseDate, String overview, String posterPath) {
+    public Episode(int id, int episodeNumber, String name, String releaseDate, String overview, String posterPath) {
         this.id = id;
         this.episodeNumber = episodeNumber;
         this.name = name;

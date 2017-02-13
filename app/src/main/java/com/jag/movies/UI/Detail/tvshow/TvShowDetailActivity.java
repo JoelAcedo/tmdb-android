@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import android.widget.SpinnerAdapter;
 import android.widget.TextView;
 
+import com.jag.movies.Adapters.EpisodesAdapter;
 import com.jag.movies.App;
 import com.jag.movies.Models.EpisodeViewModel;
 import com.jag.movies.Models.SeasonViewModel;
@@ -70,9 +71,9 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
 
     @Inject
     TvShowDetailPresenter tvShowDetailPresenter;
-//
-//    @Inject
-//    CastMovieAdapter castMovieAdapter;
+
+    @Inject
+    EpisodesAdapter episodesAdapter;
 
     @Inject
     ImageLoader imageLoader;
@@ -110,9 +111,18 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
         setupAnimation();
         setupToolbar();
         setupFloatingButton();
-//        setupCastRecyclerView();
-//
+        setupEpisodeRecyclerView();
+
         tvShowDetailPresenter.onStart(getIntent());
+    }
+
+    private void setupEpisodeRecyclerView() {
+        episodesList.setHasFixedSize(true);
+        linearLayoutManager = new LinearLayoutManager(context,
+                LinearLayoutManager.HORIZONTAL, false);
+        episodesList.setLayoutManager(linearLayoutManager);
+        episodesList.setNestedScrollingEnabled(false);
+        episodesList.setAdapter(episodesAdapter);
     }
 
     private void setupToolbar() {
@@ -217,7 +227,7 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
         getWindow().setStatusBarColor(getResources().getColor(android.R.color.transparent));
         tvShowInfo.setBackgroundColor(vibrantColor);
         episodeTitle.setTextColor(vibrantColor);
-//        castMovieAdapter.setVibrantColor(vibrantColor);
+        episodesAdapter.setVibrantColor(vibrantColor);
     }
 
 
@@ -241,6 +251,6 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
 
     @Override
     public void showEpisodes(List<EpisodeViewModel> episodesData) {
-        //TODO
+        episodesAdapter.setEpisodesData(episodesData);
     }
 }
