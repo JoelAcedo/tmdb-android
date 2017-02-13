@@ -1,4 +1,4 @@
-package com.jag.movies.UI.renderes;
+package com.jag.movies.UI.renderes.movies;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,9 +11,10 @@ import android.widget.TextView;
 import com.jag.movies.UI.Discover.DiscoverPresenter;
 import com.jag.movies.R;
 import com.jag.movies.Models.MovieViewModel;
+import com.jag.movies.UI.Discover.fragments.MoviesPresenter;
+import com.jag.movies.UI.renderes.RendererWithItemPosition;
 import com.jag.movies.Utils.ImageLoader;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
-import com.pedrogomez.renderers.Renderer;
 
 import java.util.List;
 import java.util.Locale;
@@ -31,7 +32,7 @@ import butterknife.OnClick;
 public class MovieRenderer extends RendererWithItemPosition<MovieViewModel> {
 
     private final Context context;
-    private final DiscoverPresenter presenter;
+    private final MoviesPresenter presenter;
     private final ImageLoader imageLoader;
     @BindView(R.id.movie_cover_discover) ImageView movieCover;
     @BindView(R.id.movie_name_discover) TextView movieName;
@@ -42,7 +43,7 @@ public class MovieRenderer extends RendererWithItemPosition<MovieViewModel> {
     @BindView(R.id.progressBarMovieCover) ProgressBar movieCoverProgressBar;
 
     @Inject
-    public MovieRenderer(@ForActivity Context context, DiscoverPresenter discoverPresenter, ImageLoader imageLoader) {
+    public MovieRenderer(@ForActivity Context context, MoviesPresenter discoverPresenter, ImageLoader imageLoader) {
         this.context = context;
         this.presenter = discoverPresenter;
         this.imageLoader = imageLoader;

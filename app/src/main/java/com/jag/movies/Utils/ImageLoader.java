@@ -15,6 +15,8 @@ public interface ImageLoader {
 
     void bindImage (String imagePath, ImageView imageView);
     void bindImage (String imagePath, ImageView imageView, ProgressBar progressBar);
+    void bindImage (String imagePath, ImageView imageView, ProgressBar progressBar, ImageCallbak imageCallbak);
+    void bindImage (String imagePath, ImageView imageView, ImageCallbak imageCallbak);
     void bindImage (String imagePath, ImageView imageView, int placeholder);
 
     Bitmap getBitmap(ImageView movieCover);

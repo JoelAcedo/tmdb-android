@@ -18,7 +18,10 @@ import io.realm.RealmList;
 import io.realm.RealmResults;
 import io.realm.Sort;
 
+import static com.example.data.realm.util.LastUpdateTimeByPageRealm.MOVIE_PAGE;
 import static com.example.data.realm.util.LastUpdateTimeByPageRealm.PAGE_ID_REALM;
+import static com.example.data.realm.util.LastUpdateTimeByPageRealm.PAGE_TYPE;
+import static com.example.data.realm.util.LastUpdateTimeByPageRealm.TVSHOW_PAGE;
 
 /**
  * Created by inlab on 02/02/2017.
@@ -69,16 +72,20 @@ public class RealmMovieDataSource implements CacheMovieDataSource {
 
         realm.beginTransaction();
         for (Movie movie : movies) {
-            RealmList<RealmString> realmStrings = new RealmList<>();
-            for (String genre : movie.getGenresList()) {
-                realmStrings.add(new RealmString(genre));
+            MovieRealm movieRealm = realm.where(MovieRealm.class).equalTo(MovieRealm.MOVIE_ID_REALM, movie.getMovieId()).findFirst();
+
+            if (movieRealm == null) {
+                RealmList<RealmString> realmStrings = new RealmList<>();
+                for (String genre : movie.getGenresList()) {
+                    realmStrings.add(new RealmString(genre));
+                }
+
+                MovieRealm newMovieRealm = new MovieRealm(movie.getMovieId(), movie.getTitle(),
+                        movie.getOverview(), movie.getVoteAverage(), movie.getReleaseDate(),
+                        realmStrings, movie.getCoverUrl(), movie.isFavorited(), movie.getPopularity());
+
+                realm.copyToRealmOrUpdate(newMovieRealm);
             }
-
-            MovieRealm movieRealm = new MovieRealm(movie.getMovieId(), movie.getTitle(),
-                    movie.getOverview(), movie.getVoteAverage(), movie.getReleaseDate(),
-                    realmStrings, movie.getCoverUrl(), movie.isFavorited(), movie.getPopularity());
-
-            realm.copyToRealmOrUpdate(movieRealm);
         }
         realm.commitTransaction();
     }
@@ -91,7 +98,7 @@ public class RealmMovieDataSource implements CacheMovieDataSource {
         MovieRealm movieRealm = realm.where(MovieRealm.class).equalTo(MovieRealm.MOVIE_ID_REALM, movieId)
                 .findFirst();
         movieRealm.setFavorited(!movieRealm.isFavorited());
-        realm.copyToRealm(movieRealm);
+        realm.copyToRealmOrUpdate(movieRealm);
         realm.commitTransaction();
     }
 
@@ -102,7 +109,8 @@ public class RealmMovieDataSource implements CacheMovieDataSource {
 
         Long timestamp;
         realm.beginTransaction();
-        LastUpdateTimeByPageRealm lastUpdateTimeByPageRealm = realm.where(LastUpdateTimeByPageRealm.class).equalTo(PAGE_ID_REALM, page).findFirst();
+        String compoundId = LastUpdateTimeByPageRealm.getCompoundId(page, MOVIE_PAGE);
+        LastUpdateTimeByPageRealm lastUpdateTimeByPageRealm = realm.where(LastUpdateTimeByPageRealm.class).equalTo(PAGE_ID_REALM, compoundId).findFirst();
         if (lastUpdateTimeByPageRealm == null) {
             timestamp = 0l;
         }
@@ -119,7 +127,7 @@ public class RealmMovieDataSource implements CacheMovieDataSource {
         Realm realm = Realm.getDefaultInstance();
 
         realm.beginTransaction();
-        LastUpdateTimeByPageRealm lastUpdateTimeByPageRealm = new LastUpdateTimeByPageRealm(System.currentTimeMillis(), page);
+        LastUpdateTimeByPageRealm lastUpdateTimeByPageRealm = new LastUpdateTimeByPageRealm(System.currentTimeMillis(), page, MOVIE_PAGE);
         realm.copyToRealmOrUpdate(lastUpdateTimeByPageRealm);
         realm.commitTransaction();
     }

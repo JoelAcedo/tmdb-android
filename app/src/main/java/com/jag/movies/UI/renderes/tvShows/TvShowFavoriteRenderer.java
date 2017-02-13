@@ -1,12 +1,12 @@
-package com.jag.movies.UI.renderes;
+package com.jag.movies.UI.renderes.tvShows;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jag.movies.UI.Discover.DiscoverPresenter;
 import com.jag.movies.R;
+import com.jag.movies.UI.Discover.fragments.TvShowsPresenter;
 import com.jag.movies.Utils.ImageLoader;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 
@@ -15,14 +15,14 @@ import javax.inject.Inject;
 import butterknife.ButterKnife;
 
 /**
- * Created by inlab on 03/02/2017.
+ * Created by joela on 12/02/2017.
  */
 
-public class MovieFavoriteRenderer extends MovieRenderer {
+public class TvShowFavoriteRenderer extends TvShowRenderer {
 
     @Inject
-    public MovieFavoriteRenderer(@ForActivity Context context, DiscoverPresenter discoverPresenter, ImageLoader imageLoader) {
-        super(context, discoverPresenter, imageLoader);
+    public TvShowFavoriteRenderer(@ForActivity Context context, TvShowsPresenter presenter, ImageLoader imageLoader) {
+        super(context, presenter, imageLoader);
     }
 
     @Override

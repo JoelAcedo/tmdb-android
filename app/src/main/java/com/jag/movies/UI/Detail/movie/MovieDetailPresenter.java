@@ -1,4 +1,4 @@
-package com.jag.movies.UI.Detail;
+package com.jag.movies.UI.Detail.movie;
 
 import android.content.Intent;
 import android.util.Log;
@@ -14,8 +14,6 @@ import com.example.repositories.MovieRepository;
 import com.jag.movies.Mapper.CastMapper;
 import com.jag.movies.Mapper.MovieMapper;
 import com.jag.movies.Models.ActorViewModel;
-import com.jag.movies.UI.Detail.DetailActivity;
-import com.jag.movies.UI.Detail.DetailView;
 import com.jag.movies.Models.MovieViewModel;
 import com.jag.movies.dependencyinjector.scope.PerActivity;
 
@@ -25,10 +23,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 @PerActivity
-public class DetailPresenter {
+public class MovieDetailPresenter {
 
-    private static final String TAG = "DetailPresenter";
-    private final DetailView detailView;
+    private static final String TAG = "MovieDetailPresenter";
+    private final MovieDetailView movieDetailView;
     private final GetMovieByIdInteractor getMovieByIdInteractor;
     private final GetMovieCastInteractor getMovieCastInteractor;
     private final UpdateMovieFavoritedInteractor updateMovieFavoritedInteractor;
@@ -37,10 +35,10 @@ public class DetailPresenter {
     private int movieId;
 
     @Inject
-    public DetailPresenter(DetailView detailView, GetMovieByIdInteractor getMovieByIdInteractor,
-                           GetMovieCastInteractor getMovieCastInteractor,
-                           UpdateMovieFavoritedInteractor updateMovieFavoritedInteractor) {
-        this.detailView = detailView;
+    public MovieDetailPresenter(MovieDetailView movieDetailView, GetMovieByIdInteractor getMovieByIdInteractor,
+                                GetMovieCastInteractor getMovieCastInteractor,
+                                UpdateMovieFavoritedInteractor updateMovieFavoritedInteractor) {
+        this.movieDetailView = movieDetailView;
         this.getMovieByIdInteractor = getMovieByIdInteractor;
         this.getMovieCastInteractor = getMovieCastInteractor;
         this.updateMovieFavoritedInteractor = updateMovieFavoritedInteractor;
@@ -53,30 +51,30 @@ public class DetailPresenter {
     }
 
     private void movieDataReady() {
-        detailView.renderCover(movieViewModel.getCoverUrl());
-        //detailView.computePalette();
-        detailView.renderTitle(movieViewModel.getTitle());
-        detailView.renderOverview(movieViewModel.getOverview());
-        detailView.renderGenres(movieViewModel.getGenresList());
-        detailView.renderScore(movieViewModel.getVoteAverage());
-        detailView.renderReleaseDate(movieViewModel.getReleaseDate());
+        movieDetailView.renderCover(movieViewModel.getCoverUrl());
+        //movieDetailView.computePalette();
+        movieDetailView.renderTitle(movieViewModel.getTitle());
+        movieDetailView.renderOverview(movieViewModel.getOverview());
+        movieDetailView.renderGenres(movieViewModel.getGenresList());
+        movieDetailView.renderScore(movieViewModel.getVoteAverage());
+        movieDetailView.renderReleaseDate(movieViewModel.getReleaseDate());
 
-        Log.e(TAG, String.valueOf(movieViewModel.isFavorited()));
+//        Log.e(TAG, String.valueOf(movieViewModel.isFavorited()));
 
         if (movieViewModel.isFavorited()) {
-            detailView.setFloatingButtonFavorited();
+            movieDetailView.setFloatingButtonFavorited();
         } else {
-            detailView.setFloatingButtonNotFavorited();
+            movieDetailView.setFloatingButtonNotFavorited();
         }
     }
 
     public void floatingButtonClicked() {
         if (movieViewModel.isFavorited()) {
             movieViewModel.setFavorite(false);
-            detailView.setFloatingButtonNotFavorited();
+            movieDetailView.setFloatingButtonNotFavorited();
         } else {
             movieViewModel.setFavorite(true);
-            detailView.setFloatingButtonFavorited();
+            movieDetailView.setFloatingButtonFavorited();
         }
         updateMovieFavoritedInteractor.execute(null, movieId);
     }
@@ -98,7 +96,7 @@ public class DetailPresenter {
 
     private void getExtrasFromIntent(Intent intent) {
         if (intent != null) {
-            movieId = intent.getIntExtra(DetailActivity.ID_MOVIE, 0);
+            movieId = intent.getIntExtra(MovieDetailActivity.ID_MOVIE, 0);
         }
         else {
             movieId = 0;
@@ -107,7 +105,7 @@ public class DetailPresenter {
 
 
     public void updateVibrantColor(int vibrantColor) {
-        detailView.renderColors(vibrantColor);
+        movieDetailView.renderColors(vibrantColor);
     }
 
     private void getCastByMovieID() {
@@ -119,7 +117,7 @@ public class DetailPresenter {
 
             @Override
             public void onSuccess(List<Actor> returnParam) {
-                detailView.showCast(CastMapper.toListActorViewModel(returnParam));
+                movieDetailView.showCast(CastMapper.toListActorViewModel(returnParam));
             }
         }, movieId);
     }

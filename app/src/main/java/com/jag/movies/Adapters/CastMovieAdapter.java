@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.jag.movies.UI.Detail.DetailPresenter;
+import com.jag.movies.UI.Detail.movie.MovieDetailPresenter;
 import com.jag.movies.R;
 import com.jag.movies.Models.ActorViewModel;
 import com.jag.movies.Utils.ImageLoader;
@@ -25,15 +25,15 @@ import butterknife.ButterKnife;
 
 public class CastMovieAdapter extends RecyclerView.Adapter<CastMovieAdapter.ActorHolder> {
 
-    private final DetailPresenter detailPresenter;
+    private final MovieDetailPresenter movieDetailPresenter;
     private final ImageLoader imageLoader;
     private final Context context;
     private List<ActorViewModel> castData;
     private int vibrantColor;
 
     @Inject
-    public CastMovieAdapter(@ForActivity Context context, DetailPresenter detailPresenter, ImageLoader imageLoader) {
-        this.detailPresenter = detailPresenter;
+    public CastMovieAdapter(@ForActivity Context context, MovieDetailPresenter movieDetailPresenter, ImageLoader imageLoader) {
+        this.movieDetailPresenter = movieDetailPresenter;
         this.imageLoader = imageLoader;
         castData = new ArrayList<>();
         this.context = context;

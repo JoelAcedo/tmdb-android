@@ -12,7 +12,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UI.Discover.DiscoverActivity">
+        <activity android:name=".UI.Discover.DiscoverActivity"
+            android:label="Discover">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,12 +21,22 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".UI.Detail.DetailActivity"
+            android:name=".UI.Detail.movie.MovieDetailActivity"
             android:parentActivityName=".UI.Discover.DiscoverActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".UI.Discover.DiscoverActivity" />
         </activity>
+        <activity
+            android:name=".UI.Detail.tvshow.TvShowDetailActivity"
+            android:parentActivityName=".UI.Discover.DiscoverActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".UI.Discover.DiscoverActivity" />
+        </activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="503250df6b834a5836e4786b05fed8af18151e47" />
     </application>
 
     <uses-permission android:name="android.permission.INTERNET"/>

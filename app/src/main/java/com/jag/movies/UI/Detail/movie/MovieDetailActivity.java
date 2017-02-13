@@ -1,7 +1,9 @@
-package com.jag.movies.UI.Detail;
+package com.jag.movies.UI.Detail.movie;
 
 import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
@@ -22,7 +24,9 @@ import com.jag.movies.Adapters.CastMovieAdapter;
 import com.jag.movies.App;
 import com.jag.movies.R;
 import com.jag.movies.Models.ActorViewModel;
+import com.jag.movies.dependencyinjector.activity.ActivityComponent;
 import com.jag.movies.dependencyinjector.activity.ActivityModule;
+import com.jag.movies.dependencyinjector.activity.DaggerActivityComponent;
 import com.jag.movies.dependencyinjector.application.ViewModule;
 import com.jag.movies.dependencyinjector.qualifier.ForActivity;
 import com.jag.movies.Utils.ImageLoader;
@@ -36,19 +40,18 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class DetailActivity extends AppCompatActivity implements DetailView {
+public class MovieDetailActivity extends AppCompatActivity implements MovieDetailView {
 
     @BindView(R.id.collapsingToolbar_detail) CollapsingToolbarLayout collapsingToolbarLayout;
     @BindView(R.id.appbar_detail) AppBarLayout appBarLayout;
     @BindView(R.id.toolbar_detail) Toolbar toolbar;
-    @BindView(R.id.movie_info_detail) RelativeLayout movieInfo;
+    @BindView(R.id.item_info_detail) RelativeLayout movieInfo;
     @BindView(R.id.imageToolbar_detail) ImageView movieCover;
-    //@BindView(R.id.scroll_detail) NestedScrollView nestedScrollView;
     @BindView(R.id.fab_detail) FloatingActionButton floatingButton;
-    @BindView(R.id.movie_name_detail) TextView movieName;
-    @BindView(R.id.movie_genres_detail) TextView movieGenres;
-    @BindView(R.id.movie_score_detail) TextView movieScore;
-    @BindView(R.id.movie_date_detail) TextView movieReleaseDate;
+    @BindView(R.id.item_name_detail) TextView movieName;
+    @BindView(R.id.item_genres_detail) TextView movieGenres;
+    @BindView(R.id.item_score_detail) TextView movieScore;
+    @BindView(R.id.item_date_detail) TextView movieReleaseDate;
     @BindView(R.id.movie_overview_detail) TextView movieOverview;
     @BindView(R.id.movie_cast_title) TextView castTitle;
 
@@ -59,7 +62,7 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     Context context;
 
     @Inject
-    DetailPresenter detailPresenter;
+    MovieDetailPresenter movieDetailPresenter;
 
     @Inject
     CastMovieAdapter castMovieAdapter;
@@ -74,40 +77,42 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     public final static String ID_MOVIE = "movieId";
 
     public static Intent getLauncherIntent(Context context, int movieId) {
-        Intent intent = new Intent(context, DetailActivity.class);
+        Intent intent = new Intent(context, MovieDetailActivity.class);
         intent.putExtra(ID_MOVIE, movieId);
 
         return intent;
+    }
+
+    private boolean isNetworkAvailable() {
+        ConnectivityManager connectivityManager
+                = (ConnectivityManager) getSystemService(context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnected();
     }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
+        setContentView(R.layout.activity_movie_detail);
 
         ButterKnife.bind(this);
 
-        ((App) getApplication())
-                .getComponent()
-                .plus(new ActivityModule(this),
-                        new ViewModule(this))
-                .inject(this);
+        ActivityComponent activityComponent = DaggerActivityComponent.builder()
+                .activityModule(new ActivityModule(this))
+                .viewModule(new ViewModule(this))
+                .applicationComponent(((App) getApplication()).getComponent())
+                .build();
+        activityComponent.inject(this);
 
         setupAnimation();
         setupToolbar();
         setupFloatingButton();
         setupCastRecyclerView();
 
-        detailPresenter.onStart(getIntent());
+        movieDetailPresenter.onStart(getIntent());
     }
 
-//
-//    @Override
-//    public void onBackPressed() {
-//        floatingButton.hide();
-//        super.onBackPressed();
-//    }
 
     private void setupCastRecyclerView() {
         castList.setHasFixedSize(true);
@@ -125,26 +130,29 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
     }
 
     private void setupAnimation() {
-        supportPostponeEnterTransition();
-        movieCover.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
-            @Override
-            public boolean onPreDraw() {
-                if (movieCover.getDrawable() != null) {
-                    movieCover.getViewTreeObserver().removeOnPreDrawListener(this);
-                    computePalette(movieCover);
-                    supportStartPostponedEnterTransition();
-                    return true;
+        // TODO: error si no hay internet, no se como se podria solucionar para llamar al computePalette
+        if (isNetworkAvailable()) {
+            supportPostponeEnterTransition();
+            movieCover.getViewTreeObserver().addOnPreDrawListener(new ViewTreeObserver.OnPreDrawListener() {
+                @Override
+                public boolean onPreDraw() {
+                    if (movieCover.getDrawable() != null) {
+                        movieCover.getViewTreeObserver().removeOnPreDrawListener(this);
+                        computePalette(movieCover);
+                        supportStartPostponedEnterTransition();
+                        return true;
+                    }
+                    return false;
                 }
-                return false;
-            }
-        });
+            });
+        }
     }
 
     private void setupFloatingButton() {
         floatingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                detailPresenter.floatingButtonClicked();
+                movieDetailPresenter.floatingButtonClicked();
             }
         });
     }
@@ -169,9 +177,9 @@ public class DetailActivity extends AppCompatActivity implements DetailView {
         Palette.from(imageLoader.getBitmap(movieCover)).generate(new Palette.PaletteAsyncListener() {
             @Override
             public void onGenerated(Palette palette) {
-                DetailActivity.this.palette = palette;
+                MovieDetailActivity.this.palette = palette;
                 int defaultColor = ContextCompat.getColor(getApplicationContext(), R.color.colorPrimary);
-                detailPresenter.updateVibrantColor(palette.getVibrantColor(defaultColor));
+                movieDetailPresenter.updateVibrantColor(palette.getVibrantColor(defaultColor));
             }
         });
     }

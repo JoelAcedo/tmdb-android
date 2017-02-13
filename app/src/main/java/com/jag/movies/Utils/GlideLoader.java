@@ -79,4 +79,43 @@ public class GlideLoader implements ImageLoader {
     public Bitmap getBitmap(ImageView movieCover) {
         return ((GlideBitmapDrawable) movieCover.getDrawable()).getBitmap();
     }
+
+    @Override
+    public void bindImage(String imagePath, ImageView imageView, final ProgressBar progressBar, final ImageCallbak imageCallbak) {
+        Glide.with(context)
+                .load(imagePath)
+                .diskCacheStrategy( DiskCacheStrategy.SOURCE )
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        progressBar.setVisibility(View.GONE);
+                        imageCallbak.onSucces();
+                        return false;
+                    }
+                }).dontAnimate().fitCenter().into(imageView);
+    }
+
+    @Override
+    public void bindImage(String imagePath, ImageView imageView, final ImageCallbak imageCallbak) {
+        Glide.with(context)
+                .load(imagePath)
+                .diskCacheStrategy( DiskCacheStrategy.SOURCE )
+                .listener(new RequestListener<String, GlideDrawable>() {
+                    @Override
+                    public boolean onException(Exception e, String model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, String model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                        imageCallbak.onSucces();
+                        return false;
+                    }
+                }).dontAnimate().fitCenter().into(imageView);
+    }
 }

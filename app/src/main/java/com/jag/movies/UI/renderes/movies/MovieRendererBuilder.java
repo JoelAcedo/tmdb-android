@@ -1,12 +1,11 @@
-package com.jag.movies.UI.renderes;
+package com.jag.movies.UI.renderes.movies;
 
 import com.jag.movies.Models.MovieViewModel;
-import com.pedrogomez.renderers.ListAdapteeCollection;
+import com.jag.movies.dependencyinjector.qualifier.ForMovies;
 import com.pedrogomez.renderers.Renderer;
 import com.pedrogomez.renderers.RendererBuilder;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import javax.inject.Inject;
@@ -18,7 +17,7 @@ import javax.inject.Inject;
 public class MovieRendererBuilder extends RendererBuilder<MovieViewModel> {
 
     @Inject
-    public MovieRendererBuilder(Set<Renderer> prototipes) {
+    public MovieRendererBuilder(@ForMovies Set<Renderer> prototipes) {
         super(new ArrayList(prototipes));
     }
 

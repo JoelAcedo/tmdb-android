@@ -1,7 +1,14 @@
 <resources>
     <string name="app_name">Movies</string>
+    <string name="main_activity_title">Discover</string>
     <string name="more_info">MORE INFO</string>
 
     <string name="cover_transition_name">movieCover</string>
     <string name="castTitleMovie">Movie cast</string>
+    <string name="episodeTitleTvShow">Seasons &amp; episodes</string>
+    <string name="season_pre">Season</string>
+
+
+    <string name="movie_fragment_title">Movies</string>
+    <string name="tv_shows_fragment_title">TV Shows</string>
 </resources>
