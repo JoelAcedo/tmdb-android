@@ -19,7 +19,6 @@ public class GetEpisodeInteractor extends BaseUseCase<List<Episode>> implements 
     public static final int TVSHOW_ID = 0;
     public static final int SEASON_NUMBER = 1;
 
-
     private final EpisodeRepository episodeRepository;
     private final ThreadExecutor executor;
     private EpisodeRepository.GetEpisodesCallback callback;

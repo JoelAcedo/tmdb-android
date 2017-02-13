@@ -95,7 +95,6 @@ public class RealmMovieDataSource implements CacheMovieDataSource {
         Realm realm = Realm.getDefaultInstance();
 
         realm.beginTransaction();
-        // TODO Fix bug with favorite, parece que no actualiza el estado de la peli
         MovieRealm movieRealm = realm.where(MovieRealm.class).equalTo(MovieRealm.MOVIE_ID_REALM, movieId)
                 .findFirst();
         movieRealm.setFavorited(!movieRealm.isFavorited());

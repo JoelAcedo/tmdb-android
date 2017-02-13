@@ -11,14 +11,19 @@ public class Episode {
     private String releaseDate;
     private String overview;
     private String posterPath;
+    private int tvShowId;
+    private int seasonNumber;
 
-    public Episode(int id, int episodeNumber, String name, String releaseDate, String overview, String posterPath) {
+    public Episode(int id, int episodeNumber, String name, String releaseDate, String overview, String posterPath,
+                   int tvShowId, int seasonNumber) {
         this.id = id;
         this.episodeNumber = episodeNumber;
         this.name = name;
         this.releaseDate = releaseDate;
         this.overview = overview;
         this.posterPath = posterPath;
+        this.tvShowId = tvShowId;
+        this.seasonNumber = seasonNumber;
     }
 
     public int getId() {
@@ -67,5 +72,21 @@ public class Episode {
 
     public void setPosterPath(String posterPath) {
         this.posterPath = posterPath;
+    }
+
+    public int getTvShowId() {
+        return tvShowId;
+    }
+
+    public void setTvShowId(int tvShowId) {
+        this.tvShowId = tvShowId;
+    }
+
+    public int getSeasonNumber() {
+        return seasonNumber;
+    }
+
+    public void setSeasonNumber(int seasonNumber) {
+        this.seasonNumber = seasonNumber;
     }
 }

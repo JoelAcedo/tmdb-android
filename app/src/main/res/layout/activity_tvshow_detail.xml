@@ -74,6 +74,7 @@
                 android:id="@+id/recycler_view_tvshow_episodes_detail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
                 android:scrollbars="none"/>
 
         </LinearLayout>

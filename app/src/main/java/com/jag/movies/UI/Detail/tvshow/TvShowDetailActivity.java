@@ -119,7 +119,7 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
     private void setupEpisodeRecyclerView() {
         episodesList.setHasFixedSize(true);
         linearLayoutManager = new LinearLayoutManager(context,
-                LinearLayoutManager.HORIZONTAL, false);
+                LinearLayoutManager.VERTICAL, false);
         episodesList.setLayoutManager(linearLayoutManager);
         episodesList.setNestedScrollingEnabled(false);
         episodesList.setAdapter(episodesAdapter);
@@ -241,11 +241,14 @@ public class TvShowDetailActivity extends AppCompatActivity implements TvShowDet
 
         SpinnerAdapter spinnerAdapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, seasonNames);
         seasonSpinn.setAdapter(spinnerAdapter);
-        seasonSpinn.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        seasonSpinn.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 tvShowDetailPresenter.seasonSelected(position);
             }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 

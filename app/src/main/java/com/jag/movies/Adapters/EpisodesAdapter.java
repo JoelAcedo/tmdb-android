@@ -93,7 +93,7 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
         }
 
         public void renderEpisodeNumber(int episodeNumber) {
-            this.episodeNumber.setText(episodeNumber);
+            this.episodeNumber.setText(String.valueOf(episodeNumber));
         }
 
         public void renderEpisodeName(String name) {
@@ -101,7 +101,19 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
         }
 
         public void renderEpisodeReleaseDate(String releaseDate) {
-            //TODO format data
+            if (releaseDate != null) {
+                String[] months = context.getResources().getStringArray(R.array.months);
+                String[] date = releaseDate.split("-");
+                if (date.length > 0) {
+                    int month = Integer.parseInt(date[1]) - 1;
+                    String dateText = months[month] + " " + date[2] + ", " + date[0];
+                    episodeDate.setText(dateText);
+                } else {
+                    episodeDate.setText("");
+                }
+            } else {
+                episodeDate.setText("");
+            }
         }
 
         public void renderEpisodeOverview(String overview) {
@@ -109,7 +121,11 @@ public class EpisodesAdapter extends RecyclerView.Adapter<EpisodesAdapter.Episod
         }
 
         public void renderImageCover(String posterPath) {
-            imageLoader.bindImage(posterPath, episodeCover, episodeProgresBar);
+            if (posterPath != null) {
+                imageLoader.bindImage(posterPath, episodeCover, episodeProgresBar);
+            } else {
+                episodeProgresBar.setVisibility(View.GONE);
+            }
         }
 
         public void renderColor() {

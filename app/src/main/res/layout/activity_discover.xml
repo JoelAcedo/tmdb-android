@@ -20,8 +20,10 @@
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:layout_gravity="bottom"
-            app:tabMode="scrollable"
-            app:tabContentStart="72dp" />
+            app:tabMode="fixed"
+            app:tabContentStart="0dp"
+            app:tabTextAppearance="@style/AppTabTextAppearance"
+            style="@style/AppTabLayout"/>
 
     </android.support.design.widget.AppBarLayout>
 

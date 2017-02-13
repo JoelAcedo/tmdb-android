@@ -5,6 +5,7 @@ import android.content.Context;
 import com.example.executor.PostExecutionThread;
 import com.example.executor.ThreadExecutor;
 import com.example.repositories.CastRepository;
+import com.example.repositories.EpisodeRepository;
 import com.example.repositories.MovieRepository;
 import com.example.repositories.TvShowRepository;
 import com.jag.movies.App;
@@ -34,6 +35,7 @@ public interface ApplicationComponent {
     MovieRepository getMovieRepository();
     CastRepository getCastRepository();
     TvShowRepository getTvShowRepository();
+    EpisodeRepository getEpisodeRepository();
 
 //    ActivityComponent plus(ActivityModule activityModule, ViewModule viewModule);
 

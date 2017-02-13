@@ -73,8 +73,6 @@ public class MoviesPresenter {
             @Override
             public void onError(ErrorBundle errorBundle) {
                 Log.e(TAG, errorBundle.getErrorMessage());
-                // TODO pasar lista con un elemento de error;
-                //            discoverView.showData(new ArrayList<MovieViewModel>());
             }
 
             @Override

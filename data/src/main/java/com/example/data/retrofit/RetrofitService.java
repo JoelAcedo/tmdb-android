@@ -2,6 +2,7 @@ package com.example.data.retrofit;
 
 
 import com.example.data.retrofit.entities.ActorList;
+import com.example.data.retrofit.entities.EpisodeList;
 import com.example.data.retrofit.entities.MovieDTO;
 import com.example.data.retrofit.entities.MovieList;
 import com.example.data.retrofit.entities.TvShowDTO;
@@ -36,5 +37,9 @@ public interface RetrofitService {
 
     @GET("tv/{tv_id}")
     Call<TvShowDTO> getTvShowById(@Path("tv_id") int id, @Query("api_key")String apiKey);
+
+    @GET("tv/{tv_id}/season/{season_number}")
+    Call<EpisodeList> getEpisodes(@Path("tv_id") int tvShowId, @Path("season_number") int seasonNumber,
+                                  @Query("api_key") String apiKey);
 
 }

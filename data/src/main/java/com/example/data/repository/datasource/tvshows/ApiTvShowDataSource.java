@@ -26,7 +26,6 @@ public class ApiTvShowDataSource implements ReadableTvShowDataSource{
 
     @Override
     public List<TvShow> getTvShowsByPage(int page) throws IOException {
-        //TODO injectar dagger
         Retrofit retrofit = ApiClient.getClient();
 
         RetrofitService retrofitService = retrofit.create(RetrofitService.class);

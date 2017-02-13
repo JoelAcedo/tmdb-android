@@ -27,7 +27,6 @@ public class ApiMovieDataSource implements ReadableMovieDataSource {
 
     @Override
     public List<Movie> getMoviesByPage(int page) throws IOException {
-        //TODO injectar dagger
         Retrofit retrofit = ApiClient.getClient();
 
         RetrofitService retrofitService = retrofit.create(RetrofitService.class);
