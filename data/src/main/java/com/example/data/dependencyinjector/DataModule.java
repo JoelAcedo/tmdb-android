@@ -9,7 +9,9 @@ import com.example.data.repository.datasource.actors.CacheCastDataSource;
 import com.example.data.repository.datasource.actors.ReadableCastDataSource;
 import com.example.data.repository.datasource.actors.RealmCastDataSource;
 import com.example.data.repository.datasource.episodes.ApiEpisodeDataSource;
+import com.example.data.repository.datasource.episodes.CacheEpisodeDataSource;
 import com.example.data.repository.datasource.episodes.ReadableEpisodeDataSource;
+import com.example.data.repository.datasource.episodes.RealmEpisodeDataSource;
 import com.example.data.repository.datasource.movies.ApiMovieDataSource;
 import com.example.data.repository.datasource.movies.CacheMovieDataSource;
 import com.example.data.repository.datasource.movies.ReadableMovieDataSource;
@@ -101,6 +103,12 @@ public class DataModule {
     @Provides
     @Singleton
     public ReadableEpisodeDataSource providesEpisodeDataSource(ApiEpisodeDataSource apiDataSource) {
+        return apiDataSource;
+    }
+
+    @Provides
+    @Singleton
+    public CacheEpisodeDataSource providesCacheEpisodeDataSource(RealmEpisodeDataSource apiDataSource) {
         return apiDataSource;
     }
 

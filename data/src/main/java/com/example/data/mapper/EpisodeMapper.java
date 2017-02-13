@@ -1,5 +1,6 @@
 package com.example.data.mapper;
 
+import com.example.data.realm.entities.EpisodeRealm;
 import com.example.data.retrofit.entities.EpisodeDTO;
 import com.example.entities.Episode;
 
@@ -30,5 +31,12 @@ public class EpisodeMapper {
         }
 
         return episodes;
+    }
+
+    public static Episode fromEpisodeRealm(EpisodeRealm episodeRealm) {
+        return new Episode(episodeRealm.getId(), episodeRealm.getEpisodeNumber(),
+                episodeRealm.getName(), episodeRealm.getReleaseDate(),
+                episodeRealm.getOverview(), episodeRealm.getPosterPath(),
+                episodeRealm.getTvShowId(), episodeRealm.getSeasonNumber());
     }
 }
